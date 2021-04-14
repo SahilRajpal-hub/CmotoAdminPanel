@@ -26,49 +26,37 @@ const Sidebar = () => {
               <li className='nav-item'>
                 <Link className='nav-link active' to='/'>
                   <i className='ni ni-tv-2 text-primary'></i>
-                  <span className='nav-link-text'>Dashboard</span>
+                  <span className='nav-link-text'>Cars</span>
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/'>
                   <i className='ni ni-planet text-orange'></i>
-                  <span className='nav-link-text'>Icons</span>
+                  <span className='nav-link-text'>Exterior Live</span>
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/'>
                   <i className='ni ni-pin-3 text-primary'></i>
-                  <span className='nav-link-text'>Google</span>
+                  <span className='nav-link-text'>Interior Live</span>
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/'>
                   <i className='ni ni-single-02 text-yellow'></i>
-                  <span className='nav-link-text'>Profile</span>
+                  <span className='nav-link-text'>Payment</span>
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/'>
                   <i className='ni ni-bullet-list-67 text-default'></i>
-                  <span className='nav-link-text'>Tables</span>
+                  <span className='nav-link-text'>Employee</span>
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/'>
                   <i className='ni ni-key-25 text-info'></i>
-                  <span className='nav-link-text'>Login</span>
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/'>
-                  <i className='ni ni-circle-08 text-pink'></i>
-                  <span className='nav-link-text'>Register</span>
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/'>
-                  <i className='ni ni-send text-dark'></i>
-                  <span className='nav-link-text'>Upgrade</span>
+                  <span className='nav-link-text'>Duty</span>
                 </Link>
               </li>
             </ul>

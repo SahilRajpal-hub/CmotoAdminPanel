@@ -1,6 +1,6 @@
 import HomeScreen from './Screens/HomeScreen'
 import Login from './Screens/LoginScreen'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { Fragment } from 'react'
 
 const App = () => {
