@@ -1,15 +1,16 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
 import Navbar from '../Components/Navbar'
-import Car from '../Components/car/car.comonent.jsx'
+// import Car from '../Components/car/car.comonent.jsx'
+import Car from '../Components/Cars'
 
 const HomeScreen = () => {
   return (
-    <>
-      <Sidebar />
+    <div className='main-content' id='panel'>
       <Navbar />
+      <h1>Home </h1>
       <Car />
-    </>
+    </div>
   )
 }
 
