@@ -9,11 +9,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Fragment>
-        <Route path='/' component={Sidebar} /> 
+        <Route path='/' component={Sidebar} />
         {/* <Route path='/' component={Navbar} /> */}
         <Route exact path='/' component={HomeScreen} />
         <Route path='/login' component={Login} />
-        <Route exact path='/info/:area:apartment:number' component={InfoScreen} />
+        <Route exact path='/carinfo' component={InfoScreen} />
       </Fragment>
     </BrowserRouter>
   )

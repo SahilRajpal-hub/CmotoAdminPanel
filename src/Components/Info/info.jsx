@@ -3,14 +3,14 @@ import firebase from '../../firebase/firebase.utils.js'
 import './info.css'
 
 
-const Info =({para})=>{
+const Info =({area,carnum})=>{
 
     const [vehicle, setVehicle] = useState({});
 
     const infofetch=async function(){
         await firebase
           .database()
-          .ref(`cars/${para.area}/${para.apartment}/${para.number}`)
+          .ref(`cars/${area}/${carnum}`)
           .on(
             'value',
             (snapshot) => {
