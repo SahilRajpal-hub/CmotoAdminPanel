@@ -16,7 +16,7 @@ const TableItem=({vehicle,apartment})=>{
             <tbody>
             {a.map((element,i)=>(
                 <tr className={`${b[i].Payment} `}>
-                    <td  style={{fontSize:14,color:'black',textAlign:"center"}}><Link to={`/info/${apartment}/${element}`}>{element}</Link></td>
+                    <td  style={{fontSize:14,color:'black',textAlign:"center"}}><Link to={`/carinfo?area=${apartment}&carnum=${element}`}>{element}</Link></td>
                 </tr>
             ))} 
         </tbody>
