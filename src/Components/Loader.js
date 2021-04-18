@@ -1,13 +1,11 @@
 import React from 'react'
-
+import './Loader.css'
 
 const Loader = () => {
     return (
-        <>
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </>
+      <div className="loader">
+       <h1 className="loader">Loading...</h1>
+      </div>
     )
 }
 
