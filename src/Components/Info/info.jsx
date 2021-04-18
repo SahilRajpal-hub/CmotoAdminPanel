@@ -36,7 +36,7 @@ const Info =({area,carnum})=>{
       <div>
       {loading ? null :
         <div className="card">
-          <div className="card-header heading">
+          <div className="card-header heading" style={{color:'black'}}>
           {vehicle.number}
           </div>
           <div className="InfoContainer">

@@ -55,7 +55,7 @@ const WorkHistory = ({carnum})=>{
                             {Dat.map((element,i)=>(
                             <tr style={{fontSize:15,color:'black',textAlign:"center"}}>
                             <td>{element}</td>
-                            <td>{Prove[i].PhotoUrl0}</td>
+                            <td>{Prove[i].PhotoUrlO}</td>
                             <td>{Prove[i].doneBy}</td>
                             </tr>
                             ))} 
