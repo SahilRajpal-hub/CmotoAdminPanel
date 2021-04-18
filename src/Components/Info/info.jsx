@@ -34,7 +34,7 @@ const Info =({area,carnum})=>{
     return(
       
       <div>
-      {loading ? null :
+      {loading ? <Loader/> :
         <div className="card">
           <div className="card-header heading">
           {vehicle.number}
@@ -48,7 +48,7 @@ const Info =({area,carnum})=>{
               <h3>Type :  <span className="details"> {vehicle.category}</span></h3>
               <h3>Color :  <span className="details"> {vehicle.color}</span></h3>
               <h3>Address :  <span className="details">{vehicle.address} </span></h3>
-              <h3>Location :  <a  className="details" href="https://www.google.com/maps/place/28.6831899,77.13279">{vehicle.Location} </a></h3>
+              <h3>Location :  <a  className="details" href="https://www.google.com/maps/place/28.6831899,77.13279" style={{color:'blue'}}>Go to google maps </a></h3>
 
               </blockquote>
             </div>
