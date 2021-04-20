@@ -37,7 +37,7 @@ const Cars = () => {
 
   return (
     <div className='main-content' id='panel'>
-      <div className='container-fluid'>
+      <div className='container-fluid' style={{ paddingTop: 25 }}>
         {loading ? <Loader /> : areas.map((area,i) => 
           <Section area={area} societies={societies[i]}/>
         )}

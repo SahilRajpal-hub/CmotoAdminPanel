@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <div className='main-content' id='panel'>
-      <nav className='navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom'>
+      <nav className='navbar navbar-top navbar-expand py-2 navbar-dark bg-dark border-bottom'>
         <div className='container-fluid'>
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             {/* <!-- Search form --> */}
@@ -63,16 +63,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className='nav-item dropdown'>
-                <Link
-                  to='nav-link'
-                  href='#'
-                  role='button'
-                  data-toggle='dropdown'
-                  aria-haspopup='true'
-                  aria-expanded='false'
-                >
-                  <i className='ni ni-bell-55'></i>
-                </Link>
+                
                 <div className='dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden'>
                   {/* <!-- Dropdown header --> */}
                   <div className='px-3 py-3'>
@@ -234,16 +225,7 @@ const Navbar = () => {
                 </div>
               </li>
               <li className='nav-item dropdown'>
-                <Link
-                  to='nav-link'
-                  href='#'
-                  role='button'
-                  data-toggle='dropdown'
-                  aria-haspopup='true'
-                  aria-expanded='false'
-                >
-                  <i className='ni ni-ungroup'></i>
-                </Link>
+                
                 <div className='dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right '>
                   <div className='row shortcuts px-4'>
                     <Link to='#!' className='col-4 shortcut-item'>

@@ -30,7 +30,7 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/'>
+                <Link className='nav-link' to='/exlive'>
                   <i className='ni ni-planet text-orange'></i>
                   <span className='nav-link-text'>Exterior Live</span>
                 </Link>

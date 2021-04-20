@@ -4,7 +4,7 @@ import Sidebar from './Components/Sidebar'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Fragment } from 'react'
 import InfoScreen from './Screens/InfoScreen.js'
-
+import Exlive from './Screens/Exlive.js'
 const App = () => {
   return (
     <BrowserRouter>
@@ -14,6 +14,7 @@ const App = () => {
         <Route exact path='/' component={HomeScreen} />
         <Route path='/login' component={Login} />
         <Route exact path='/carinfo' component={InfoScreen} />
+        <Route exact path='/exlive' component={Exlive} />
       </Fragment>
     </BrowserRouter>
   )

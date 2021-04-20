@@ -8,33 +8,28 @@ const WorkHistory = ({carnum})=>{
     const [Prove, setProve] = useState({});
     const [loading, setLoading] = useState(true)
 
-    const Historyfetch=function(){
-         firebase
-          .database()
-          .ref(`Car Status/${carnum}/Work History`)
-          .on(
-            'value',
-            (snapshot) => {
-                const a = []
-                const s = []
-            snapshot.forEach((element) => {
-                a.push(element.key)
-                s.push(element.val())
-          })
-          setDate(a)
-          setProve(s)
-          setLoading(false)
-            },
-            (err) => {
-              console.log(err)
-            }
-          )
-      }
-    
-      
-
     useEffect(() =>{
-      Historyfetch() },[])
+      firebase
+      .database()
+      .ref(`Car Status/${carnum}/Work History`)
+      .on(
+        'value',
+        (snapshot) => {
+            const a = []
+            const s = []
+        snapshot.forEach((element) => {
+            a.push(element.key)
+            s.push(element.val())
+            console.log(element.val())
+      })
+      setDate(a)
+      setProve(s)
+      setLoading(false)
+        },
+        (err) => {
+          console.log(err)
+        }
+      ) },[])
 
       return(
             <div>
@@ -55,7 +50,7 @@ const WorkHistory = ({carnum})=>{
                             {Dat.map((element,i)=>(
                             <tr style={{fontSize:15,color:'black',textAlign:"center"}}>
                             <td>{element}</td>
-                            <td>{Prove[i].PhotoUrlO}</td>
+                            <td><a target="__blank__" href={Prove[i]['Photo Url 4'] ? Prove[i]['Photo Url 4'] : Prove[i]['Photo Url 0']}>Go to image</a></td>
                             <td>{Prove[i].doneBy}</td>
                             </tr>
                             ))} 
