@@ -26,13 +26,13 @@ const gg =function (carnums){
 }
 
 const col=function(el){
-    let co="lightblue"
+    let co="red"
     firebase.database().ref(`Car Status/${el}/status`).on('value',(snapshot) => {
         console.log(snapshot.val())
        if(snapshot.val()==="cleaned"){
            co="lightgreen"
-       }else if (snapshot.val()==="not cleaned"){
-           co="red"
+       }else if (snapshot.val()==="scanned"){
+           co="yellow"
        }
     })
     return co;
