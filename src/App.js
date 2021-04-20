@@ -4,7 +4,7 @@ import Sidebar from './Components/Sidebar'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Fragment } from 'react'
 import InfoScreen from './Screens/InfoScreen.js'
-import Exlive from './Screens/Exlive.js'
+import Exlive from './Screens/ExliveScreen.js'
 const App = () => {
   return (
     <BrowserRouter>
