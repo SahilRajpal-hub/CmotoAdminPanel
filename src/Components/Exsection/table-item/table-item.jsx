@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom'
 import './table-item.styles.css'
 import firebase from '../../../firebase/firebase.utils.js'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 
 
@@ -12,8 +12,10 @@ import { useEffect } from 'react'
 const TableItem=({Employees,address,carInAppartment})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
-   useEffect(()=>{
+   var refresh = false; 
 
+   useEffect(()=>{
+    
    },[])
 const gg =function (carnums){
     if(!carnums){

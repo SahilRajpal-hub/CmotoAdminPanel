@@ -24,13 +24,27 @@ const Sidebar = () => {
             {/* <!-- Nav items --> */}
             <ul className='navbar-nav'>
               <li className='nav-item'>
-                <Link className='nav-link active' to='/'>
+                <Link
+                  className={
+                    window.location.pathname === '/'
+                      ? 'nav-link active'
+                      : 'nav-link'
+                  }
+                  to='/'
+                >
                   <i className='ni ni-tv-2 text-primary'></i>
                   <span className='nav-link-text'>Cars</span>
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/exlive'>
+                <Link
+                  className={
+                    window.location.pathname === '/exlive'
+                      ? 'nav-link active'
+                      : 'nav-link'
+                  }
+                  to='/exlive'
+                >
                   <i className='ni ni-planet text-orange'></i>
                   <span className='nav-link-text'>Exterior Live</span>
                 </Link>
