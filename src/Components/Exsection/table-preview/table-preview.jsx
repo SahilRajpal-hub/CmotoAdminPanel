@@ -23,19 +23,9 @@ const TablePreview=({societies,area,carInArea})=>{
       console.log(a);
       carInArea(a)
       setCarInAr(carInAppArr);
-      col()
     },[map]);
 
-    const col=function(el){
-      let co="red"
-      firebase.database().ref(`Car Status`).on('value',(snapshot) => {
-          console.log(snapshot.val())
-          
-         map['test']=snapshot.val()
-         console.log(map['test'])
-      })
-      return co;
-  }
+    
 
   return(
       <>
