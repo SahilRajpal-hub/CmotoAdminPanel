@@ -5,6 +5,8 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { Fragment } from 'react'
 import InfoScreen from './Screens/InfoScreen.js'
 import Exlive from './Screens/ExliveScreen.js'
+import Check from './Screens/check.js'
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -15,6 +17,7 @@ const App = () => {
         <Route path='/login' component={Login} />
         <Route exact path='/carinfo' component={InfoScreen} />
         <Route exact path='/exlive' component={Exlive} />
+        <Route exact path='/check' component={Check} />
       </Fragment>
     </BrowserRouter>
   )
