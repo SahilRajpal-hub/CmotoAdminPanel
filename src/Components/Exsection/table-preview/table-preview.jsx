@@ -1,12 +1,14 @@
 import React, { useEffect,useState } from 'react'
 import TableItem from '../table-item/table-item.jsx'
 import './table.preview.css'
+import firebase from '../../../firebase/firebase.utils.js'
 import Table from 'react-bootstrap/Table'
 
 const TablePreview=({societies,area,carInArea})=>{
     const societiesName=Object.keys(societies);
     const Employees=Object.values(societies);
     const [carInAr,setCarInAr]=useState([]);
+    var map = new Object()
 
     let carInAppArr=[]
     const carInAppartment=(num)=>{
@@ -21,7 +23,19 @@ const TablePreview=({societies,area,carInArea})=>{
       console.log(a);
       carInArea(a)
       setCarInAr(carInAppArr);
-    },[]);
+      col()
+    },[map]);
+
+    const col=function(el){
+      let co="red"
+      firebase.database().ref(`Car Status`).on('value',(snapshot) => {
+          console.log(snapshot.val())
+          
+         map['test']=snapshot.val()
+         console.log(map['test'])
+      })
+      return co;
+  }
 
   return(
       <>

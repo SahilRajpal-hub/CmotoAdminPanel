@@ -12,11 +12,12 @@ import { useEffect, useState } from 'react'
 const TableItem=({Employees,address,carInAppartment})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
-   var refresh = false; 
+   
 
    useEffect(()=>{
-    
    },[])
+
+   
 const gg =function (carnums){
     if(!carnums){
        return [];
@@ -31,10 +32,13 @@ const col=function(el){
     let co="red"
     firebase.database().ref(`Car Status/${el}/status`).on('value',(snapshot) => {
         console.log(snapshot.val())
+        console.log("color changed with " + snapshot.val())
        if(snapshot.val()==="cleaned"){
            co="lightgreen"
        }else if (snapshot.val()==="scanned"){
            co="yellow"
+       }else if(snapshot.val()==="In waiting"){
+           co="red"
        }
     })
     return co;
