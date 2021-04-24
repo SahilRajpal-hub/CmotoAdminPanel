@@ -1,7 +1,6 @@
 import React, { useEffect,useState } from 'react'
 import TableItem from '../table-item/table-item.jsx'
 import './table.preview.css'
-import firebase from '../../../firebase/firebase.utils.js'
 import Table from 'react-bootstrap/Table'
 
 const TablePreview=({societies,area,carInArea})=>{

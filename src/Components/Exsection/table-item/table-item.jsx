@@ -3,10 +3,7 @@ import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom'
 import './table-item.styles.css'
 import firebase from '../../../firebase/firebase.utils.js'
-import { useEffect, useState } from 'react'
-
-
-
+import React,{ useEffect, useState } from 'react'
 
 // a.map((element)=><h4>{element}</h4>)
 const TableItem=({Employees,address,carInAppartment})=>{
@@ -64,7 +61,6 @@ function getTodayDate() {
     var yyyy = today.getFullYear()
   
     today = yyyy + '-' + mm + '-' + dd
-    // console.log(today);
     return today
   }
       
@@ -103,5 +99,3 @@ function getTodayDate() {
 }
 
 export default TableItem;
-
-/**/
