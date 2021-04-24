@@ -43,6 +43,30 @@ const col=function(el){
     })
     return co;
 }
+
+
+const image=function(el){
+    let url=" "
+    firebase.database().ref(`Car Status/${el}/Work History/${getTodayDate()}/Photo Url 4`).on('value',(snapshot) => {
+        console.log(snapshot.val())
+        url = snapshot.val()
+    })
+    return url;
+}
+
+function getTodayDate() {
+    var todayUs = new Date()
+    var offset = '+5.5' // since database belongs to US
+    var utc = todayUs.getTime() + todayUs.getTimezoneOffset() * 60000 // therefore converting time to IST
+    var today = new Date(utc + 3600000 * offset)
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+    var yyyy = today.getFullYear()
+  
+    today = yyyy + '-' + mm + '-' + dd
+    // console.log(today);
+    return today
+  }
       
 
 
@@ -65,7 +89,7 @@ const col=function(el){
                     {
                       gg(ele.Cluster).map((el,j)=>(
                         
-                        <h3 style={{textAlign:"center",border:"1px solid #e9ecef",marginBottom:0.75,padding:20,fontSize:14,color:"black",backgroundColor:col(el)}} >{el}</h3>  
+                        <h3 style={{textAlign:"center",border:"1px solid #e9ecef",marginBottom:0.75,padding:20,fontSize:14,color:"black",backgroundColor:col(el)}} > {el} </h3>  
                       ))
                     
                     }
