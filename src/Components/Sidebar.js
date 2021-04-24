@@ -50,7 +50,14 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/inlive'>
+                <Link
+                  className={
+                    window.location.pathname === '/inlive'
+                      ? 'nav-link active'
+                      : 'nav-link'
+                  }
+                  to='/inlive'
+                >
                   <i className='ni ni-pin-3 text-primary'></i>
                   <span className='nav-link-text'>Interior Live</span>
                 </Link>
