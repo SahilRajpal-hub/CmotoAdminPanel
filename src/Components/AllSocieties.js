@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import firebase from './../firebase/firebase.utils'
 import Loader from './Loader'
-import Exsection from './Exsection/exsection.jsx'
+import AreaTable from './AreaTable'
 
-const Exteriorlive = () => {
+const AllSocieties = () => {
   const [societies, setSocieties] = useState([])
   const [areas, setAreas] = useState([])
   const [loading, setLoading] = useState(true)
@@ -42,7 +42,7 @@ const Exteriorlive = () => {
           <Loader />
         ) : (
           areas.map((area, i) => (
-            <Exsection area={area} societies={societies[i]} />
+            <AreaTable area={area} societies={societies[i]} />
           ))
         )}
       </div>
@@ -50,4 +50,4 @@ const Exteriorlive = () => {
   )
 }
 
-export default Exteriorlive
+export default AllSocieties

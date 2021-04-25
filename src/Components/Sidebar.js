@@ -75,9 +75,16 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/'>
+                <Link
+                  className={
+                    window.location.pathname === '/setDuties'
+                      ? 'nav-link active'
+                      : 'nav-link'
+                  }
+                  to='/setDuties'
+                >
                   <i className='ni ni-key-25 text-info'></i>
-                  <span className='nav-link-text'>Duty</span>
+                  <span className='nav-link-text'>Set Duties</span>
                 </Link>
               </li>
             </ul>
