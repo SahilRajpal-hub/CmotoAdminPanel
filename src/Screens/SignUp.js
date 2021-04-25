@@ -1,24 +1,32 @@
-import React,{useEffect, useState} from 'react'
-import { Link,useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { auth } from "../firebase/firebase.utils.js"
 
+
 const LoginScreen = () => {
-    const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
-    const history=useHistory();
-  
-  const  handleSubmit = async event => {
+  const [name,setName]=useState("");
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const [conPassword,setConPassword]=useState('');
+
+  const handleSubmit = async event => {
     event.preventDefault();
+    // console.log(name+"/"+email+"/"+password+"/"+conPassword)
+    if (password !== conPassword) {
+      alert("passwords don't match");
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(email,password);
     
-    try { 
-      // console.log('email--'+email)
-      // console.log('password--'+password)
-      await auth.signInWithEmailAndPassword(email, password);
-      setEmail("");
-      setPassword("");
-      history.push("/")
+      console.log(user)
+      setName('');
+      setEmail('');
+      setPassword('')
+      setConPassword('')
     } catch (error) {
-      console.log("Email and password are not match")
+      console.error(error);
     }
   };
 
@@ -26,7 +34,12 @@ const LoginScreen = () => {
     const { value, name } = event.target;
     if(name==="email"){
       setEmail(value)
-    }else{
+    }else if(name==='name'){
+      setName(value)
+    }else if(name==='Confirm Password'){
+      setConPassword(value)
+    }
+    else{
       setPassword(value)
     }
   };
@@ -121,7 +134,7 @@ const LoginScreen = () => {
               <div className='card bg-secondary border-0 mb-0'>
                 <div className='card-body px-lg-5 py-lg-5'>
                   <div className='text-center text-muted mb-4'>
-                    <small>Sign in with credentials</small>
+                    <small>Sign up with credentials</small>
                   </div>
                   <form onSubmit={handleSubmit}>
                     <div className='form-group mb-3'>
@@ -132,12 +145,49 @@ const LoginScreen = () => {
                           </span>
                         </div>
                         <input
-                        className='form-control form-input '
-                          placeholder='Email'
+                          className='form-control'
+                          placeholder='Name'
                           onChange={handleChange}
-                          name='email'
+                          name='name'
+                          value={name}
+                          type='text'
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className='form-group mb-3'>
+                    <div className='input-group input-group-merge input-group-alternative'>
+                      <div className='input-group-prepend'>
+                        <span className='input-group-text'>
+                          <i className='ni ni-email-83'></i>
+                        </span>
+                      </div>
+                      <input
+                        className='form-control'
+                        placeholder='Email'
+                        onChange={handleChange}
+                        name='email'
                         value={email}
-                          type='email'
+                        type='email'
+                        required
+                      />
+                    </div>
+                  </div>
+                  
+                    <div className='form-group'>
+                      <div className='input-group input-group-merge input-group-alternative'>
+                        <div className='input-group-prepend'>
+                          <span className='input-group-text'>
+                            <i className='ni ni-lock-circle-open'></i>
+                          </span>
+                        </div>
+                        <input
+                          className='form-control'
+                          placeholder='Password'
+                          onChange={handleChange}
+                          name='password'
+                          value={password}
+                          type='password'
                           required
                         />
                       </div>
@@ -150,13 +200,12 @@ const LoginScreen = () => {
                           </span>
                         </div>
                         <input
-                          className='form-control form-input '
-                          placeholder='Password'
-                          name='password'
-                          type='password'
-                          value={password}
+                          className='form-control'
+                          placeholder='Confirm password'
                           onChange={handleChange}
-                          required
+                          value={conPassword}
+                          name='Confirm Password'
+                          type='password'
                         />
                       </div>
                     </div>
@@ -175,7 +224,7 @@ const LoginScreen = () => {
                     </div>
                     <div className='text-center'>
                       <button type='submit' className='btn btn-primary my-4'>
-                        Sign in
+                        Sign up
                       </button>
                     </div>
                   </form>
@@ -183,13 +232,11 @@ const LoginScreen = () => {
               </div>
               <div className='row mt-3'>
                 <div className='col-6'>
-                  <Link to='/' className='text-light'>
-                    <small>Forgot password?</small>
-                  </Link>
+                 
                 </div>
                 <div className='col-6 text-right'>
-                  <Link to='/signup' className='text-light'>
-                    <small>Create new account</small>
+                  <Link to='/login' className='text-light'>
+                    <small>Already have account</small>
                   </Link>
                 </div>
               </div>

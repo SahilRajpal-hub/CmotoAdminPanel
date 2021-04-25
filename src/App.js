@@ -1,26 +1,75 @@
 import HomeScreen from './Screens/HomeScreen'
 import Login from './Screens/LoginScreen'
-import Sidebar from './Components/Sidebar'
 import { BrowserRouter, Route } from 'react-router-dom'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import InfoScreen from './Screens/InfoScreen.js'
 import Exlive from './Screens/ExliveScreen.js'
-import Inlive from './Screens/InliveScreen.js'
+import Inlive from "./Screens/InliveScreen.js"
+import SignUp from './Screens/SignUp.js'
+import { auth } from "./firebase/firebase.utils.js"
+import Check from './Screens/check.js'
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions.js';
+import PrivateRoutes from "./Components/PrivateRoutes.js"
+
+import PrivateRoutes2 from "./Components/PrivateRoutes2.js"
+import Loader from './Components/Loader'
 import SetDuties from './Screens/SetDuties.js'
 
-const App = () => {
+const App = (props) => {
+
+  const [loading, setLoading] = useState(true)
+
+  useEffect(()=>{
+    const { setCurrentUser } = props;
+    auth.onAuthStateChanged(async userAuth => {
+      // console.log(userAuth);
+      if(userAuth){
+        console.error("Successfully Logged In");
+        const current={
+          id:userAuth.uid,
+          name:userAuth.displayName,
+          email:userAuth.email
+        }
+        setCurrentUser(current)
+        setLoading(false)
+      }else{
+        console.error("Succesfully Logged out");
+        setCurrentUser(userAuth);
+        setLoading(false)
+      }
+    })
+  },[]);
+
+  
   return (
     <BrowserRouter>
       <Fragment>
-        <Route exact path='/' component={HomeScreen} />
-        <Route path='/login' component={Login} />
-        <Route exact path='/carinfo' component={InfoScreen} />
-        <Route exact path='/exlive' component={Exlive} />
-        <Route exact path='/inlive' component={Inlive} />
-        <Route exact path='/setDuties' component={SetDuties} />
+      {loading ? <Loader/>:<div>
+        <PrivateRoutes exact path='/' component={HomeScreen} />
+        <PrivateRoutes2 path='/login' component={Login} />
+        <PrivateRoutes exact path='/carinfo' component={InfoScreen} />
+        <PrivateRoutes exact path='/exlive' component={Exlive} />
+        <PrivateRoutes exact path='/inlive' component={Inlive} />
+        <PrivateRoutes exact path='/setDuties' component={SetDuties} />
+        <PrivateRoutes2 exact path='/signup' component={SignUp} />
+        <Route exact path='/check' render={() => (
+          <Check  />
+        )} />
+        </div>
+      }
       </Fragment>
+     
     </BrowserRouter>
   )
 }
 
-export default App
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
+

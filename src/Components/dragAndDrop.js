@@ -41,11 +41,11 @@ const DragAndDrop = ({ society }) => {
     }
   }
 
-  useEffect(async () => {
+  useEffect( () => {
     var objects = {}
     var tc = []
 
-    await firebase
+     firebase
       .database()
       .ref(`cars/${society}`)
       .once('value', (snap) => {

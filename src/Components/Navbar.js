@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { auth } from "../firebase/firebase.utils.js"
+import { Link,useHistory } from 'react-router-dom'
+
 
 const Navbar = () => {
   const [searchString, setSearchString] = useState('')
 
+  const history=useHistory();
   const submitHandler = (e) => {
     e.preventDefault()
     window.find(searchString)
+  }
+  const logout=()=>{
+    auth.signOut()
+    history.push("/login")
   }
 
   return (
@@ -320,10 +327,10 @@ const Navbar = () => {
                     <span>Support</span>
                   </a>
                   <div className='dropdown-divider'></div>
-                  <a href='#!' className='dropdown-item'>
+                  <Link to='/login' onClick={logout} className='dropdown-item'>
                     <i className='ni ni-user-run'></i>
                     <span>Logout</span>
-                  </a>
+                  </Link>
                 </div>
               </li>
             </ul>

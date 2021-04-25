@@ -19,7 +19,7 @@ const gg =function (carnums){
     if(!carnums){
        return [];
     }
-   carnums=carnums.split(", ")
+   carnums=carnums.split(",")
    carnums.pop();
    return carnums;
 

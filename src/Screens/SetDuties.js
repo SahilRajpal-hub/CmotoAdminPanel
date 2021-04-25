@@ -3,6 +3,8 @@ import Navbar from '../Components/Navbar.js'
 import AllSocieties from '../Components/AllSocieties.js'
 import DragAndDrop from '../Components/dragAndDrop'
 import queryString from 'query-string'
+import Sidebar from '../Components/Sidebar'
+
 
 const SetDuties = ({ location }) => {
   var values = queryString.parse(location.search)
@@ -13,6 +15,8 @@ const SetDuties = ({ location }) => {
   }, [values])
 
   return (
+    <div>
+  <Sidebar />
     <div className='main-content' id='panel'>
       <Navbar />
       <div className='container-fluid' style={{ paddingTop: 15 }}>
@@ -22,6 +26,7 @@ const SetDuties = ({ location }) => {
           <AllSocieties />
         )}
       </div>
+    </div>
     </div>
   )
 }
