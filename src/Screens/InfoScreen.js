@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from '../Components/Navbar'
+import Sidebar from '../Components/Sidebar'
 import Info from '../Components/Info/info.jsx'
 import queryString from 'query-string'
 
@@ -30,6 +31,8 @@ const InfoScreen = ({ match, location }) => {
   }
 
   return (
+    <div>
+    <Sidebar />
     <div className='main-content' id='panel'>
       <Navbar />
 
@@ -66,6 +69,7 @@ const InfoScreen = ({ match, location }) => {
         {a ? null : <WorkHistory carnum={values.carnum} />}
         {b ? null : <InteriorWork carnum={values.carnum} />}
       </div>
+    </div>
     </div>
   )
 }

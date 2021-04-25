@@ -5,9 +5,13 @@ import Car from '../Components/Cars'
 
 const HomeScreen = () => {
   return (
+    <div>
+    <Sidebar />
     <div className='main-content' id='panel'>
       <Navbar />
       <Car />
+     
+    </div>
     </div>
   )
 }
