@@ -1,35 +1,38 @@
-import React,{useEffect, useState} from 'react'
-import { Link,useHistory } from 'react-router-dom'
-import { auth } from "../firebase/firebase.utils.js"
+import React, { useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { auth } from '../firebase/firebase.utils.js'
 
 const LoginScreen = () => {
-    const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
-    const history=useHistory();
-  
-  const  handleSubmit = async event => {
-    event.preventDefault();
-    
-    try { 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState({})
+  const history = useHistory()
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
       // console.log('email--'+email)
       // console.log('password--'+password)
-      await auth.signInWithEmailAndPassword(email, password);
-      setEmail("");
-      setPassword("");
-      history.push("/")
+      await auth.signInWithEmailAndPassword(email, password)
+      setEmail('')
+      setPassword('')
+      setError({})
+      history.push('/')
     } catch (error) {
-      console.log("Email and password are not match")
+      console.log(error)
+      setError(error)
     }
-  };
+  }
 
-  const handleChange = event => {
-    const { value, name } = event.target;
-    if(name==="email"){
+  const handleChange = (event) => {
+    const { value, name } = event.target
+    if (name === 'email') {
       setEmail(value)
-    }else{
+    } else {
       setPassword(value)
     }
-  };
+  }
 
   return (
     <div>
@@ -132,11 +135,11 @@ const LoginScreen = () => {
                           </span>
                         </div>
                         <input
-                        className='form-control form-input '
+                          className='form-control form-input '
                           placeholder='Email'
                           onChange={handleChange}
                           name='email'
-                        value={email}
+                          value={email}
                           type='email'
                           required
                         />
@@ -173,6 +176,10 @@ const LoginScreen = () => {
                         <span className='text-muted'>Remember me</span>
                       </label>
                     </div>
+                    {error ? (
+                      <p style={{ color: 'red' }}>{error.message}</p>
+                    ) : null}
+
                     <div className='text-center'>
                       <button type='submit' className='btn btn-primary my-4'>
                         Sign in
