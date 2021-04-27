@@ -1,12 +1,12 @@
 
 import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom'
-import './table-item.styles.css'
-import firebase from '../../../firebase/firebase.utils.js'
+import './exlive-items.styles.css'
+import firebase from '../../../../firebase/firebase.utils.js'
 import React,{ useEffect, useState } from 'react'
 
 // a.map((element)=><h4>{element}</h4>)
-const TableItem=({Employees,address,carInAppartment})=>{
+const ExliveItem=({Employees,address,carInAppartment})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
    
@@ -20,7 +20,6 @@ const gg =function (carnums){
        return [];
     }
    carnums=carnums.split(",")
-   carnums.pop();
    return carnums;
 
 }
@@ -98,4 +97,4 @@ function getTodayDate() {
     )
 }
 
-export default TableItem;
+export default  ExliveItem;

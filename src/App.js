@@ -11,11 +11,11 @@ import Check from './Screens/check.js'
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions.js';
 import PrivateRoutes from "./Components/PrivateRoutes.js"
-
 import PrivateRoutes2 from "./Components/PrivateRoutes2.js"
 import Loader from './Components/Loader'
 import SetDuties from './Screens/SetDuties.js'
-
+import EmployeeScreen from './Screens/EmployeeScreen.js'
+import EmpInfoScreen from './Screens/EmpInfoScreen.js'
 const App = (props) => {
 
   const [loading, setLoading] = useState(true)
@@ -52,6 +52,8 @@ const App = (props) => {
         <PrivateRoutes exact path='/exlive' component={Exlive} />
         <PrivateRoutes exact path='/inlive' component={Inlive} />
         <PrivateRoutes exact path='/setDuties' component={SetDuties} />
+        <PrivateRoutes exact path='/employee' component={EmployeeScreen} />
+        <PrivateRoutes exact path='/empinfo' component={EmpInfoScreen} />
         <PrivateRoutes2 exact path='/signup' component={SignUp} />
         <Route exact path='/check' render={() => (
           <Check  />

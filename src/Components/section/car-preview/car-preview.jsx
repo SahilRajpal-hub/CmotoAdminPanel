@@ -1,9 +1,9 @@
 import React, { useEffect,useState } from 'react'
-import TableItem from '../table-item/table-item.jsx'
-import './table.preview.css'
+import './car-preview.css'
 import Table from 'react-bootstrap/Table'
+import CarItem from './car-items/car-items.jsx'
 
-const TablePreview=({societies,area,carInArea})=>{
+const CarPreview=({societies,area,carInArea})=>{
     const societiesName=Object.keys(societies);
     const vehicles=Object.values(societies);
     const [carInAr,setCarInAr]=useState([]);
@@ -36,7 +36,7 @@ const TablePreview=({societies,area,carInArea})=>{
           <tbody>
          
           {vehicles.map((element,i)=>(
-           <td style={{padding: 0}}><TableItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} vehicles={vehicles[i]} /></td>
+           <td style={{padding: 0}}><CarItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} vehicles={vehicles[i]} /></td>
           ))}  
           </tbody>
       </Table>
@@ -45,4 +45,4 @@ const TablePreview=({societies,area,carInArea})=>{
 
 }
 
-export default TablePreview;
+export default CarPreview;

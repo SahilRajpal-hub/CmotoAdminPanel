@@ -69,7 +69,11 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/'>
+                <Link  className={
+                    window.location.pathname === '/employee'
+                      ? 'nav-link active'
+                      : 'nav-link'
+                  } to='/employee'>
                   <i className='ni ni-bullet-list-67 text-default'></i>
                   <span className='nav-link-text'>Employee</span>
                 </Link>

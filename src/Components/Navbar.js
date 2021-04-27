@@ -11,6 +11,7 @@ const Navbar = () => {
     e.preventDefault()
     window.find(searchString)
   }
+  
   const logout=()=>{
     auth.signOut()
     history.push("/login")

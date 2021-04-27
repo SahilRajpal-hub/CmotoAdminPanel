@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import Navbar from '../Components/Navbar.js'
-import AllSocieties from '../Components/AllSocieties.js'
 import DragAndDrop from '../Components/dragAndDrop'
 import queryString from 'query-string'
 import Sidebar from '../Components/Sidebar'
+import AreaSocieties from '../Components/AreaSocieties.js'
+import AreaTable from '../Components/AreaTable.js'
 
 
 const SetDuties = ({ location }) => {
@@ -23,7 +24,7 @@ const SetDuties = ({ location }) => {
         {values.society ? (
           <DragAndDrop society={values.society} />
         ) : (
-          <AllSocieties />
+          <AreaSocieties address={"Employees"} component={AreaTable}/>
         )}
       </div>
     </div>

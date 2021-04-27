@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import TablePreview from './table-preview/table-preview.jsx'
+import React, {useEffect, useState } from 'react'
 import './section.css'
 import Table from 'react-bootstrap/Table'
 
 
-const Section=({area,societies})=>{
+const Section=({component2:Component2,area,societies})=>{
   const [carInAr,setCarInAr]=useState("Loading");
 
  
@@ -21,7 +20,7 @@ const Section=({area,societies})=>{
     </div>
       <Table bordered responsive >
             <tbody>
-            <TablePreview area={area}carInArea={carInArea} societies={societies}/>
+            <Component2 area={area} carInArea={carInArea} societies={societies}/>
             </tbody>
       </Table>  
     </div>

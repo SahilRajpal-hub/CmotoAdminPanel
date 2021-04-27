@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import firebase from './../firebase/firebase.utils'
+import firebase from '../firebase/firebase.utils'
 import Loader from './Loader'
-import Exsection from './Exsection/exsection.jsx'
 
-const Exteriorlive = () => {
+const AreaSocieties= ({component2:Component2,component:Component,address:Address}) => {
   const [societies, setSocieties] = useState([])
   const [areas, setAreas] = useState([])
   const [loading, setLoading] = useState(true)
@@ -11,7 +10,7 @@ const Exteriorlive = () => {
   useEffect(() => {
     firebase
       .database()
-      .ref('Employees')
+      .ref(Address)
       .on(
         'value',
         (snapshot) => {
@@ -42,7 +41,7 @@ const Exteriorlive = () => {
           <Loader />
         ) : (
           areas.map((area, i) => (
-            <Exsection area={area} societies={societies[i]} />
+            <Component area={area} societies={societies[i]} component2={Component2} />
           ))
         )}
       </div>
@@ -50,4 +49,4 @@ const Exteriorlive = () => {
   )
 }
 
-export default Exteriorlive
+export default AreaSocieties

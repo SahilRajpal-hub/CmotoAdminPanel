@@ -1,12 +1,12 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom'
-import './table-item.styles.css'
+import './car-items.styles.css'
 
 
 
 // a.map((element)=><h4>{element}</h4>)
-const TableItem=({vehicles,address,carInAppartment})=>{
+const CarItem=({vehicles,address,carInAppartment})=>{
    const carnums=Object.keys(vehicles)
    const cardetails=Object.values(vehicles)
 
@@ -27,5 +27,5 @@ const TableItem=({vehicles,address,carInAppartment})=>{
     )
 }
 
-export default TableItem;
+export default CarItem;
 

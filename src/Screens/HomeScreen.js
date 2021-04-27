@@ -1,7 +1,10 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
 import Navbar from '../Components/Navbar'
-import Car from '../Components/Cars'
+import Section from '../Components/section/section'
+import AreaSocieties from '../Components/AreaSocieties.js'
+import CarPreview from '../Components/section/car-preview/car-preview'
+
 
 const HomeScreen = () => {
   return (
@@ -9,8 +12,7 @@ const HomeScreen = () => {
     <Sidebar />
     <div className='main-content' id='panel'>
       <Navbar />
-      <Car />
-     
+      <AreaSocieties address={"cars"} component={Section} component2={CarPreview}/>
     </div>
     </div>
   )

@@ -1,10 +1,10 @@
 import React, { useEffect,useState } from 'react'
-import TableItem from '../table-item/table-item.jsx'
-import './table.preview.css'
+import './exlive-preview.css'
 import firebase from '../../../firebase/firebase.utils.js'
 import Table from 'react-bootstrap/Table'
+import ExliveItem from './exlive-items/exlive-items.jsx'
 
-const TablePreview=({societies,area,carInArea})=>{
+const ExlivePreview=({societies,area,carInArea})=>{
     const societiesName=Object.keys(societies);
     const Employees=Object.values(societies);
     const [carInAr,setCarInAr]=useState([]);
@@ -48,7 +48,7 @@ const TablePreview=({societies,area,carInArea})=>{
      
           {Employees.map((element,i)=>(
             
-           <td style={{padding: 0}}><TableItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} Employees={Employees[i]} /></td>
+           <td style={{padding: 0}}><ExliveItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} Employees={Employees[i]} /></td>
          
            ))} 
          
@@ -59,4 +59,4 @@ const TablePreview=({societies,area,carInArea})=>{
 
 }
 
-export default TablePreview;
+export default ExlivePreview;
