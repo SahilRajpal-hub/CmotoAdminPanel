@@ -2,10 +2,10 @@ import React ,{useEffect,useState}from "react";
 import firebase from '../../firebase/firebase.utils.js'
 import './info.css'
 import Loader from '../Loader'
+import { Link} from 'react-router-dom'
 
 
 const Info =({area,carnum})=>{
-
     const [vehicle, setVehicle] = useState({});
     const [loading, setLoading] = useState(true)
 
@@ -36,9 +36,17 @@ const Info =({area,carnum})=>{
       <div>
       {loading ? <Loader/> :
         <div className="card">
+        
+         
           <div className="card-header heading" style={{color:'black'}}>
-          {vehicle.number}
+            <div class="d-flex justify-content-between">
+            <h1>{vehicle.number}</h1>
+            <div>
+            <Link  to={`carprofile?area=${area}&carnum=${carnum}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
+            </div>
+            </div>
           </div>
+         
           <div className="InfoContainer">
             <div className="card-body content">
               <blockquote className="blockquote mb-0">

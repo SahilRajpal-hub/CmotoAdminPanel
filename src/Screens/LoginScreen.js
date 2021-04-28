@@ -10,7 +10,6 @@ const LoginScreen = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
     try {
       // console.log('email--'+email)
       // console.log('password--'+password)

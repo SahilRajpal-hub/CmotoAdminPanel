@@ -16,6 +16,7 @@ import Loader from './Components/Loader'
 import SetDuties from './Screens/SetDuties.js'
 import EmployeeScreen from './Screens/EmployeeScreen.js'
 import EmpInfoScreen from './Screens/EmpInfoScreen.js'
+import CarprofileScreen from './Screens/CarprofileScreen'
 const App = (props) => {
 
   const [loading, setLoading] = useState(true)
@@ -54,6 +55,7 @@ const App = (props) => {
         <PrivateRoutes exact path='/setDuties' component={SetDuties} />
         <PrivateRoutes exact path='/employee' component={EmployeeScreen} />
         <PrivateRoutes exact path='/empinfo' component={EmpInfoScreen} />
+        <PrivateRoutes exact path='/carprofile' component={CarprofileScreen} />
         <PrivateRoutes2 exact path='/signup' component={SignUp} />
         <Route exact path='/check' render={() => (
           <Check  />
