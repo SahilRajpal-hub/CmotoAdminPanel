@@ -2,9 +2,9 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Sidebar from '../Components/Sidebar'
 import queryString from 'query-string'
-import EditCarInfo from '../Components/editCarInfo/editCarInfo'
+import EditEmpInfo from '../Components/editEmpInfo/editEmpInfo'
 
-const CarprofileScreen = ({ location }) => {
+const EmpEditScreen = ({ location }) => {
   const values = queryString.parse(location.search)
 
   return (
@@ -14,7 +14,7 @@ const CarprofileScreen = ({ location }) => {
       <Navbar />
 
       <div className='container-fluid' style={{ paddingTop: 25 }}>
-        <EditCarInfo area={values.area} carnum={values.carnum} />
+        <EditEmpInfo uid={values.uid} />
       </div>
       
     </div>
@@ -22,4 +22,4 @@ const CarprofileScreen = ({ location }) => {
   )
 }
 
-export default CarprofileScreen
+export default EmpEditScreen

@@ -1,37 +1,40 @@
 import React ,{useEffect,useState}from "react";
 import firebase from '../../firebase/firebase.utils.js'
-import './editCarInfo.css'
+import './editEmpInfo.css'
 import Loader from '../Loader'
 import {Link} from 'react-router-dom'
 
 
-const EditCarInfo =({area,carnum})=>{
-    const [vehicle, setVehicle] = useState({});
+const EditEmpInfo =({uid})=>{
     const [loading, setLoading] = useState(true)
-    const [vehiclenum, setVehiclenum] = useState("");
     const [name, setName] = useState("");
     const [mobileNo, setMobileNo] = useState("");
-    const [color, setColor] = useState("");
-    const [model, setModel] = useState("");
-    const [type, setType] = useState("");
+    const [status, setStatus] = useState("");
     const [address, setAddress] = useState("");
+    const [workAddress, setWorkAddress] = useState("");
     
-    const set={setType,setAddress,setColor,setMobileNo,setName,setModel,setVehiclenum}
+    const set={setAddress,setStatus,setMobileNo,setName}
    
     const handleSubmit = async (event) => {
       event.preventDefault()
       try {
-        let userRef = firebase.database().ref(`cars/${area}/${carnum}`);
+        let userRef = firebase.database().ref(`Employee/${uid}`);
         userRef.update({ 
-          address: address,
-          category: type,
-          color: color,
-          mobileNo: mobileNo,
-          model: model,
-          name: name,
-          number: vehiclenum
-
+          Address: address,
+          status: status,
+          mobileNo: mobileNo,   
+          ContactNumber: mobileNo,   
+          Name: name,
+          name:name
         });
+
+        const a=workAddress.split('/');
+        
+        let userRef2=firebase.database().ref(`Employees/${a[0]}/${a[1]}/${uid}`);
+        userRef2.update({
+          Name:name,
+          status:status
+        })
        
         alert('successfully updated')
       } catch (error) {
@@ -48,18 +51,15 @@ const EditCarInfo =({area,carnum})=>{
     const infofetch= function(){
          firebase
           .database()
-          .ref(`cars/${area}/${carnum}`)
+          .ref(`Employee/${uid}`)
           .on(
             'value',
             (snapshot) => {
-             setVehicle(snapshot.val())
-             setVehiclenum(snapshot.val().number)
-             setName(snapshot.val().name)
-             setMobileNo(snapshot.val().mobileNo)
-             setAddress(snapshot.val().address)
-             setColor(snapshot.val().color)
-             setType(snapshot.val().category)
-             setModel(snapshot.val().model)
+             setName(snapshot.val().Name)
+             setMobileNo(snapshot.val().ContactNumber)
+             setAddress(snapshot.val().Address)
+             setStatus(snapshot.val().status)
+             setWorkAddress(snapshot.val().Working_Address)
              setLoading(false)
             },
             (err) => {
@@ -93,46 +93,25 @@ const EditCarInfo =({area,carnum})=>{
               <blockquote className="blockquote mb-0">
               <form id='my-form'  onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }} onSubmit={handleSubmit}>
 
-              <div className="input-group mb-1">
-                  <div className="input-group-prepend" style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Vehicle Number</span>
-                  </div>
-                  <input type="text" onChange={handleChange} name="setVehiclenum" className="form-control  border border-dark" value={vehiclenum} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-             </div>
-
               <div className="input-group mb-1 ">
                   <div className="input-group-prepend" style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100  input-group-text border border-dark" >Owner Name</span>
+                    <span className="text-white bg-dark w-100  input-group-text border border-dark" >Employee Name</span>
                   </div>
                   <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setName" value={name} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
               </div>
 
               <div className="input-group mb-1 ">
                   <div className="input-group-prepend" style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Owner Phone</span>
+                    <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Phone</span>
                   </div>
                   <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setMobileNo" value={mobileNo} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
               </div>
 
               <div className="input-group mb-1 ">
                   <div className="input-group-prepend" style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Modal</span>
+                    <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Status</span>
                   </div>
-                  <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setModel" value={model} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-              </div>
-
-              <div className="input-group mb-1 ">
-                  <div className="input-group-prepend" style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Type</span>
-                  </div>
-                  <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setType" value={type} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-              </div>
-
-              <div className="input-group  mb-1 ">
-                  <div className="input-group-prepend " style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100 input-group-text  border border-dark" >Color</span>
-                  </div>
-                  <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setColor" value={color} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+                  <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setStatus" value={status} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
               </div>
 
               <div className="input-group mb-1 ">
@@ -158,5 +137,5 @@ const EditCarInfo =({area,carnum})=>{
     
 }
 
-export default EditCarInfo
+export default EditEmpInfo
 

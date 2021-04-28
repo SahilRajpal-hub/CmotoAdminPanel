@@ -31,6 +31,15 @@ const WorkHistory = ({carnum})=>{
         }
       ) },[])
 
+      const done=(el)=>{
+          console.log(el)
+          let nam=""
+          firebase.database().ref(`Employee/${el}`).on('value',(snapshot) => {
+              nam=snapshot.val().Name
+          })
+          return nam;
+      }
+
       return(
             <div>
             {loading ? null:
@@ -51,7 +60,7 @@ const WorkHistory = ({carnum})=>{
                             <tr style={{fontSize:15,color:'black',textAlign:"center"}}>
                             <td>{element}</td>
                             <td><a target="__blank__" href={Prove[i]['Photo Url 4'] ? Prove[i]['Photo Url 4'] : Prove[i]['Photo Url 0']}>Go to image</a></td>
-                            <td>{Prove[i].doneBy}</td>
+                            <td>{done(Prove[i].doneBy)===""?Prove[i].doneBy:done(Prove[i].doneBy)}</td>
                             </tr>
                             ))} 
                     </tbody>

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from '../Components/Navbar'
 import Sidebar from '../Components/Sidebar'
 import Info from '../Components/Info/info.jsx'
 import queryString from 'query-string'
+import firebase from '../firebase/firebase.utils.js'
 
 import WorkHistory from '../Components/work-history/work-history(Ex).jsx'
 import InteriorWork from '../Components/work-history/work-history(In).jsx'
