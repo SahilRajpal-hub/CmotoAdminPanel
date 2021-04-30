@@ -2,7 +2,7 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import EmpItem from './emp-item'
 
-const EmpPreview=({societies})=>{
+const EmpPreview=({address,societies})=>{
   const societiesName=Object.keys(societies);
   const Employees=Object.values(societies);
    
@@ -19,7 +19,7 @@ const EmpPreview=({societies})=>{
           <tbody>
      
           {Employees.map((element,i)=>( 
-           <td style={{padding: 0}}><EmpItem Employees={Employees[i]} /></td>
+           <td style={{padding: 0}}><EmpItem address={address} Employees={Employees[i]} /></td>
           ))} 
          
           </tbody>

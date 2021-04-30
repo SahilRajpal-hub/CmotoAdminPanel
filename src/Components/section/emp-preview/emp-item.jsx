@@ -5,7 +5,7 @@ import firebase from '../../../firebase/firebase.utils.js'
 import { Link } from 'react-router-dom'
 
 
-const EmpItem=({Employees})=>{
+const EmpItem=({Employees,address})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
    const [map, setMap] = useState({})
@@ -42,8 +42,8 @@ const EmpItem=({Employees})=>{
             </tr>
             {EmployeesName.map((uid,i)=>(
                 <tr style={{border:"solid black 2px"}} >
-                    <td style={{textAlign:"center",fontSize:12,fontWeight:600,color:"black"}} ><Link to={`/empinfo?uid=${uid}`}>{Employeedetails[i].Name}</Link></td>
-                    <td style={{textAlign:"center",fontSize:12,fontWeight:600,color:"black"}} >{Employeedetails[i].email}</td>
+                    <td style={{textAlign:"center",fontSize:12,fontWeight:600,color:"black"}} ><Link to={`/empinfo?uid=${uid}&address=${address}`}>{Employeedetails[i].Name?Employeedetails[i].Name:"Name not provided"}</Link></td>
+                    <td style={{textAlign:"center",fontSize:12,fontWeight:600,color:"black"}} >{Employeedetails[i].email?Employeedetails[i].email:"Email not provided"}</td>
                     <td style={{textAlign:"center",fontSize:12,fontWeight:600,color:"black"}} >{col(EmployeesName[i])}</td> 
                 </tr>
             ))} 

@@ -3,7 +3,7 @@ import './section.css'
 import Table from 'react-bootstrap/Table'
 
 
-const Section=({component2:Component2,area,societies})=>{
+const Section=({address,component2:Component2,area,societies})=>{
   const [carInAr,setCarInAr]=useState("Loading");
 
  
@@ -16,11 +16,11 @@ const Section=({component2:Component2,area,societies})=>{
     <div class="card-body">
     <div className="Section">
     <div class="d-flex justify-content-between">
-    <h1 className="heading" style={{fontSize:20,color:'black',fontWeight:"700"}}>{area} ({carInAr})</h1>
+    <h1 className="heading" style={{fontSize:20,color:'black',fontWeight:"700"}}>{area}{carInAr?null:({carInAr})}</h1>
     </div>
       <Table bordered responsive >
             <tbody>
-            <Component2 area={area} carInArea={carInArea} societies={societies}/>
+            <Component2 area={area} address={address} carInArea={carInArea} societies={societies}/>
             </tbody>
       </Table>  
     </div>

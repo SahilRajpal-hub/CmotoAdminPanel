@@ -5,15 +5,16 @@ import Loader from '../Loader'
 import { Link} from 'react-router-dom'
 
 
-const EmpInfo =({uid})=>{
-
+const EmpInfo =({uid,address})=>{
+    
+  address = address.slice(0, address.length - 1);
     const [employee, setEmployee] = useState({});
     const [loading, setLoading] = useState(true)
 
     const infofetch= function(){
          firebase
           .database()
-          .ref(`Employee/${uid}`)
+          .ref(`${address}/${uid}`)
           .on(
             'value',
             (snapshot) => {

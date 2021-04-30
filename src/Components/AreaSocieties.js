@@ -41,7 +41,7 @@ const AreaSocieties= ({component2:Component2,component:Component,address:Address
           <Loader />
         ) : (
           areas.map((area, i) => (
-            <Component area={area} societies={societies[i]} component2={Component2} />
+            <Component area={area} societies={societies[i]} address={Address} component2={Component2} />
           ))
         )}
       </div>
