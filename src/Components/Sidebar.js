@@ -32,7 +32,7 @@ const Sidebar = () => {
                   }
                   to='/'
                 >
-                  <i className='ni ni-tv-2 text-primary'></i>
+                <i class="fas fa-car "></i>
                   <span className='nav-link-text'>Cars</span>
                 </Link>
               </li>
@@ -58,13 +58,13 @@ const Sidebar = () => {
                   }
                   to='/inlive'
                 >
-                  <i className='ni ni-pin-3 text-primary'></i>
+                <i className='ni ni-planet text-primary'></i>
                   <span className='nav-link-text'>Interior Live</span>
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/'>
-                  <i className='ni ni-single-02 text-yellow'></i>
+                 <i className='ni ni-bullet-list-67 text-default'></i>
                   <span className='nav-link-text'>Payment</span>
                 </Link>
               </li>
@@ -74,7 +74,7 @@ const Sidebar = () => {
                       ? 'nav-link active'
                       : 'nav-link'
                   } to='/employee'>
-                  <i className='ni ni-bullet-list-67 text-default'></i>
+                  <i className='ni ni-single-02 text-yellow'></i>
                   <span className='nav-link-text'>Employee</span>
                 </Link>
               </li>
@@ -89,6 +89,19 @@ const Sidebar = () => {
                 >
                   <i className='ni ni-key-25 text-info'></i>
                   <span className='nav-link-text'>Set Duties</span>
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link
+                  className={
+                    window.location.pathname === '/addSociety'
+                      ? 'nav-link active'
+                      : 'nav-link'
+                  }
+                  to='/addSociety'
+                >
+                <i class="fas fa-plus"></i>
+                  <span className='nav-link-text'>Add</span>
                 </Link>
               </li>
             </ul>

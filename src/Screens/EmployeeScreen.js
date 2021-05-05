@@ -3,6 +3,7 @@ import AreaSocieties from '../Components/AreaSocieties.js'
 import Navbar from '../Components/Navbar.js'
 import EmpPreview from '../Components/section/emp-preview/emp-preview.jsx'
 import Section from '../Components/section/section.jsx'
+import { Link } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 
 
@@ -34,6 +35,7 @@ const EmpScreen=()=>{
     <Sidebar />
     <div className='main-content' id='panel'>
       <Navbar />
+      <div className="d-flex justify-content-end" style={{margin:"25px 30px 0 30px"}}><Link to="/addemployee">ADD NEW EMPLOYEE</Link></div>
       <div className='d-flex justify-content-between' style={{ paddingTop: 25 }}>
           <button
             style={{

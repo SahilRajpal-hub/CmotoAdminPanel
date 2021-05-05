@@ -18,6 +18,8 @@ import EmployeeScreen from './Screens/EmployeeScreen.js'
 import EmpInfoScreen from './Screens/EmpInfoScreen.js'
 import CarEditScreen from './Screens/CarEditScreen'
 import EmpEditScreen from './Screens/EmpEditScreen'
+import AddCar from './Screens/AddCar'
+import AddEmployee from './Screens/AddEmployee'
 
 const App = (props) => {
 
@@ -59,6 +61,8 @@ const App = (props) => {
         <PrivateRoutes exact path='/empinfo' component={EmpInfoScreen} />
         <PrivateRoutes exact path='/empProfile' component={EmpEditScreen} />
         <PrivateRoutes exact path='/carprofile' component={CarEditScreen} />
+        <PrivateRoutes exact path='/addemployee' component={AddEmployee} />
+        <PrivateRoutes exact path='/addcar' component={AddCar} />
         <PrivateRoutes2 exact path='/signup' component={SignUp} />
         <Route exact path='/check' render={() => (
           <Check  />
