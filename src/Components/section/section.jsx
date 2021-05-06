@@ -15,7 +15,7 @@ const Section=({address,component2:Component2,area,societies})=>{
     <div class="card">
     <div class="card-body">
     <div className="Section">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-center">
     <h1 className="heading" style={{fontSize:20,color:'black',fontWeight:"700"}}>{area}{carInAr?null:({carInAr})}</h1>
     </div>
       <Table bordered responsive >
