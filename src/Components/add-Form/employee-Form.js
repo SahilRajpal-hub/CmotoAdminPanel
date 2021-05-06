@@ -17,7 +17,7 @@ const EmployeeForm=()=>{
     let history = useHistory();
 
     useEffect(() => {
-      firebase.database().ref("cars").on(
+      firebase.database().ref("address").on(
           'value',
           (snapshot) => {
             const a = []
@@ -95,7 +95,7 @@ const EmployeeForm=()=>{
         if(event.target.value==="Choose..."){
             return;
         }
-        firebase.database().ref(`cars/${event.target.value}`).on('value',(snapshot) => {
+        firebase.database().ref(`address/${event.target.value}`).on('value',(snapshot) => {
           const s = []
           snapshot.forEach((element) => {
             s.push(element.key)
@@ -144,8 +144,8 @@ const EmployeeForm=()=>{
               
               <div className="form-group-sm mb-3">
               <label>Area</label>
-              <select className="custom-select" name="Area" onInput={society} onChange={handleChange_2}>
-                <option selected>Choose...</option>
+              <select className="custom-select" required name="Area" onInput={society} onChange={handleChange_2}>
+                <option disabled selected value="">Choose...</option>
                 {
                     areas.map((area,i)=>{
                       return (
@@ -158,8 +158,8 @@ const EmployeeForm=()=>{
 
               <div className="form-group-sm mb-3">
               <label>Society</label>
-              <select className="custom-select" name="Society" onChange={handleChange_2}>
-                  <option selected>Choose...</option>
+              <select className="custom-select" required name="Society" onChange={handleChange_2}>
+                  <option disabled selected value="">Choose...</option>
                   {
                       societies.map((society,i)=>{
                         return (

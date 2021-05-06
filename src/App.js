@@ -20,6 +20,7 @@ import CarEditScreen from './Screens/CarEditScreen'
 import EmpEditScreen from './Screens/EmpEditScreen'
 import AddCar from './Screens/AddCar'
 import AddEmployee from './Screens/AddEmployee'
+import AddAddress from './Screens/AddAddress'
 
 const App = (props) => {
 
@@ -63,6 +64,7 @@ const App = (props) => {
         <PrivateRoutes exact path='/carprofile' component={CarEditScreen} />
         <PrivateRoutes exact path='/addemployee' component={AddEmployee} />
         <PrivateRoutes exact path='/addcar' component={AddCar} />
+        <PrivateRoutes exact path='/addAddress' component={AddAddress} />
         <PrivateRoutes2 exact path='/signup' component={SignUp} />
         <Route exact path='/check' render={() => (
           <Check  />

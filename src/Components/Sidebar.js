@@ -94,11 +94,11 @@ const Sidebar = () => {
               <li className='nav-item'>
                 <Link
                   className={
-                    window.location.pathname === '/addSociety'
+                    window.location.pathname === '/addAddress'
                       ? 'nav-link active'
                       : 'nav-link'
                   }
-                  to='/addSociety'
+                  to='/addAddress'
                 >
                 <i class="fas fa-plus"></i>
                   <span className='nav-link-text'>Add</span>

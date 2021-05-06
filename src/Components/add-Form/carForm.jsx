@@ -12,12 +12,10 @@ const CarForm=()=>{
     let history = useHistory();
 
     useEffect(() => {
-        firebase.database().ref("cars").on('value',(snapshot) => {
+        firebase.database().ref("address").on('value',(snapshot) => {
               const a = []
-              snapshot.forEach((element) => {
-                if (element.key !== 'clusters'){
-                  a.push(element.key)  
-                }
+              snapshot.forEach((element) => {           
+                  a.push(element.key)    
               })
               setAreas(a)
         },
@@ -40,7 +38,7 @@ const CarForm=()=>{
         if(event.target.value==="Choose..."){
               return;
         }
-        firebase.database().ref(`cars/${event.target.value}`).on('value',(snapshot) => {
+        firebase.database().ref(`address/${event.target.value}`).on('value',(snapshot) => {
             const s = []
             snapshot.forEach((element) => {
               s.push(element.key)
@@ -99,8 +97,8 @@ const CarForm=()=>{
                 
                 <div className="form-group-sm mb-3">
                 <label>Area</label>
-                <select className="custom-select" name="Area" onInput={society} onChange={handleChange}>
-                  <option selected>Choose...</option>
+                <select className="custom-select"  required name="Area" onInput={society} onChange={handleChange}>
+                  <option disabled selected value="">Choose...</option>
                   {
                       areas.map((area,i)=>{
                         return (
@@ -113,8 +111,8 @@ const CarForm=()=>{
 
               <div className="form-group-sm mb-3">
               <label>Society</label>
-              <select className="custom-select" name="Society" onChange={handleChange}>
-                <option selected>Choose...</option>
+              <select className="custom-select"  required name="Society" onChange={handleChange}>
+                <option disabled selected value="">Choose...</option>
                 {
                     societies.map((society,i)=>{
                       return (
@@ -166,8 +164,8 @@ const CarForm=()=>{
                
                 <div className="form-group-sm mb-3">
                 <label>Payment</label>
-                <select className="custom-select" onChange={handleChange} name="Payment">
-                <option selected>Choose...</option>
+                <select className="custom-select" required onChange={handleChange} name="Payment">
+                <option disabled selected value="">Choose...</option>
                   <option  >Active</option>
                   <option >Inactive</option>
                 </select>
@@ -175,8 +173,8 @@ const CarForm=()=>{
 
                 <div className="form-group-sm mb-3">
               <label>Free Trail</label>
-              <select className="custom-select" onChange={handleChange} name="freeTrial" >
-              <option selected>Choose...</option>
+              <select className="custom-select" required onChange={handleChange} name="freeTrial" >
+              <option disabled selected value="">Choose...</option>
                 <option >Expired</option>
                 <option >Active</option>
                
