@@ -99,17 +99,17 @@ const EmployeeForm=()=>{
           await setDone(true);
           let {Area,Society,...Employee}=formData_2;
           
-          await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}/AadharPhoto-${now()}`).put(aadhaar);
-          let bb= await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`AadharPhoto-${now()}`).getDownloadURL()
+          await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/AadharPhoto-${now()}`).put(aadhaar);
+          let bb= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`AadharPhoto-${now()}`).getDownloadURL()
         
-          await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}/EmployeePhoto-${now()}`).put(photo);
-          let aa= await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
+          await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/EmployeePhoto-${now()}`).put(photo);
+          let aa= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
        
           let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
-          let userRef=firebase.database().ref(`Employee/${employeeUid}`);
+          let userRef=firebase.database().ref(`${formData_1.Type}Employee/${employeeUid}`);
           userRef.update(EmployeeData_1);
           let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":""}
-          let userRef2=firebase.database().ref(`Employees/${Area}/${Society}/${employeeUid}`);
+          let userRef2=firebase.database().ref(`${formData_1.Type}Employees/${Area}/${Society}/${employeeUid}`);
           userRef2.update(EmployeeData_2);
           alert("successFully Added")
           history.push("/employee")
@@ -228,6 +228,15 @@ const EmployeeForm=()=>{
                   
                     <form onSubmit={handleSubmit_1} > 
         
+                  <div className="form-group-sm mb-3">
+                  <label>Employee Type</label>
+                  <select className="custom-select" required name="Type" onChange={handleChange_1}>
+                        <option disabled selected value="">Choose...</option>
+                        <option value="">Exterior</option>
+                        <option>Interior</option>
+                  </select>
+                  </div>
+
                   <div className="form-group-sm mb-3">
                     <label>Email</label>
                     <input  class="form-control" name="email" required onChange={handleChange_1} placeholder="Enter email"/>

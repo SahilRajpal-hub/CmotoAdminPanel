@@ -52,10 +52,18 @@ const AddressForm=()=>{
     }
 
     function now() {
-        var tempDate = new Date();
-        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate();
-        return date
-    }
+        var todayUs = new Date()
+        var offset = '+5.5' // since database belongs to US
+        var utc = todayUs.getTime() + todayUs.getTimezoneOffset() * 60000 // therefore converting time to IST
+        var today = new Date(utc + 3600000 * offset)
+        var dd = String(today.getDate()).padStart(2, '0')
+        var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+        var yyyy = today.getFullYear()
+    
+        today = yyyy + '-' + mm + '-' + dd
+        return today.toString()
+        // return '2021-05-05'
+      }
 
     return(
         <div>

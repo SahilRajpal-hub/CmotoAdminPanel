@@ -1,7 +1,9 @@
-import React ,{useEffect,useState}from "react";
+import React,{useEffect,useState}from "react";
 import { useHistory } from "react-router-dom";
 import firebase from '../../firebase/firebase.utils.js'
 import {Prompt} from 'react-router-dom'
+import { storage } from "../../firebase/firebase.utils.js"
+
 
 const CarForm=()=>{
      
@@ -9,6 +11,7 @@ const CarForm=()=>{
     const [areas, setAreas] = useState([])
     const [formData, updateFormData] = React.useState({});
     const[done,setDone]=useState(false);
+    const [photo,setPhoto] = useState(null);
     let history = useHistory();
 
     useEffect(() => {
@@ -28,7 +31,11 @@ const CarForm=()=>{
           window.removeEventListener('beforeunload', alertUser)
         }
     },[])
-    
+
+    function handlePhoto(e) {
+      setPhoto(e.target.files[0]);
+    }
+
     const alertUser = e => {
       e.preventDefault()
       e.returnValue = ''
@@ -69,10 +76,14 @@ const CarForm=()=>{
         event.preventDefault()
         try {
           await setDone(true);
-          let {Area,Society,...carData}=formData;
+          let {Area,Society,houseNumber,...carData}=formData;
+          await storage.ref(`cars/${Area}/${Society}/${formData.number}/Photo-${now()}`).put(photo);
+          let bb= await storage.ref(`cars/${Area}/${Society}/${formData.number}`).child(`Photo-${now()}`).getDownloadURL()
+
           let CarStatus={category:formData.category,Payment:formData.Payment,lastCleanedInterior:`${now()}`,lastPaidOn:`${now()}`,"Interior Cleaning status":"In waiting",status: "In waiting",InteriorDays_Left:4,doneBy:"",timeStamp: "0"}
-          let cars= {...carData,address:`${formData.houseNumber} ${formData.Area}/${formData.Society}`,photo:""}
+          let cars= {...carData,houseNumber:parseInt(houseNumber),address:`${houseNumber} ${formData.Area}/${formData.Society}`,photo:`${bb}`}
           let userRef=firebase.database().ref(`cars/${Area}/${Society}/${formData.number}`);
+          console.log(cars);
           userRef.update(cars)
           let userRef2=firebase.database().ref(`Car Status/${formData.number}`);
           userRef2.update(CarStatus)
@@ -139,7 +150,7 @@ const CarForm=()=>{
 
                 <div className="form-group-sm mb-3">
                 <label >House Number</label>
-                <input  class="form-control" name="houseNumber" required onChange={handleChange} placeholder="Enter house number"/>
+                <input type="number" class="form-control" name="houseNumber" required onChange={handleChange} placeholder="Enter house number"/>
                </div>
 
                 <div className="form-group-sm mb-3">
@@ -191,6 +202,10 @@ const CarForm=()=>{
                  <input  class="form-control" name="leaveTime" required onChange={handleChange} placeholder="Enter Leave Time"/>
                 </div>
 
+                <div class="form-group-sm mb-3 ">
+                <label >Photo</label>
+                <input type="file" name="Photo" onChange={handlePhoto} required class="form-control-file" />
+                </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

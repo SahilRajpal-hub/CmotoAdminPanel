@@ -3,8 +3,6 @@ import Navbar from '../Components/Navbar'
 import Sidebar from '../Components/Sidebar'
 import queryString from 'query-string'
 import EmpInfo from '../Components/empInfo/empinfo.jsx'
-import WorkHistory from '../Components/work-history/work-history(Ex).jsx'
-import InteriorWork from '../Components/work-history/work-history(In).jsx'
 import EmpWorkHistory from '../Components/empwork-history/empwork-history'
 
 const EmpInfoScreen = ({ match, location }) => {
