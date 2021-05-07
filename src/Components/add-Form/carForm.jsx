@@ -183,13 +183,14 @@ const CarForm=()=>{
 
                 <div className="form-group-sm mb-3">
                  <label>Holiday</label>
-                 <input  class="form-control" name="holiday" required onChange={handleChange} placeholder="Enter Number of holiday"/>
+                 <input  class="form-control" name="holiday" required onChange={handleChange} placeholder="Enter Day"/>
               </div>
 
                 <div className="form-group-sm mb-3 mb-3">
                  <label>Leave Time</label>
                  <input  class="form-control" name="leaveTime" required onChange={handleChange} placeholder="Enter Leave Time"/>
                 </div>
+
 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

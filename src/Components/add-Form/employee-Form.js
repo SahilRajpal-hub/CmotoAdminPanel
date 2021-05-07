@@ -1,8 +1,9 @@
 import React ,{useEffect,useState}from "react";
-import { auth } from "../../firebase/firebase.utils.js"
+import { auth,storage } from "../../firebase/firebase.utils.js"
 import { useHistory } from "react-router-dom";
 import firebase from '../../firebase/firebase.utils.js'
 import {Prompt} from 'react-router-dom'
+
 
 
 const EmployeeForm=()=>{
@@ -13,6 +14,17 @@ const EmployeeForm=()=>{
     const [societies, setSocieties] = useState([])
     const [areas, setAreas] = useState([])
     const[done,setDone]=useState(false);
+    const [aadhaar, setAadhaar] = useState(null);
+    const [photo, setPhoto] = useState(null);
+   
+
+  function handleAadhaar(e) {
+    setAadhaar(e.target.files[0]);
+  }
+
+  function handlePhoto(e) {
+    setPhoto(e.target.files[0]);
+  }
 
     let history = useHistory();
 
@@ -73,12 +85,27 @@ const EmployeeForm=()=>{
         }
     }
 
+
+    function now() {
+      var tempDate = new Date();
+      var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate();
+      return date
+    }
+
     const handleSubmit_2 = async (event) => {
         event.preventDefault()
+
         try {
-         await setDone(true);
+          await setDone(true);
           let {Area,Society,...Employee}=formData_2;
-          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": ""}
+          
+          await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}/AadharPhoto-${now()}`).put(aadhaar);
+          let bb= await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`AadharPhoto-${now()}`).getDownloadURL()
+        
+          await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}/EmployeePhoto-${now()}`).put(photo);
+          let aa= await storage.ref(`employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
+       
+          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
           let userRef=firebase.database().ref(`Employee/${employeeUid}`);
           userRef.update(EmployeeData_1);
           let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":""}
@@ -166,10 +193,20 @@ const EmployeeForm=()=>{
                         <option>{society}</option>
                       )})
                   }
-              </select>
-              </div>
+            </select>
+            </div>
+
+            <div class="form-group-sm mb-3 ">
+            <label >Aadhaar</label>
+            <input type="file" name="aadhaar" onChange={handleAadhaar} required class="form-control-file" />
+            </div>
+
+            <div class="form-group-sm mb-3 ">
+            <label >Photo</label>
+            <input type="file" name="Photo" onChange={handlePhoto} required class="form-control-file" />
+            </div>
               
-              <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 
             </blockquote>

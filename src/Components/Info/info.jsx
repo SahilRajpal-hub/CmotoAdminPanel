@@ -8,6 +8,7 @@ import { Link} from 'react-router-dom'
 const Info =({area,carnum})=>{
     const [vehicle, setVehicle] = useState({});
     const [loading, setLoading] = useState(true)
+    
 
     const infofetch= function(){
          firebase
@@ -29,7 +30,12 @@ const Info =({area,carnum})=>{
     useEffect(() =>{
       infofetch() },[])
 
-    
+    const HandleActive=()=>{
+      const aa=vehicle.Payment==="Active"?"Inactive":"Active"
+      firebase
+          .database()
+          .ref(`cars/${area}/${carnum}/Payment`).set(aa);     
+    }
 
     return(
       
@@ -40,7 +46,8 @@ const Info =({area,carnum})=>{
          
           <div className="card-header heading" style={{color:'black'}}>
             <div class="d-flex justify-content-between">
-            <h1>{vehicle.number}</h1>
+            
+            <h1>{vehicle.number} <span style={{fontSize:14,fontWeight:600,cursor:"pointer",color:vehicle.Payment==="Active"?"green":"red"}} onClick={HandleActive}> ({vehicle.Payment})</span></h1>
             <div>
             <Link  to={`carprofile?area=${area}&carnum=${carnum}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
             </div>
