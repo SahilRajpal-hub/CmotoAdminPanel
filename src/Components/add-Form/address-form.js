@@ -65,7 +65,7 @@ const AddressForm=()=>{
                 
                 <label class="mb-3">Add a new Area</label>
                 <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Add Area"  onChange={handleChange_1} name="newArea"/>
+                <input type="text" class="form-control" required placeholder="Add Area"  onChange={handleChange_1} name="newArea"/>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" onClick={onclick_1} type="button">Add</button>
                 </div>
