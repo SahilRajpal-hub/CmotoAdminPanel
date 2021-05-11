@@ -49,6 +49,7 @@ const App = (props) => {
 
   return (
     <BrowserRouter>
+   
       <Fragment>
         {loading ? (
           <Loader />
@@ -80,5 +81,6 @@ const App = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 })
+
 
 export default connect(null, mapDispatchToProps)(App)

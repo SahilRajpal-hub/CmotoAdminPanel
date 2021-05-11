@@ -3,9 +3,13 @@ import { useHistory } from "react-router-dom";
 import firebase from '../../firebase/firebase.utils.js'
 import {Prompt} from 'react-router-dom'
 import { storage } from "../../firebase/firebase.utils.js"
-
+import validate from "../../utils/validation.js"
 
 const CarForm=()=>{
+
+  const [values, setValues] = React.useState({});
+  const [errors, setErrors] = React.useState({});
+  const [touched, setTouched] = React.useState({});
      
     const [societies, setSocieties] = useState([])
     const [areas, setAreas] = useState([])
@@ -58,11 +62,41 @@ const CarForm=()=>{
         })
     }
 
+    const handleBlur = evt => {
+      const { name, value } = evt.target;
+  
+      // remove whatever error was there previously
+      const { [name]: removedError, ...rest } = errors;
+  
+      // check for a new error
+      const error = validate[name](value);
+  
+      // // validate the field if the value has been touched
+      setErrors({
+        ...rest,
+        ...(error && { [name]: touched[name] && error }),
+      });
+    };
+
+    const handleValid=(e)=>{
+      const { name, value, type } = e.target;
+      setValues({
+        ...values,
+        [name]: value,
+      });
+  
+      setTouched({
+        ...touched,
+        [name]: true,
+      });
+
+    }
 
     const handleChange = (e) => {
+      const { name, value } = e.target;
       updateFormData({
         ...formData,
-        [e.target.name]: e.target.value.trim()
+        [name]:value.trim()
       });
     };
 
@@ -72,10 +106,10 @@ const CarForm=()=>{
       return date
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
+    const handleSubmit = async (event) =>{
+        event.preventDefault();
         try {
-          await setDone(true);
+          setDone(true);
           let {Area,Society,houseNumber,...carData}=formData;
           await storage.ref(`cars/${Area}/${Society}/${formData.number}/Photo-${now()}`).put(photo);
           let bb= await storage.ref(`cars/${Area}/${Society}/${formData.number}`).child(`Photo-${now()}`).getDownloadURL()
@@ -135,18 +169,22 @@ const CarForm=()=>{
 
                 <div className="form-group-sm mb-3">
                  <label>Vehicle No.</label>
-                 <input  class="form-control" name="number" required onChange={handleChange} placeholder="Enter vehicle number"/>
-                </div>
+                 <input  class="form-control" name="number" required  onBlur={handleBlur} onChange={(e)=>{handleValid(e); handleChange(e)}} placeholder="Enter vehicle number"/>
+                 <small style={{color:"red"}}>{touched.number && errors.number}</small>
+                 </div>
                 
                 <div className="form-group-sm mb-3">
                  <label >Owner Name</label>
-                 <input  class="form-control" name="name" required onChange={handleChange} placeholder="Enter owner name "/>
-                </div>
+                 <input  class="form-control" name="name" required onBlur={handleBlur} onChange={(e)=>{handleValid(e); handleChange(e)}} placeholder="Enter owner name "/>
+                 <small style={{color:"red"}}>{touched.name && errors.name}</small>
+                 </div>
+                
 
                 <div className="form-group-sm mb-3">
                 <label >Mobile No.</label>
-                <input  class="form-control" name="mobileNo" required onChange={handleChange} placeholder="Enter mobile number"/>
-               </div>
+                <input  class="form-control" name="mobileNo" required onBlur={handleBlur} onChange={(e)=>{handleValid(e); handleChange(e)}} placeholder="Enter mobile number"/>
+                <small style={{color:"red"}}>{touched.mobileNo && errors.mobileNo}</small>
+                </div>
 
                 <div className="form-group-sm mb-3">
                 <label >House Number</label>

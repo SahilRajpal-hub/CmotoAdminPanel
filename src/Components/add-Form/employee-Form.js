@@ -3,10 +3,14 @@ import { auth,storage } from "../../firebase/firebase.utils.js"
 import { useHistory } from "react-router-dom";
 import firebase from '../../firebase/firebase.utils.js'
 import {Prompt} from 'react-router-dom'
-
-
+import validate from "../../utils/validation.js"
+import '../Loader.css'
 
 const EmployeeForm=()=>{
+  const [values, setValues] = React.useState({});
+  const [errors, setErrors] = React.useState({});
+  const [touched, setTouched] = React.useState({});
+  const  [mess, setMess] = React.useState("");
     const [formData_1, updateFormData_1] = useState({});
     const [formData_2, updateFormData_2] = useState({});
     const [uidGenerated,setUidGenerated]=useState(false);
@@ -16,7 +20,8 @@ const EmployeeForm=()=>{
     const[done,setDone]=useState(false);
     const [aadhaar, setAadhaar] = useState(null);
     const [photo, setPhoto] = useState(null);
-   
+
+  
 
   function handleAadhaar(e) {
     setAadhaar(e.target.files[0]);
@@ -56,7 +61,33 @@ const EmployeeForm=()=>{
       e.returnValue = ''
     }
 
+    const handleBlur = evt => {
+      const { name, value } = evt.target;
+      const { [name]: removedError, ...rest } = errors;
+      const error = validate[name](value);
+
+      setErrors({
+        ...rest,
+        ...(error && { [name]: touched[name] && error }),
+      });
+    };
+
+    const handleValid=(e)=>{
+      const { name, value } = e.target;
+      setValues({
+        ...values,
+        [name]: value,
+      });
+  
+      setTouched({
+        ...touched,
+        [name]: true,
+      });
+
+    }
+
     const handleChange_1 = (e) => {
+      setMess("");
         updateFormData_1({
           ...formData_1,
           [e.target.name]: e.target.value.trim()
@@ -64,6 +95,7 @@ const EmployeeForm=()=>{
     };
 
     const handleChange_2 = (e) => {
+        setMess("");
         updateFormData_2({
           ...formData_2,
           [e.target.name]: e.target.value.trim()
@@ -80,8 +112,13 @@ const EmployeeForm=()=>{
           const { user } = await auth.createUserWithEmailAndPassword(formData_1.email,formData_1.password);
          setEmployeeUid(user.uid);
          setUidGenerated(true);
+         setValues();
+         setErrors({})
+         setTouched({});
         } catch (error) {
-          console.log(error)
+          setErrors({})
+          setTouched({});
+          setMess(error.message)
         }
     }
 
@@ -96,7 +133,7 @@ const EmployeeForm=()=>{
         event.preventDefault()
 
         try {
-          await setDone(true);
+         setDone(true);
           let {Area,Society,...Employee}=formData_2;
           
           await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/AadharPhoto-${now()}`).put(aadhaar);
@@ -106,15 +143,18 @@ const EmployeeForm=()=>{
           let aa= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
        
           let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
-          let userRef=firebase.database().ref(`${formData_1.Type}Employee/${employeeUid}`);
+          let userRef=await firebase.database().ref(`${formData_1.Type}Employee/${employeeUid}`);
           userRef.update(EmployeeData_1);
           let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":""}
-          let userRef2=firebase.database().ref(`${formData_1.Type}Employees/${Area}/${Society}/${employeeUid}`);
+          let userRef2=await firebase.database().ref(`${formData_1.Type}Employees/${Area}/${Society}/${employeeUid}`);
           userRef2.update(EmployeeData_2);
           alert("successFully Added")
           history.push("/employee")
         } catch (error) {
-          console.log(error)
+          setErrors({})
+          setTouched({});
+          console.log(error.message)
+          setMess(error.message)
         }
     }
 
@@ -135,15 +175,34 @@ const EmployeeForm=()=>{
         )
     }
 
+    const loader={
+      width: "100vw",
+      fontSize: 33,
+      fontWeight: 700,
+      textAlign: "center",
+      padding: "12% 0",
+      position:"absolute",
+      background:"blue",
+      zIndex: 100
+    }
+
     return(
       <div>
-
+      
       {uidGenerated ?  
       <div>
           <Prompt
           when={!done}
           message={ `Changes you made may not be saved.`}
           />
+
+          {mess &&
+            <div className="alert alert-danger mt-3" role="alert">
+            Add new Employee operation failed!
+            <br></br>
+            Reason : {mess}
+            </div>}
+
           <div className="card">
           <div className="card-header">
             <h2>Employee Uid: {employeeUid}</h2>
@@ -155,18 +214,21 @@ const EmployeeForm=()=>{
 
               <div className="form-group-sm mb-3 mb-3">
               <label>Name</label>
-              <input  class="form-control"   name="Name" required onChange={handleChange_2} placeholder="Enter name"/>
+              <input  class="form-control"   name="Name" required onBlur={handleBlur} onChange={(e)=>{handleValid(e); handleChange_2(e)}} placeholder="Enter name"/>
+              <small style={{color:"red"}}>{touched.Name && errors.Name}</small>
+
               </div>
 
 
               <div className="form-group-sm mb-3 mb-3">
                 <label>Employee Address</label>
                 <input  class="form-control"   name="Address" required onChange={handleChange_2} placeholder="Enter Address"/>
-              </div>
+                </div>
 
               <div className="form-group-sm mb-3 mb-3">
                 <label>Mobile Number</label>
-                <input  class="form-control"  name="ContactNumber" required onChange={handleChange_2} placeholder="Enter Mobile Number"/>
+                <input  class="form-control"  name="ContactNumber" required onBlur={handleBlur} onChange={(e)=>{handleValid(e); handleChange_2(e)}} placeholder="Enter Mobile Number"/>
+                <small style={{color:"red"}}>{touched.ContactNumber && errors.ContactNumber}</small>
               </div>
               
               <div className="form-group-sm mb-3">
@@ -225,7 +287,14 @@ const EmployeeForm=()=>{
           
                 <div className="card-body">
                     <blockquote className="blockquote mb-0">
-                  
+                    
+                    {mess &&
+                      <div className="alert alert-danger mt-3" role="alert">
+                      Add new Employee operation failed!
+                      <br></br>
+                      Reason : {mess}
+                      </div>}
+
                     <form onSubmit={handleSubmit_1} > 
         
                   <div className="form-group-sm mb-3">
@@ -239,8 +308,9 @@ const EmployeeForm=()=>{
 
                   <div className="form-group-sm mb-3">
                     <label>Email</label>
-                    <input  class="form-control" name="email" required onChange={handleChange_1} placeholder="Enter email"/>
-                  </div>
+                    <input  class="form-control" name="email" required onBlur={handleBlur} onChange={(e)=>{handleValid(e); handleChange_1(e)}} placeholder="Enter email"/>
+                    <small style={{color:"red"}}>{touched.email && errors.email}</small>
+                    </div>
 
                     <div className="form-group-sm mb-3 mb-3">
                     <label>Password</label>
@@ -254,6 +324,7 @@ const EmployeeForm=()=>{
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
+                  
                     
                     </blockquote>
                 </div>

@@ -8,8 +8,6 @@ const AddressForm=()=>{
     const [areas, setAreas] = useState([])
     const [formData_1, updateFormData_1] = useState({});
     
-
-
     useEffect(() => {
         firebase.database().ref("address").on('value',(snapshot) => {
               const a = []
@@ -20,9 +18,7 @@ const AddressForm=()=>{
         },
         (err) =>{
               console.log(err)
-        })
-
-        
+        })  
     },[])
 
     const handleChange_1=(e)=>{
@@ -37,10 +33,9 @@ const AddressForm=()=>{
         let a=formData_1.newArea;
         let userRef=firebase.database().ref(`address/${a}`);
         userRef.set(`${now()}`) 
-        alert(`${a} added successfully`)
-        
-        
+        alert(`${a} added successfully`) 
     }
+
 
     const onclick_2=(e)=>{
         e.preventDefault()
@@ -78,7 +73,7 @@ const AddressForm=()=>{
                     <button class="btn btn-outline-secondary" onClick={onclick_1} type="button">Add</button>
                 </div>
                 </div>
-            
+                
             </blockquote>
             </div>
             </div> 
