@@ -9,7 +9,7 @@ const EmpItem=({Employees,address})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
    const [map, setMap] = useState({})
-
+    const addr=address.substring(0, address.length - 1);
    useEffect(()=>{
        reload()
    },[])
@@ -25,7 +25,7 @@ const EmpItem=({Employees,address})=>{
 
    const col=function(el){
     let co="Loading"
-    firebase.database().ref(`Employee/${el}/ContactNumber`).on('value',(snapshot) => {
+    firebase.database().ref(`${addr}/${el}/ContactNumber`).on('value',(snapshot) => {
         console.log("No-"+snapshot.val()+"-"+el)
         co=snapshot.val()})
     return co;
@@ -33,7 +33,7 @@ const EmpItem=({Employees,address})=>{
 
     return(
         <>
-            <Table bordered responsive >
+            <Table bordered responsive style={{marginBottom:0}}>
             <tbody>
             <tr style={{border:"solid black 2px"}} >
             <td style={{textAlign:"center",fontSize:14,fontWeight:600,color:"black"}} >Name</td>

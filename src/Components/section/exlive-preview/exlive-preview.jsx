@@ -7,22 +7,9 @@ import ExliveItem from './exlive-items/exlive-items.jsx'
 const ExlivePreview=({societies,area,carInArea})=>{
     const societiesName=Object.keys(societies);
     const Employees=Object.values(societies);
-    const [carInAr,setCarInAr]=useState([]);
     const [map,setMap] = useState({})
-
-    let carInAppArr=[]
-    const carInAppartment=(num)=>{
-        carInAppArr.push(num);
-    }
-    
+ 
     useEffect(()=>{
-      console.log("carInAppArea")
-      const a=carInAppArr.reduce((acc,ele)=>{
-        return acc=acc+ele
-      });
-      console.log(a);
-      carInArea(a)
-      setCarInAr(carInAppArr);
       reload()
     },[]);
 
@@ -36,19 +23,17 @@ const ExlivePreview=({societies,area,carInArea})=>{
 
   return(
       <>
-      <Table bordered >
-          <thead >
+      <Table bordered responsive style={{width:"200px",marginBottom:0}}>
+          <tbody >
           <tr >
               {societiesName.map((element,i)=>(
-                <th className="heading" style={{fontSize:15,color:'white',background:'black',textAlign:"center"}}>{element} ({carInAr[i]})</th>
+                <th className="heading" style={{fontSize:15,color:'white',background:'black',textAlign:"center"}}>{element}</th>
               ))}
           </tr>
-          </thead>
-          <tbody>
      
           {Employees.map((element,i)=>(
             
-           <td style={{padding: 0}}><ExliveItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} Employees={Employees[i]} /></td>
+           <td style={{padding: 0,margin:0}}><ExliveItem address={`${area}/${societiesName[i]}`} Employees={Employees[i]} /></td>
          
            ))} 
          

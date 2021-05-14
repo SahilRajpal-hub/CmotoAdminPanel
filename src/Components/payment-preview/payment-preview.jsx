@@ -25,7 +25,7 @@ const PaymentPreview=({societies,area,carInArea})=>{
 
   return(
       <>
-      <Table bordered >
+      <Table bordered responsive style={{width:"200px"}}>
           <thead >
           <tr >
               {societiesName.map((element,i)=>(

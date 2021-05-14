@@ -20,8 +20,6 @@ const Interiorlive = () => {
           const s = []
           snapshot.forEach((element) => {
             if (element.key !== 'clusters') {
-              // element.key -> area name
-              // element.val() -> societies Object
               a.push(element.key)
               s.push(element.val())
             }

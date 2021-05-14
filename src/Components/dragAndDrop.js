@@ -122,7 +122,7 @@ const DragAndDrop = ({ society }) => {
         Update Duties{' '}
       </button>
       <div
-        style={{ display: 'flex', justifyContent: 'center', height: '100%' }}
+        style={{overflow:'auto' ,display: 'flex', justifyContent: 'center', height: '100%' }}
       >
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columns, setColumns)}

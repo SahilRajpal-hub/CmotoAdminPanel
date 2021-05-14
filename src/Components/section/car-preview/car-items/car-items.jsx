@@ -13,7 +13,7 @@ const CarItem=({vehicles,address,carInAppartment})=>{
 
     return(
         <>
-            <Table bordered style={{maxWidth:"400px"}} >
+            <Table bordered style={{maxWidth:"200px",marginBottom:0}} >
             <tbody>
             {carnums.map((carnum,i)=>(
                 <tr className={`${cardetails[i].Payment} `} >

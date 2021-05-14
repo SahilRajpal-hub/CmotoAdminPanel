@@ -25,7 +25,6 @@ import PaymentScreen from './Screens/PaymentScreen'
 
 const App = (props) => {
   const [loading, setLoading] = useState(true)
-
   useEffect(() => {
     const { setCurrentUser } = props
     auth.onAuthStateChanged(async (userAuth) => {

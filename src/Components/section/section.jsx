@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table'
 
 
 const Section=({address,component2:Component2,area,societies})=>{
-  const [carInAr,setCarInAr]=useState("Loading");
+  const [carInAr,setCarInAr]=useState("");
 
  
     const carInArea=(num)=>{
@@ -12,20 +12,16 @@ const Section=({address,component2:Component2,area,societies})=>{
     }
   return(
     
-    <div class="card">
-    <div class="card-body">
-    <div className="Section">
-    <div class="d-flex justify-content-center">
-    <h1 className="heading" style={{fontSize:20,color:'black',fontWeight:"700"}}>{area}{carInAr?null:({carInAr})}</h1>
+   
+    <div className="Section mb-4">
+    <div class="d-flex justify-content-start" style={{borderBottom:"solid 2px"}}>
+    <h1 className="heading mb-2" style={{fontSize:20,color:'black',fontWeight:"700"}}>{area}{carInAr?`(${carInAr})`:null}</h1>
     </div>
-      <Table bordered responsive >
-            <tbody>
-            <Component2 area={area} address={address} carInArea={carInArea} societies={societies}/>
-            </tbody>
-      </Table>  
+    <div class="mt-1">
+    <Component2 area={area} address={address} carInArea={carInArea} societies={societies}/>   
     </div>
     </div>
-    </div>
+   
   )
 
 }

@@ -9,7 +9,8 @@ const Navbar = () => {
   const history=useHistory();
   const submitHandler = (e) => {
     e.preventDefault()
-    window.find(searchString)
+    const a=window.find(searchString)
+    console.log(a);
   }
   
   const logout=()=>{
@@ -55,10 +56,10 @@ const Navbar = () => {
             </form>
             {/* <!-- Navbar links --> */}
             <ul className='navbar-nav align-items-center  ml-md-auto '>
-              <li className='nav-item d-xl-none'>
+              <li className='nav-item '>
                 {/* <!-- Sidenav toggler --> */}
                 <div
-                  className='pr-3 sidenav-toggler sidenav-toggler-dark'
+                  className=' sidenav-toggler sidenav-toggler-dark'
                   data-action='sidenav-pin'
                   data-target='#sidenav-main'
                 >
