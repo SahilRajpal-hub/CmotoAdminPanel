@@ -56,7 +56,7 @@ const EmpInfo =({uid,address})=>{
               </blockquote>
             </div>
            
-          
+            <img className="Image ImageBox" style={{border:"double 5px"}} src={employee.photo} alt={`${employee.name}'s car`}/>
           </div>
         </div>
 
