@@ -31,10 +31,14 @@ const Info =({area,carnum})=>{
       infofetch() },[])
 
     const HandleActive=()=>{
-      const aa=vehicle.Payment==="Active"?"Inactive":"Active"
+      const aa=vehicle.Active?0:1
       firebase
           .database()
-          .ref(`cars/${area}/${carnum}/Payment`).set(aa);     
+          .ref(`cars/${area}/${carnum}/Active`).set(aa);    
+          
+          firebase
+          .database()
+          .ref(`Car Status/${carnum}/Active`).set(aa);   
     }
 
     return(
@@ -47,7 +51,7 @@ const Info =({area,carnum})=>{
           <div className="card-header heading" style={{color:'black'}}>
             <div class="d-flex justify-content-between">
             
-            <h1>{vehicle.number} <span style={{fontSize:14,fontWeight:600,cursor:"pointer",color:vehicle.Payment==="Active"?"green":"red"}} onClick={HandleActive}> ({vehicle.Payment})</span></h1>
+            <h1>{vehicle.number} <span style={{fontSize:14,fontWeight:600,cursor:"pointer",color:vehicle.Active?"green":"red"}} onClick={HandleActive}> ({vehicle.Active ? "Active":"Inactive"})</span></h1>
             <div>
             <Link  to={`carprofile?area=${area}&carnum=${carnum}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
             </div>

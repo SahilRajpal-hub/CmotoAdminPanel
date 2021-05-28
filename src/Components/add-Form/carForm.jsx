@@ -32,6 +32,7 @@ const CarForm=()=>{
               console.log(err)
         })
 
+
         window.addEventListener('beforeunload', alertUser)
         return () => {
           window.removeEventListener('beforeunload', alertUser)
@@ -118,8 +119,8 @@ const CarForm=()=>{
           await storage.ref(`cars/${Area}/${Society}/${formData.number}/Photo-${now()}`).put(photo);
           let bb= await storage.ref(`cars/${Area}/${Society}/${formData.number}`).child(`Photo-${now()}`).getDownloadURL()
 
-          let CarStatus={category:formData.category,Payment:formData.Payment,lastCleanedInterior:`${now()}`,lastPaidOn:`${now()}`,"Interior Cleaning status":"In waiting",status: "In waiting",InteriorDays_Left:4,doneBy:"",timeStamp: "0"}
-          let cars= {...carData,houseNumber:parseInt(houseNumber),address:`${houseNumber} ${formData.Area}/${formData.Society}`,photo:`${bb}`}
+          let CarStatus={category:formData.category,Payment:formData.Payment,Active:1,lastCleanedInterior:`${now()}`,lastPaidOn:`${now()}`,"Interior Cleaning status":"In waiting",status: "In waiting",InteriorDays_Left:4,doneBy:"",timeStamp: "0"}
+          let cars= {...carData,Active:1,houseNumber:parseInt(houseNumber),address:`${houseNumber} ${formData.Area}/${formData.Society}`,photo:`${bb}`}
           let userRef=firebase.database().ref(`cars/${Area}/${Society}/${formData.number}`);
           console.log(cars);
           userRef.update(cars)
@@ -141,7 +142,7 @@ const CarForm=()=>{
         when={!done}
         message={ `Changes you made may not be saved.`}
         />
-        {loading && <Loader/>}
+       {/* {loading && <Loader/>}*/}
         <div className="card">
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
@@ -226,14 +227,14 @@ const CarForm=()=>{
                  <input  className="form-control" name="model" required onChange={handleChange} placeholder="Enter model"/>
                 </div>
                
-                <div className="form-group-sm mb-3">
-                <label>Payment</label>
-                <select className="custom-select" required onChange={handleChange} name="Payment">
-                <option disabled selected value="">Choose...</option>
-                  <option  >Active</option>
-                  <option >Inactive</option>
-                </select>
-                 </div> 
+              <div className="form-group-sm mb-3">
+              <label>Payment</label>
+              <select className="custom-select" required onChange={handleChange} name="Payment">
+              <option disabled selected value="">Choose...</option>
+                <option  >Active</option>
+                <option >Inactive</option>
+              </select>
+              </div> 
 
                 {/* <div className="form-group-sm mb-3">
               <label>Free Trail</label>

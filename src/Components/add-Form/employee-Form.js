@@ -17,6 +17,8 @@ const EmployeeForm=()=>{
     const [employeeUid,setEmployeeUid]=useState("")
     const [societies, setSocieties] = useState([])
     const [areas, setAreas] = useState([])
+    const [Employee, setEmployee] = useState([])
+    const [EmployeeUID, setEmployeeUID] = useState([])
     const[done,setDone]=useState(false);
     const [aadhaar, setAadhaar] = useState(null);
     const [photo, setPhoto] = useState(null);
@@ -49,6 +51,21 @@ const EmployeeForm=()=>{
             console.log(err)
           }
         )
+
+        
+        firebase.database().ref("Employee").on('value',(snapshot) => {
+          const a = []
+          const b=[]
+          snapshot.forEach((element) => {           
+              a.push(element.key) 
+              b.push(element.val())
+          })
+          setEmployeeUID(a)
+          setEmployee(b);
+        },
+        (err) =>{
+              console.log(err)
+        })
 
         window.addEventListener('beforeunload', alertUser)
         return () => {
@@ -106,6 +123,7 @@ const EmployeeForm=()=>{
         event.preventDefault()
         try {
           if(formData_1.password!==formData_1.Conpassword){
+           
             alert("password and confirm password do not match")
             return;
           }
@@ -133,6 +151,10 @@ const EmployeeForm=()=>{
         event.preventDefault()
 
         try {
+          if(formData_2.ee1===formData_2.ee2){
+            alert('Employee 1 and 2 canot be same');
+            return;
+          }
          setDone(true);
           let {Area,Society,...Employee}=formData_2;
           
@@ -142,12 +164,13 @@ const EmployeeForm=()=>{
           await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/EmployeePhoto-${now()}`).put(photo);
           let aa= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
        
-          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
+          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`,linkedWith:`${formData_2.ee1},${formData_2.ee2}`}
           let userRef=await firebase.database().ref(`${formData_1.Type}Employee/${employeeUid}`);
           userRef.update(EmployeeData_1);
-          let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":""}
+          let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":"",linkedWith:`${formData_2.ee1},${formData_2.ee2}`}
           let userRef2=await firebase.database().ref(`${formData_1.Type}Employees/${Area}/${Society}/${employeeUid}`);
           userRef2.update(EmployeeData_2);
+         
           alert("successFully Added")
           history.push("/employee")
         } catch (error) {
@@ -238,10 +261,9 @@ const EmployeeForm=()=>{
                 {
                     areas.map((area,i)=>{
                       return (
-                      <option>{area}</option>
+                      <option >{area}</option>
                     )})
-                }
-                
+                }   
               </select>
               </div>
 
@@ -257,6 +279,39 @@ const EmployeeForm=()=>{
                   }
             </select>
             </div>
+
+            {formData_1.Type==="Interior" && 
+          
+          
+             <div>
+             <div className="form-group-sm mb-3">
+             <label>Exterior Employee 1</label>
+             <select className="custom-select" required name="ee1" onInput={society} onChange={handleChange_2}>
+               <option disabled selected value="">Choose...</option>
+               {
+                Employee.map((society,i)=>{
+                  return (
+                  <option value={EmployeeUID[i]}>{society.Name}</option>
+                )})
+               }   
+             </select>
+             </div>
+
+             <div className="form-group-sm mb-3">
+             <label>Exterior Employee 2</label>
+             <select className="custom-select" required name="ee2" onChange={handleChange_2}>
+                 <option disabled selected value="">Choose...</option>
+                 {
+                     Employee.map((society,i)=>{
+                       return (
+                       <option value={EmployeeUID[i]}>{society.Name}</option>
+                     )})
+                 }
+           </select>
+           </div>
+
+             </div>
+            }
 
             <div class="form-group-sm mb-3 ">
             <label >Aadhaar</label>
