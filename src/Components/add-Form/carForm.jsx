@@ -94,6 +94,7 @@ const CarForm=()=>{
 
     const handleChange = (e) => {
       const { name, value } = e.target;
+      console.log(name + " " + value)
       updateFormData({
         ...formData,
         [name]:value.trim()
@@ -198,7 +199,14 @@ const CarForm=()=>{
  
                 <div className="form-group-sm mb-3">
                  <label >Category</label>
-                 <input  class="form-control" name="category" required onChange={handleChange} placeholder="Enter category"/>
+                 <select className="custom-select" required onChange={handleChange} name="category">
+                <option disabled selected value="">Choose...</option>
+                  <option >Sedan</option>
+                  <option >HatchBack</option>
+                  <option >CompactSedan</option>
+                  <option >Luv</option>
+                  <option >Suv</option>
+                </select>
                 </div>
 
                 <div className="form-group-sm mb-3">
@@ -220,7 +228,7 @@ const CarForm=()=>{
                 </select>
                  </div> 
 
-                <div className="form-group-sm mb-3">
+                {/* <div className="form-group-sm mb-3">
               <label>Free Trail</label>
               <select className="custom-select" required onChange={handleChange} name="freeTrial" >
               <option disabled selected value="">Choose...</option>
@@ -228,16 +236,31 @@ const CarForm=()=>{
                 <option >Active</option>
                
               </select>
-            </div>
+            </div> */}
 
                 <div className="form-group-sm mb-3">
                  <label>Holiday</label>
-                 <input  class="form-control" name="holiday" required onChange={handleChange} placeholder="Enter Day"/>
+                 <select className="custom-select" required onChange={handleChange} name="holiday">
+                <option disabled selected value="">Choose...</option>
+                  <option  >Sunday</option>
+                  <option >Monday</option>
+                  <option >Tuesday</option>
+                  <option >Wednesday</option>
+                  <option >Thursday</option>
+                  <option >Friday</option>
+                  <option >Saturday</option>
+                </select>
               </div>
 
                 <div className="form-group-sm mb-3 mb-3">
                  <label>Leave Time</label>
-                 <input  class="form-control" name="leaveTime" required onChange={handleChange} placeholder="Enter Leave Time"/>
+                 <select className="custom-select" required onChange={handleChange} name="leaveTime">
+                <option disabled selected value="">Choose...</option>
+                  <option  >Before 6am</option>
+                  <option >6am-7am</option>
+                  <option >7am-8am</option>
+                  <option >after 9</option>
+                </select>
                 </div>
 
                 <div class="form-group-sm mb-3 ">
