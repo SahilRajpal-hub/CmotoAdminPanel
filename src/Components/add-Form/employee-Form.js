@@ -5,12 +5,14 @@ import firebase from '../../firebase/firebase.utils.js'
 import {Prompt} from 'react-router-dom'
 import validate from "../../utils/validation.js"
 import '../Loader.css'
+import Loader from "../Loader.js";
 
 const EmployeeForm=()=>{
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [touched, setTouched] = React.useState({});
   const  [mess, setMess] = React.useState("");
+  const  [loading, setLoading] = React.useState(false);
     const [formData_1, updateFormData_1] = useState({});
     const [formData_2, updateFormData_2] = useState({});
     const [uidGenerated,setUidGenerated]=useState(false);
@@ -210,6 +212,8 @@ const EmployeeForm=()=>{
     }
 
     return(
+      <>
+      {loading ? <Loader/> :
       <div>
       
       {uidGenerated ?  
@@ -387,7 +391,9 @@ const EmployeeForm=()=>{
             </div>
       }
 
-      </div>     
+      </div>  
+} 
+      </>  
     )
 }
 
