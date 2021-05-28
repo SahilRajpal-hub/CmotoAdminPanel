@@ -54,21 +54,6 @@ const EmployeeForm=()=>{
           }
         )
 
-        
-        firebase.database().ref("Employee").on('value',(snapshot) => {
-          const a = []
-          const b=[]
-          snapshot.forEach((element) => {           
-              a.push(element.key) 
-              b.push(element.val())
-          })
-          setEmployeeUID(a)
-          setEmployee(b);
-        },
-        (err) =>{
-              console.log(err)
-        })
-
         window.addEventListener('beforeunload', alertUser)
         return () => {
           window.removeEventListener('beforeunload', alertUser)
@@ -115,6 +100,7 @@ const EmployeeForm=()=>{
 
     const handleChange_2 = (e) => {
         setMess("");
+        
         updateFormData_2({
           ...formData_2,
           [e.target.name]: e.target.value.trim()
@@ -123,9 +109,10 @@ const EmployeeForm=()=>{
       
     const handleSubmit_1 = async (event) => {
         event.preventDefault()
+        setLoading(true);
         try {
           if(formData_1.password!==formData_1.Conpassword){
-           
+            setLoading(false)
             alert("password and confirm password do not match")
             return;
           }
@@ -135,7 +122,9 @@ const EmployeeForm=()=>{
          setValues();
          setErrors({})
          setTouched({});
+         setLoading(false);
         } catch (error) {
+          setLoading(false);
           setErrors({})
           setTouched({});
           setMess(error.message)
@@ -151,10 +140,11 @@ const EmployeeForm=()=>{
 
     const handleSubmit_2 = async (event) => {
         event.preventDefault()
-
+        setLoading(true);
         try {
-          if(formData_2.ee1===formData_2.ee2){
-            alert('Employee 1 and 2 canot be same');
+          if(formData_1.Type==="Interior" && formData_2.ee1===formData_2.ee2){
+            setLoading(false)
+            alert('Employee 1 and 2 cannot be same');
             return;
           }
          setDone(true);
@@ -172,10 +162,11 @@ const EmployeeForm=()=>{
           let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":"",linkedWith:`${formData_2.ee1},${formData_2.ee2}`}
           let userRef2=await firebase.database().ref(`${formData_1.Type}Employees/${Area}/${Society}/${employeeUid}`);
           userRef2.update(EmployeeData_2);
-         
+          setLoading(false)
           alert("successFully Added")
           history.push("/employee")
         } catch (error) {
+          setLoading(false)
           setErrors({})
           setTouched({});
           console.log(error.message)
@@ -200,16 +191,26 @@ const EmployeeForm=()=>{
         )
     }
 
-    const loader={
-      width: "100vw",
-      fontSize: 33,
-      fontWeight: 700,
-      textAlign: "center",
-      padding: "12% 0",
-      position:"absolute",
-      background:"blue",
-      zIndex: 100
-    }
+    const Em=(event)=>{
+      if(event.target.value==="Choose..."){
+          return;
+      }
+      
+      firebase.database().ref(`Employees/${formData_2.Area}/${event.target.value}`).on('value',(snapshot) => {
+        const a = []
+        const b=[]
+        snapshot.forEach((element) => {           
+            a.push(element.key) 
+            b.push(element.val())
+        })
+        setEmployeeUID(a)
+        setEmployee(b);
+      },
+      (err) =>{
+            console.log(err)
+      })
+  }
+    
 
     return(
       <>
@@ -260,9 +261,9 @@ const EmployeeForm=()=>{
               
               <div className="form-group-sm mb-3">
               <label>Area</label>
-              <select className="custom-select" required name="Area" onInput={society} onChange={handleChange_2}>
-                <option disabled selected value="">Choose...</option>
-                {
+              <select className="custom-select" required name="Area" onChange={(e)=>{handleChange_2(e);society(e)}}>
+              <option disabled selected value="">Choose...</option>
+               {
                     areas.map((area,i)=>{
                       return (
                       <option >{area}</option>
@@ -273,25 +274,24 @@ const EmployeeForm=()=>{
 
               <div className="form-group-sm mb-3">
               <label>Society</label>
-              <select className="custom-select" required name="Society" onChange={handleChange_2}>
-                  <option disabled selected value="">Choose...</option>
-                  {
+              <select className="custom-select" required name="Society" onInput={Em}  onChange={handleChange_2}>
+              <option selected value="">Choose...</option>
+                   {  
                       societies.map((society,i)=>{
                         return (
                         <option>{society}</option>
                       )})
-                  }
+                   }
             </select>
             </div>
 
-            {formData_1.Type==="Interior" && 
-          
+            { formData_1.Type==="Interior" && 
           
              <div>
              <div className="form-group-sm mb-3">
              <label>Exterior Employee 1</label>
-             <select className="custom-select" required name="ee1" onInput={society} onChange={handleChange_2}>
-               <option disabled selected value="">Choose...</option>
+             <select className="custom-select" required name="ee1"  onChange={handleChange_2}>
+             <option selected value="">Choose...</option>
                {
                 Employee.map((society,i)=>{
                   return (
@@ -304,7 +304,7 @@ const EmployeeForm=()=>{
              <div className="form-group-sm mb-3">
              <label>Exterior Employee 2</label>
              <select className="custom-select" required name="ee2" onChange={handleChange_2}>
-                 <option disabled selected value="">Choose...</option>
+                 <option selected value="">Choose...</option>
                  {
                      Employee.map((society,i)=>{
                        return (
