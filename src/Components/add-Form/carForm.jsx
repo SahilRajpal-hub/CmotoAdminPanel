@@ -4,12 +4,14 @@ import firebase from '../../firebase/firebase.utils.js'
 import {Prompt} from 'react-router-dom'
 import { storage } from "../../firebase/firebase.utils.js"
 import validate from "../../utils/validation.js"
+import Loader from '../Loader'
 
 const CarForm=()=>{
 
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [touched, setTouched] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
      
     const [societies, setSocieties] = useState([])
     const [areas, setAreas] = useState([])
@@ -109,6 +111,7 @@ const CarForm=()=>{
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
+        setLoading(true)
         try {
           setDone(true);
           let {Area,Society,houseNumber,...carData}=formData;
@@ -123,6 +126,7 @@ const CarForm=()=>{
           let userRef2=firebase.database().ref(`Car Status/${formData.number}`);
           userRef2.update(CarStatus)
           alert("successfully added")
+          setLoading(false)
           history.push("/") 
         } catch (error) {
           console.log(error)
@@ -130,11 +134,14 @@ const CarForm=()=>{
     }
 
     return(
+      <>
+      
       <div>
         <Prompt
         when={!done}
         message={ `Changes you made may not be saved.`}
         />
+        {loading && <Loader/>}
         <div className="card">
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
@@ -276,7 +283,7 @@ const CarForm=()=>{
         </div>
 
         </div>
-         
+        </>
     )
 }
 

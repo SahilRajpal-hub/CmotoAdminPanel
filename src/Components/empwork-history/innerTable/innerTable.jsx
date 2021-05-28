@@ -17,8 +17,7 @@ const InnerTable=({Prove})=>{
         return(
             <tr>
             <td style={{width:"30%"}}>{vehicleNum[i]}</td>
-            <td>{Images[i]['Image Url 0']?<a target="__blank__" href={Images[i]['Image Url 0']}>Go to image</a>:<div>No Image</div>}</td>
-            <td>{Images[i]['Image Url 1']?<a target="__blank__" href={Images[i]['Image Url 1']}>Go to image</a>:<div>No Image</div>}</td>
+            <td>{Images[i]['Image Url 4']?<a target="__blank__" href={Images[i]['Image Url 4']}>Go to image</a>:<div>No Image</div>}</td>
             </tr>
        )})
        }

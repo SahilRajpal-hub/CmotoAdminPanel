@@ -59,7 +59,7 @@ const WorkHistory = ({carnum})=>{
                             {Dat.map((element,i)=>(
                             <tr style={{fontSize:15,color:'black',textAlign:"center"}}>
                             <td>{element}</td>
-                            <td><a target="__blank__" href={Prove[i]['Photo Url 4'] ? Prove[i]['Photo Url 4'] : Prove[i]['Photo Url 0']}>Go to image</a></td>
+                            <td><a target="__blank__" href={Prove[i]['Photo Url']}>Go to image</a></td>
                             <td>{done(Prove[i].doneBy)===""?Prove[i].doneBy:done(Prove[i].doneBy)}</td>
                             </tr>
                             ))} 
