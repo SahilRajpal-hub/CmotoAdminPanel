@@ -82,7 +82,7 @@ const CarForm=()=>{
     };
 
     const handleValid=(e)=>{
-      const { name, value, type } = e.target;
+      const { name, value } = e.target;
       setValues({
         ...values,
         [name]: value,
@@ -142,7 +142,7 @@ const CarForm=()=>{
         when={!done}
         message={ `Changes you made may not be saved.`}
         />
-       {/* {loading && <Loader/>}*/}y
+       {loading ? <Loader/> :
         <div className="card">
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
@@ -283,7 +283,9 @@ const CarForm=()=>{
             </div>
         </div>
 
+         }
         </div>
+        
         </>
     )
 }
