@@ -51,7 +51,7 @@ const Info =({area,carnum})=>{
           <div className="card-header heading" style={{color:'black'}}>
             <div class="d-flex justify-content-between">
             
-            <h1>{vehicle.number} <span style={{fontSize:14,fontWeight:600,cursor:"pointer",color:vehicle.Active?"green":"red"}} onClick={HandleActive}> ({vehicle.Active ? "Active":"Inactive"})</span></h1>
+            <h1>{vehicle.number}  <button type="button" style={{marginLeft:"10px",marginBottom:"2px"}} onClick={HandleActive} className={`btn btn-sm btn-${vehicle.Active?"success":"danger"}`}>{vehicle.Active ? "Active":"Inactive"}</button></h1>
             <div>
             <Link  to={`carprofile?area=${area}&carnum=${carnum}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
             </div>

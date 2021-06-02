@@ -9,10 +9,14 @@ import React,{ useEffect, useState } from 'react'
 const ExliveItem=({Employees,address})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
-   
+   const [cn,setCn]=useState({});
+   const [map,setMap] = useState({})
 
    useEffect(()=>{
+       setCn(rr)
+       console.log(rr);
    },[])
+
 
    
 const gg =function (carnums){
@@ -36,23 +40,29 @@ const gl =function (carnums){
    return a+1;
 }
 
-
+let rr={};
 let yes=0;
 let no=0;
+
 const col=function(el){
     let co="red"
     firebase.database().ref(`Car Status/${el}/status`).on('value',(snapshot) => {
        if(snapshot.val()==="cleaned"){
            co="lightgreen"
            yes=yes+1;
-       }else if (snapshot.val()==="scanned"){
+       }else if(snapshot.val()==="scanned"){
            co="yellow"
+           no=no+1;
        }else if(snapshot.val()==="In waiting"){
            co="red"
            no=no+1;
        }
     })
     return co;
+}
+
+const cll=(yes,no,i)=>{
+    rr={...rr,[`Em${i}`]:[yes,no]}
 }
 
 
@@ -77,13 +87,13 @@ function getTodayDate() {
     today = yyyy + '-' + mm + '-' + dd
     return today
   }
-      
+    
     return(
         <>
             <Table bordered responsive style={{marginBottom:0}}>
             <thead >
             {EmployeesName.map((Name,i)=>(
-                    <td style={{textAlign:"center",fontSize:14,fontWeight:600,color:"black"}} >{Employeedetails[i].Name}</td>
+                    <td style={{textAlign:"center",fontSize:14,fontWeight:600,color:"black"}} >{Employeedetails[i].Name}  {cn?cn[`Em${i}`]:null}</td>
             ))} 
         </thead>
         <tbody>
@@ -95,10 +105,10 @@ function getTodayDate() {
                     {
                      gg(ele.Cluster).map((el,j)=>(
                         <h3 style={{textAlign:"center",marginBottom:0.75,padding:15,fontSize:14,color:"black",backgroundColor:col(el)}} ><Link style={{fontSize:14,color:'black',textAlign:"center"}} to={`/carinfo?area=${address}&carnum=${el}`}>{el}</Link></h3>  
-                     ))
+                        
+                    ))
                     }
-                    <div  className="d-flex bd-highlight"> <h3 class="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"lightgreen"}}>{yes}</h3><h3 class="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"red"}}>{no}</h3></div>
-                    {console.log("hhhhhh="+yes+" "+no)}
+                   <div onInput={cll(yes,no,i)}></div>
                     </td>
                )) 
             }     
