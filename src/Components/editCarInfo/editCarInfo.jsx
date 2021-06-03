@@ -2,7 +2,7 @@ import React ,{useEffect,useState}from "react";
 import firebase from '../../firebase/firebase.utils.js'
 import './editCarInfo.css'
 import Loader from '../Loader'
-import {Link} from 'react-router-dom'
+import {Link,useHistory} from 'react-router-dom'
 
 
 const EditCarInfo =({area,carnum})=>{
@@ -15,6 +15,7 @@ const EditCarInfo =({area,carnum})=>{
     const [model, setModel] = useState("");
     const [type, setType] = useState("");
     const [address, setAddress] = useState("");
+    const history = useHistory()
     
     const set={setType,setAddress,setColor,setMobileNo,setName,setModel,setVehiclenum}
    
@@ -22,18 +23,48 @@ const EditCarInfo =({area,carnum})=>{
       event.preventDefault()
       try {
         let userRef = firebase.database().ref(`cars/${area}/${carnum}`);
-        userRef.update({ 
-          address: address,
-          category: type,
-          color: color,
-          mobileNo: mobileNo,
-          model: model,
-          name: name,
-          number: vehiclenum
+        
+          await userRef.update({ 
+            address: address,
+            category: type,
+            color: color,
+            mobileNo: mobileNo,
+            model: model,
+            name: name,
+          });
+          console.log(vehiclenum + " " + carnum)
 
-        });
+          if(vehiclenum!==carnum){
+            console.log('changing number')
+          var ref = firebase.database().ref(`cars/${area}/`);
+          var ref2 = firebase.database().ref(`Car Status/`);
+          let oldTitle = carnum
+          let newTitle = vehiclenum
+          ref.child(oldTitle).once('value').then(function(snap) {
+            var data = snap.val();
+            console.log(data)
+            data.number = newTitle;
+            var update = {};
+            update[oldTitle] = null;
+            update[newTitle] = data;
+             ref.update(update);
+
+          });
+
+          ref2.child(oldTitle).once('value').then(function(snap) {
+            var data = snap.val();
+            console.log(data)
+            data.category = type
+            var update = {};
+            update[oldTitle] = null;
+            update[newTitle] = data;
+             ref2.update(update);
+
+          });
+        }
        
         alert('successfully updated')
+        history.push('/')
       } catch (error) {
         console.log(error)
       }
@@ -46,26 +77,34 @@ const EditCarInfo =({area,carnum})=>{
     }
 
     const infofetch= function(){
-         firebase
-          .database()
-          .ref(`cars/${area}/${carnum}`)
-          .on(
-            'value',
-            (snapshot) => {
-             setVehicle(snapshot.val())
-             setVehiclenum(snapshot.val().number)
-             setName(snapshot.val().name)
-             setMobileNo(snapshot.val().mobileNo)
-             setAddress(snapshot.val().address)
-             setColor(snapshot.val().color)
-             setType(snapshot.val().category)
-             setModel(snapshot.val().model)
-             setLoading(false)
-            },
-            (err) => {
-              console.log(err)
-            }
-          )
+      try{
+        firebase
+        .database()
+        .ref(`cars/${area}/${carnum}`)
+        .on(
+          'value',
+          (snapshot) => {
+           setVehicle(snapshot.val())
+           if(snapshot.val()!==null){
+            setVehiclenum(snapshot.val().number)
+            setName(snapshot.val().name)
+            setMobileNo(snapshot.val().mobileNo)
+            setAddress(snapshot.val().address)
+            setColor(snapshot.val().color)
+            setType(snapshot.val().category)
+            setModel(snapshot.val().model)
+           }
+           
+           setLoading(false)
+          },
+          (err) => {
+            console.log(err)
+          }
+        )
+      }catch(err){
+        console.log(err)
+      }
+        
       }
     
 
