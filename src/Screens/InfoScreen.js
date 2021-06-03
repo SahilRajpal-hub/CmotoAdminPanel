@@ -9,6 +9,7 @@ import WorkHistory from '../Components/work-history/work-history(Ex).jsx'
 import InteriorWork from '../Components/work-history/work-history(In).jsx'
 
 const InfoScreen = ({ match, location }) => {
+  
   const values = queryString.parse(location.search)
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
