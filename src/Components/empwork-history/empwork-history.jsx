@@ -1,12 +1,14 @@
 import React ,{useEffect,useState}from "react";
 import firebase from '../../firebase/firebase.utils.js'
 import InnerTable from "./innerTable/innerTable.jsx";
+import InnerTable2 from "./innerTable/innerTable2.jsx";
 
 
 
 const EmpWorkHistory = ({uid})=>{
     const [Dat, setDate] = useState([]);
     const [Prove, setProve] = useState([]);
+    const [missed, setMissed] = useState({});
     const [loading, setLoading] = useState(true)
 
     useEffect(() =>{
@@ -30,7 +32,15 @@ const EmpWorkHistory = ({uid})=>{
         (err) => {
           console.log(err)
         }
-      ) },[])
+      ) 
+
+      firebase.database().ref(`Employee/${uid}/Missed Car History`)
+      .on('value',(snap)=>{
+        setMissed(snap.val())
+      })
+    
+    
+    },[])
 
       return(
             <div>
@@ -50,6 +60,7 @@ const EmpWorkHistory = ({uid})=>{
                           <tr style={{fontSize:15,color:'black',textAlign:"center",border:"solid black 2px"}}>
                           <td>{element}</td>
                             <InnerTable Prove={Prove[i]}/>
+                            <InnerTable2 missed={missed[element]}/>
                           </tr>
                           ))} 
                     </tbody>

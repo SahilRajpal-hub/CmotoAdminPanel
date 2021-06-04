@@ -69,8 +69,6 @@ const link=function(el){
         if(snapshot.val()===null) return
        co = snapshot.val()['Work History'] ? snapshot.val()['Work History'][getTodayDate()] ? snapshot.val()['Work History'][getTodayDate()]['Photo Url'] : "" : ""
     })
-    if(co!=="")
-    return new URL('',co);
     return co
 }
 

@@ -1,10 +1,13 @@
 import React ,{useEffect,useState}from "react";
 import { Button } from "react-bootstrap";
 
-const InnerTable=({Prove})=>{
-    console.log(Prove)
-    const vehicleNum = Object.keys(Prove);
-    const Images=Object.values(Prove);
+const InnerTable=({missed})=>{
+    console.log(missed && missed.todaysCars)
+    const vehicleNum = missed ? missed.todaysCars.split(',').filter(function (el) {
+        return el != '';
+      }) : [];
+    console.log(vehicleNum)
+    const Images=[];
     const [show,setShow] = useState(false)
 
     const showHandler = () =>{
@@ -21,20 +24,18 @@ const InnerTable=({Prove})=>{
             return( 
                 <tr>
                     <td style={{width:"30%"}}>{vehicleNum[i]}</td>
-                   <td colspan="2">{Images[i]}</td>
                     </tr>
                     )
         }else{
             return(
                 <tr>
                 <td style={{width:"30%"}}>{vehicleNum[i]}</td>
-                <td>{Images[i]['Image Url 4']?<a target="__blank__" href={Images[i]['Image Url 4']}>Go to image</a>:<div>No Image</div>}</td>
                 </tr>
            )
         }
         })
        }
-       <Button onClick={(e)=>showHandler()} className='btn btn-sm' style={{margin:'7px'}}>{vehicleNum.length-1} Cars Cleaned</Button>
+       <Button onClick={(e)=>showHandler()} className='btn btn-sm' style={{margin:'7px'}}>{vehicleNum.length} Cars Not Cleaned</Button>
         </tbody>
         </table>
     )

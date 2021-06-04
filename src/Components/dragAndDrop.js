@@ -47,45 +47,52 @@ const DragAndDrop = ({ society }) => {
 
      firebase
       .database()
-      .ref(`cars/${society}`)
+      .ref(`cars/${society}`).orderByChild('Active').equalTo(1)
       .once('value', (snap) => {
         var cars = Object.keys(snap.val())
         tc = cars
-        console.log(cars.length)
-      })
+        // console.log(cars)
 
-    firebase
-      .database()
-      .ref(`Employees/${society}`)
-      .once('value', (snap) => {
-        console.log(snap.val())
+        firebase
+        .database()
+        .ref(`Employees/${society}`)
+        .once('value', (snap) => {
+          // console.log(snap.val())
+  
+          snap.forEach((element) => {
+            var cars = element
+              .val()
+              .Cluster.replace(/\s+/g, '')
+              .split(',')
+              .filter((el) => {
+                return el != ''
+              })
+            console.log(cars)
+            console.log(tc)
+            tc = tc.filter((el) => !cars.includes(el))
+            objects[[element.key]] = {
+              Name: element.val().Name,
+              items: cars,
+            }
 
-        snap.forEach((element) => {
-          var cars = element
-            .val()
-            .Cluster.replace(/\s+/g, '')
-            .split(',')
-            .filter((el) => {
-              return el != ''
-            })
-          console.log(cars)
-          console.log(tc)
-          tc = tc.filter((el) => !cars.includes(el))
-          objects[[element.key]] = {
-            Name: element.val().Name,
-            items: cars,
+            
+          })
+
+          objects['Total Cars'] = {
+            Name: 'Total Cars',
+            items: tc,
           }
+      
+          setColumns(objects)
+          setLoading(false)
+          console.log(objects)
         })
+
       })
 
-    objects['Total Cars'] = {
-      Name: 'Total Cars',
-      items: tc,
-    }
+   
 
-    setColumns(objects)
-    setLoading(false)
-    console.log(tc)
+    
   }, [])
 
   const [columns, setColumns] = useState({})
@@ -122,7 +129,7 @@ const DragAndDrop = ({ society }) => {
         Update Duties{' '}
       </button>
       <div
-        style={{overflow:'auto' ,display: 'flex', justifyContent: 'center', height: '100%' }}
+        style={{display: 'flex', justifyContent: 'center', height: '100%' }}
       >
         <DragDropContext
           onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
