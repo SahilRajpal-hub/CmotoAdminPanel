@@ -7,13 +7,17 @@ import EmpWorkHistory from '../Components/empwork-history/empwork-history'
 
 const EmpInfoScreen = ({ match, location }) => {
   const values = queryString.parse(location.search)
- 
+  const [sidebar,setSidebar] = useState(true)
+
+  const sidebarListener = () => {
+    setSidebar(!sidebar)
+  }
+
   return (
     <div>
-    <Sidebar />
+    {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
-      <Navbar />
-
+    <Navbar listener={sidebarListener} />
       <div className='container-fluid' style={{ paddingTop: 25 }}>
         <EmpInfo address={values.address} uid={values.uid} />
         <EmpWorkHistory uid={values.uid} />

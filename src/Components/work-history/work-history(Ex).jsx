@@ -1,4 +1,4 @@
-import React ,{useEffect,useState}from "react";
+import React ,{useState}from "react";
 import firebase from '../../firebase/firebase.utils.js'
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
@@ -26,6 +26,9 @@ const WorkHistory = ({carnum})=>{
      }
     
     const dateColor=({ activeStartDate, date, view }) => {
+      if(view!=="month"){
+        return ;
+      }
         const dat= `${date.getFullYear()}-${ String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
         let img=0;
         firebase
@@ -45,7 +48,6 @@ const WorkHistory = ({carnum})=>{
     className="clean full"
     onClickDay={showImage}
     onChange={onChange}
-    view='month'
     tileClassName={dateColor}
 
     value={value}

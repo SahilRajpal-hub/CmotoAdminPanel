@@ -64,11 +64,12 @@ const Navbar = ({listener}) => {
               <li className='nav-item '>
                 {/* <!-- Sidenav toggler --> */}
                 <div
-                  className=' sidenav-toggler sidenav-toggler-dark'
+                  className=' sidenav-toggler sidenav-toggler-dark '
                   data-action='sidenav-pin'
                   data-target='#sidenav-main'
+                  
                 >
-                  <div onClick={listener}>
+                  <div className='p-3' onClick={listener}>
                     <i className='sidenav-toggler-line'></i>
                     <i className='sidenav-toggler-line'></i>
                     <i className='sidenav-toggler-line'></i>

@@ -26,6 +26,9 @@ const WorkHistory = ({carnum})=>{
   }
  
  const yy=({ activeStartDate, date, view }) => {
+    if(view!=="month"){
+      return ;
+    }
      const dat= `${date.getFullYear()}-${ String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
      let img=0;
      firebase
@@ -44,7 +47,6 @@ const WorkHistory = ({carnum})=>{
  className="clean full"
  onClickDay={showImage}
  onChange={onChange}
- view='month'
  tileClassName={yy}
  value={value}
   />

@@ -9,6 +9,7 @@ import Sidebar from '../Components/Sidebar'
 
 const EmpScreen=()=>{
   
+  const [sidebar,setSidebar] = useState(true)
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
 
@@ -30,11 +31,17 @@ const EmpScreen=()=>{
     return ele ? 'black' : 'white'
   }
 
+ 
+
+  const sidebarListener = () => {
+    setSidebar(!sidebar)
+  }
+
   return (
     <div>
-    <Sidebar />
+    {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
-      <Navbar />
+    <Navbar listener={sidebarListener} />
       <div className="d-flex justify-content-end" style={{margin:"25px 30px 0 30px"}}><Link to="/addemployee">ADD NEW EMPLOYEE</Link></div>
       <div className='d-flex justify-content-between' style={{ paddingTop: 25 }}>
           <button

@@ -1,14 +1,20 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import Sidebar from '../Components/Sidebar'
 import Navbar from '../Components/Navbar'
 import AddressForm from '../Components/add-Form/address-form'
 
 const AddAddress = () => {
+  const [sidebar,setSidebar] = useState(true)
+
+  const sidebarListener = () => {
+    setSidebar(!sidebar)
+  }
+
   return (
     <div>
-    <Sidebar />
+    {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
-      <Navbar />
+    <Navbar listener={sidebarListener} />
       <div className='container-fluid' style={{ paddingTop: 25 }}>
       <AddressForm/>
       </div>

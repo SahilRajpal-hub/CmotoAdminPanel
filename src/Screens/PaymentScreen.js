@@ -7,7 +7,8 @@ import Sidebar from '../Components/Sidebar'
 const PaymentScreen = () => {
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
-
+  const [sidebar,setSidebar] = useState(true)
+  
   const toggleA = function () {
     setA(!a)
     setB(true)
@@ -26,11 +27,16 @@ const PaymentScreen = () => {
     return ele ? 'black' : 'white'
   }
 
+  
+  const sidebarListener = () => {
+    setSidebar(!sidebar)
+  }
+
   return (
     <div>
-      <Sidebar />
-      <div className='main-content' id='panel'>
-        <Navbar />
+    {sidebar && <Sidebar />}
+    <div className='main-content' id='panel'>
+    <Navbar listener={sidebarListener} />
         {/* <div
           className='d-flex justify-content-between'
           style={{ paddingTop: 25 }}

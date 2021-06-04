@@ -5,18 +5,15 @@ import Sidebar from '../Components/Sidebar'
 
 const Inlive=()=>{
   const [sidebar,setSidebar] = useState(true)
-
   const sidebarListener = () => {
-    console.log('sidebar')
     setSidebar(!sidebar)
   }
 
   return (
-  
-  <div>
-  <Sidebar />
+    <div>
+    {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
-      <Navbar />
+    <Navbar listener={sidebarListener} />
       <Interiorlive/>
     </div>
     </div>

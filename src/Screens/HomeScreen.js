@@ -12,7 +12,6 @@ const HomeScreen = () => {
   const [sidebar,setSidebar] = useState(true)
 
   const sidebarListener = () => {
-    console.log('sidebar')
     setSidebar(!sidebar)
   }
 

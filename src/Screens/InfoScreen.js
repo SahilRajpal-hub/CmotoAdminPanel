@@ -1,9 +1,8 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState} from 'react'
 import Navbar from '../Components/Navbar'
 import Sidebar from '../Components/Sidebar'
 import Info from '../Components/Info/info.jsx'
 import queryString from 'query-string'
-import firebase from '../firebase/firebase.utils.js'
 
 import WorkHistory from '../Components/work-history/work-history(Ex).jsx'
 import InteriorWork from '../Components/work-history/work-history(In).jsx'
@@ -13,6 +12,7 @@ const InfoScreen = ({ match, location }) => {
   const values = queryString.parse(location.search)
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
+  const [sidebar,setSidebar] = useState(true)
 
   const toggleA = function () {
     setA(!a)
@@ -32,11 +32,15 @@ const InfoScreen = ({ match, location }) => {
     return ele ? 'black' : 'white'
   }
 
+  const sidebarListener = () => {
+    setSidebar(!sidebar)
+  }
+
   return (
     <div>
-    <Sidebar />
+    {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
-      <Navbar />
+    <Navbar listener={sidebarListener} />
 
       <div className='container-fluid' style={{ paddingTop: 25 }}>
         <Info area={values.area} carnum={values.carnum} />

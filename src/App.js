@@ -1,13 +1,13 @@
 import HomeScreen from './Screens/HomeScreen'
 import Login from './Screens/LoginScreen'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { Fragment, useEffect, useState } from 'react'
 import InfoScreen from './Screens/InfoScreen.js'
 import Exlive from './Screens/ExliveScreen.js'
 import Inlive from './Screens/InliveScreen.js'
 import SignUp from './Screens/SignUp.js'
 import { auth } from './firebase/firebase.utils.js'
-import Check from './Screens/check.js'
+
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions.js'
 import PrivateRoutes from './Components/PrivateRoutes.js'
@@ -45,6 +45,7 @@ const App = ({ setCurrentUser }) => {
     })
   }, [setCurrentUser])
 
+   
   return (
     <BrowserRouter>
       <Fragment>
@@ -67,7 +68,6 @@ const App = ({ setCurrentUser }) => {
             <PrivateRoutes exact path='/addAddress' component={AddAddress} />
             <PrivateRoutes exact path='/payment' component={PaymentScreen} />
             <PrivateRoutes2 exact path='/signup' component={SignUp} />
-            <Route exact path='/check' render={() => <Check />} />
           </div>
         )}
       </Fragment>
