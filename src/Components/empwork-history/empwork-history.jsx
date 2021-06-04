@@ -46,13 +46,12 @@ const EmpWorkHistory = ({uid})=>{
                         </tr>
                     </thead>
                     <tbody>
-                        
-                            {Dat.map((element,i)=>(
-                            <tr style={{fontSize:15,color:'black',textAlign:"center",border:"solid black 2px"}}>
-                            <td>{element}</td>
-                              <InnerTable Prove={Prove[i]}/>
-                            </tr>
-                            ))} 
+                          {Dat.map((element,i)=>(
+                          <tr style={{fontSize:15,color:'black',textAlign:"center",border:"solid black 2px"}}>
+                          <td>{element}</td>
+                            <InnerTable Prove={Prove[i]}/>
+                          </tr>
+                          ))} 
                     </tbody>
                 </table>
                 </div>

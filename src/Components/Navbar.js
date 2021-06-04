@@ -3,7 +3,7 @@ import { auth } from "../firebase/firebase.utils.js"
 import { Link,useHistory } from 'react-router-dom'
 
 
-const Navbar = () => {
+const Navbar = ({listener}) => {
   const [searchString, setSearchString] = useState('')
 
   const history=useHistory();
@@ -12,11 +12,16 @@ const Navbar = () => {
     const a=window.find(searchString)
     console.log(a);
   }
+
+  useEffect(()=>{
+
+  },[])
   
   const logout=()=>{
     auth.signOut()
     history.push("/login")
   }
+  console.log(listener)
 
   return (
     <div className='main-content' id='panel'>
@@ -63,7 +68,7 @@ const Navbar = () => {
                   data-action='sidenav-pin'
                   data-target='#sidenav-main'
                 >
-                  <div className='sidenav-toggler-inner'>
+                  <div onClick={listener}>
                     <i className='sidenav-toggler-line'></i>
                     <i className='sidenav-toggler-line'></i>
                     <i className='sidenav-toggler-line'></i>
@@ -71,14 +76,7 @@ const Navbar = () => {
                 </div>
               </li>
               <li className='nav-item d-sm-none'>
-                <Link
-                  to='nav-link'
-                  href='#'
-                  data-action='search-show'
-                  data-target='#navbar-search-main'
-                >
-                  <i className='ni ni-zoom-split-in'></i>
-                </Link>
+                
               </li>
               <li className='nav-item dropdown'>
                 <div className='dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden'>

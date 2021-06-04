@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../Components/Sidebar'
 import Navbar from '../Components/Navbar'
 import Section from '../Components/section/section'
@@ -8,11 +8,20 @@ import { Link } from 'react-router-dom'
 
 
 const HomeScreen = () => {
+
+  const [sidebar,setSidebar] = useState(true)
+
+  const sidebarListener = () => {
+    console.log('sidebar')
+    setSidebar(!sidebar)
+  }
+
+
   return (
     <div>
-    <Sidebar />
+    {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
-      <Navbar />
+      <Navbar listener={sidebarListener} />
       <div className="d-flex justify-content-end" style={{margin:"25px 30px 0 30px"}}><Link to="/addcar">ADD NEW CAR</Link></div>
       <AreaSocieties address={"cars"} component={Section} component2={CarPreview}/>
     </div>

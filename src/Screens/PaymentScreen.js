@@ -31,7 +31,7 @@ const PaymentScreen = () => {
       <Sidebar />
       <div className='main-content' id='panel'>
         <Navbar />
-        <div
+        {/* <div
           className='d-flex justify-content-between'
           style={{ paddingTop: 25 }}
         >
@@ -42,7 +42,7 @@ const PaymentScreen = () => {
               background: color(a),
               color: textcolor(a),
             }}
-            onClick={toggleA}
+            // onClick={toggleA}
             className='container-fluid'
           >
             Today's Collection
@@ -59,12 +59,13 @@ const PaymentScreen = () => {
           >
             Payment Report
           </button>
-        </div>
+        </div> */}
+        <PaymentReport />
 
-        <div className='container-fluid' style={{ paddingTop: 25 }}>
+        {/* <div className='container-fluid' style={{ paddingTop: 25 }}>
           {a ? null : <TodaysCollection />}
           {b ? null : <PaymentReport />}
-        </div>
+        </div> */}
       </div>
     </div>
   )

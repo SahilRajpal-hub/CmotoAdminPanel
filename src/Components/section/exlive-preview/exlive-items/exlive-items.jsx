@@ -1,4 +1,3 @@
-
 import Table from 'react-bootstrap/Table'
 import { Link } from 'react-router-dom'
 import './exlive-items.styles.css'
@@ -9,12 +8,12 @@ import React,{ useEffect, useState } from 'react'
 const ExliveItem=({Employees,address})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
-   const [cn,setCn]=useState({});
-   const [map,setMap] = useState({})
+//    const [cn,setCn]=useState({});
+//    const [map,setMap] = useState({})
 
    useEffect(()=>{
-       setCn(rr)
-       console.log(rr);
+    //    setCn(rr)
+    //    console.log(rr);
    },[])
 
 
@@ -40,7 +39,7 @@ const gl =function (carnums){
    return a+1;
 }
 
-let rr={};
+// let rr={};
 let yes=0;
 let no=0;
 
@@ -61,19 +60,24 @@ const col=function(el){
     return co;
 }
 
-const cll=(yes,no,i)=>{
-    rr={...rr,[`Em${i}`]:[yes,no]}
-}
-
-
-const image=function(el){
-    let url=" "
-    firebase.database().ref(`Car Status/${el}/Work History/${getTodayDate()}/Photo Url 4`).on('value',(snapshot) => {
+const link=function(el){
+    let co=""
+    if(el===null) return
+    console.log(el)
+    firebase.database().ref(`Car Status/${el}/`).on('value',(snapshot) => {
         console.log(snapshot.val())
-        url = snapshot.val()
+        if(snapshot.val()===null) return
+       co = snapshot.val()['Work History'] ? snapshot.val()['Work History'][getTodayDate()] ? snapshot.val()['Work History'][getTodayDate()]['Photo Url'] : "" : ""
     })
-    return url;
+    if(co!=="")
+    return new URL('',co);
+    return co
 }
+
+// const cll=(yes,no,i)=>{
+//     rr={...rr,[`Em${i}`]:[yes,no]}
+//     console.log(cn)
+// }
 
 function getTodayDate() {
     var todayUs = new Date()
@@ -93,7 +97,10 @@ function getTodayDate() {
             <Table bordered responsive style={{marginBottom:0}}>
             <thead >
             {EmployeesName.map((Name,i)=>(
-                    <td style={{textAlign:"center",fontSize:14,fontWeight:600,color:"black"}} >{Employeedetails[i].Name}  {cn?cn[`Em${i}`]:null}</td>
+                    <td style={{textAlign:"center",fontSize:14,fontWeight:600,color:"black"}} ><div style={{listStyleType:'none'}}>
+                        <h2>{Employeedetails[i].Name}  </h2>
+                        {/* <h5><span style={{fontWeight:'bold',fontSize:'18px',color:'green'}}>{cn?cn[`Em${i}`]?cn[`Em${i}`][0]:null:null}</span> & <span style={{fontWeight:'bold',fontSize:'18px',color:'red'}} >{cn?cn[`Em${i}`]?cn[`Em${i}`][1]:null:null}</span></h5> */}
+                        </div></td>
             ))} 
         </thead>
         <tbody>
@@ -104,11 +111,13 @@ function getTodayDate() {
                     {no=0}</div>
                     {
                      gg(ele.Cluster).map((el,j)=>(
-                        <h3 style={{textAlign:"center",marginBottom:0.75,padding:15,fontSize:14,color:"black",backgroundColor:col(el)}} ><Link style={{fontSize:14,color:'black',textAlign:"center"}} to={`/carinfo?area=${address}&carnum=${el}`}>{el}</Link></h3>  
+                        <h3 style={{textAlign:"center",marginBottom:0.75,padding:15,fontSize:14,color:"black",backgroundColor:col(el)}} ><a style={{fontSize:14,color:'black',textAlign:"center"}} target="__blank__" href={`${link(el)}`} >{el}</a></h3>  
                         
                     ))
                     }
-                   <div onInput={cll(yes,no,i)}></div>
+                    <div  className="d-flex bd-highlight"> <h3 class="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"lightgreen"}}>{yes}</h3><h3 class="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"red"}}>{no}</h3></div>
+                    {console.log("hhhhhh="+yes+" "+no)}
+                   {/* <div onInput={cll(yes,no,i)}></div> */}
                     </td>
                )) 
             }     

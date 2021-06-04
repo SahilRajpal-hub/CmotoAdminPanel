@@ -28,10 +28,10 @@ const PaymentItem=({vehicles,address,carInAppartment})=>{
           firebase.database().ref('Car Status').child(carnum).once('value',(snapshot)=>{
             const car = snapshot.val();
             let lastMonthPaid = 0;
-            if(car['Payment History'])
+            if(car && car['Payment History'])
                 lastMonthPaid = Object.keys(car['Payment History']).length
             
-            if(car['Payment History']){
+            if(car && car['Payment History']){
                 if(car['Payment History'][getTodaysDate()]){
                    
                     document.getElementById(address+carnum).className='thisMonth'

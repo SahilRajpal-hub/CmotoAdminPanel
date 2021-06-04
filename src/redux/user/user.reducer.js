@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-    currentUser: null
+    currentUser: null,
+    sidebar : false
   };
   
   const userReducer = (state = INITIAL_STATE, action) => {
