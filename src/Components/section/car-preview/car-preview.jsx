@@ -22,21 +22,25 @@ const CarPreview=({societies,area,carInArea})=>{
     },[]);
 
   return(
-          <Table bordered responsive style={{width:"200px",marginBottom:0}}>
+      <Table bordered responsive style={{width:"200px",marginBottom:0}}>
+      
           <tbody>
           <tr >
               {societiesName.map((element,i)=>(
-                <td style={{width:"200px",fontSize:15,color:'white',background:'black',textAlign:"center"}}>{element} ({carInAr[i]})</td>
+                <td key={i} style={{width:"200px",fontSize:15,color:'white',background:'black',textAlign:"center"}}>{element} ({carInAr[i]})</td>
               ))} 
           </tr>
      
+          <tr >
           {vehicles.map((element,i)=>(
-           <td style={{padding: 0}}><CarItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} vehicles={vehicles[i]} /></td>
-          ))}  
+           <td key={i} style={{padding: 0}}><CarItem address={`${area}/${societiesName[i]}`} carInAppartment={carInAppartment} vehicles={vehicles[i]}/></td>
+          ))}
+          </tr>
+          
           </tbody>
+
       </Table>
   )
-
 }
 
 export default CarPreview;

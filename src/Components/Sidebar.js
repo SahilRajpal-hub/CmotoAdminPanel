@@ -32,7 +32,7 @@ const Sidebar = () => {
                   }
                   to='/'
                 >
-                  <i class='fas fa-car '></i>
+                  <i className='fas fa-car '></i>
                   <span className='nav-link-text'>Cars</span>
                 </Link>
               </li>
@@ -110,7 +110,7 @@ const Sidebar = () => {
                   }
                   to='/addAddress'
                 >
-                  <i class='fas fa-plus'></i>
+                  <i className='fas fa-plus'></i>
                   <span className='nav-link-text'>Add</span>
                 </Link>
               </li>

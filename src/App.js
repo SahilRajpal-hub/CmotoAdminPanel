@@ -23,32 +23,30 @@ import AddEmployee from './Screens/AddEmployee'
 import AddAddress from './Screens/AddAddress'
 import PaymentScreen from './Screens/PaymentScreen'
 
-const App = (props) => {
+
+//Its render only on start and refresh for one time because of setloading
+const App = ({ setCurrentUser }) => {
   const [loading, setLoading] = useState(true)
+  //here is only one state loading so on change of this loading setstate it will render .
+
   useEffect(() => {
-    const { setCurrentUser } = props
     auth.onAuthStateChanged(async (userAuth) => {
-      // console.log(userAuth);
       if (userAuth) {
-        console.error('Successfully Logged In')
         const current = {
           id: userAuth.uid,
-          name: userAuth.displayName,
           email: userAuth.email,
         }
         setCurrentUser(current)
         setLoading(false)
       } else {
-        console.error('Succesfully Logged out')
         setCurrentUser(userAuth)
         setLoading(false)
       }
     })
-  }, [])
+  }, [setCurrentUser])
 
   return (
     <BrowserRouter>
-   
       <Fragment>
         {loading ? (
           <Loader />
@@ -77,9 +75,9 @@ const App = (props) => {
   )
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => {
+  return ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-})
-
+})}
 
 export default connect(null, mapDispatchToProps)(App)

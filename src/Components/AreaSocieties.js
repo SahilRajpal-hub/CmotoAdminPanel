@@ -18,8 +18,6 @@ const AreaSocieties= ({component2:Component2,component:Component,address:Address
           const s = []
           snapshot.forEach((element) => {
             if (element.key !== 'clusters') {
-              // element.key -> area name
-              // element.val() -> societies Object
               a.push(element.key)
               s.push(element.val())
             }
@@ -32,20 +30,19 @@ const AreaSocieties= ({component2:Component2,component:Component,address:Address
           console.log(err)
         }
       )
-  }, [])
+  }, [Address])
 
+  //console.log("render") //4 times
   return (
-    <div className='main-content' id='panel'>
       <div className='container-fluid' style={{ paddingTop: 25 }}>
         {loading ? (
           <Loader />
         ) : (
           areas.map((area, i) => (
-            <Component area={area} societies={societies[i]} address={Address} component2={Component2} />
+            <Component area={area} key={area} societies={societies[i]} address={Address} component2={Component2} />
           ))
         )}
       </div>
-    </div>
   )
 }
 

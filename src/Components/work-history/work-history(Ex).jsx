@@ -12,7 +12,7 @@ const WorkHistory = ({carnum})=>{
         let imageURL=null;
         firebase
       .database()
-      .ref(`Car Status/DLDEMO1/Work History/${date}/Photo Url`)
+      .ref(`Car Status/${carnum}/Work History/${date}/Photo Url`)
       .on(
         'value',
         (snapshot) => {
@@ -30,7 +30,7 @@ const WorkHistory = ({carnum})=>{
         let img=0;
         firebase
       .database()
-      .ref(`Car Status/DLDEMO1/Work History/${dat}/Photo Url`)
+      .ref(`Car Status/${carnum}/Work History/${dat}/Photo Url`)
       .on(
         'value',
         (snapshot) => {
