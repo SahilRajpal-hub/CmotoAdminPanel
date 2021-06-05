@@ -35,7 +35,7 @@ const InnerTable=({missed})=>{
         }
         })
        }
-       <Button onClick={(e)=>showHandler()} className='btn btn-sm' style={{margin:'7px'}}>{vehicleNum.length} Cars Not Cleaned</Button>
+       <Button onClick={(e)=>showHandler()} className='btn btn-sm btn-danger' style={{margin:'7px'}}>{vehicleNum.length} Cars Not Cleaned</Button>
         </tbody>
         </table>
     )

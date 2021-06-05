@@ -32,13 +32,45 @@ const Info =({area,carnum})=>{
 
     const HandleActive=()=>{
       const aa=vehicle.Active?0:1
+      console.log(vehicle)
       firebase
           .database()
           .ref(`cars/${area}/${carnum}/Active`).set(aa);    
           
           firebase
           .database()
-          .ref(`Car Status/${carnum}/Active`).set(aa);   
+          .ref(`Car Status/${carnum}/Active`).set(aa); 
+          
+        setActiveCars(aa)
+          
+      
+    }
+
+    const setActiveCars = async (aa) => {
+      var empId = ''
+      var newCar = ''
+      await firebase.database().ref(`Car Status/${carnum}/doneBy`).once('value',(snap)=>{
+        if(snap.val()===null && snap.val().toString()!=='' && snap.val().toString()!==' '){
+
+        }else{
+          empId = snap.val().toString()
+        }
+      })
+      await firebase.database().ref(`Employee/${empId}/Cluster`).once('value',(snapshot)=>{
+        
+        if(aa===0)
+        newCar = snapshot.val().toString().replace(carnum,'').split(',').filter(function (el) {
+          return el != '';
+        }).join(',')
+        else 
+        newCar = snapshot.val().toString() + "," + carnum
+        
+        // setActiveCars(snap.val().toString(),newCar)
+        console.log(newCar)
+    })
+    firebase.database().ref(`Employee/${empId}/Cluster`).set(newCar)
+    firebase.database().ref(`Employees/${area}/${empId}/Cluster`).set(newCar)
+
     }
 
     return(
@@ -51,7 +83,7 @@ const Info =({area,carnum})=>{
           <div className="card-header heading" style={{color:'black'}}>
             <div class="d-flex justify-content-between">
             
-            <h1>{vehicle.number}  <button type="button" style={{marginLeft:"10px",marginBottom:"2px"}} onClick={HandleActive} className={`btn btn-sm btn-${vehicle.Active?"success":"danger"}`}>{vehicle.Active ? "Active":"Inactive"}</button></h1>
+            <h1>{vehicle.number}  <button type="button" style={{marginLeft:"10px",marginBottom:"2px"}} onClick={() => HandleActive()} className={`btn btn-sm btn-${vehicle.Active?"success":"danger"}`}>{vehicle.Active ? "Active":"Inactive"}</button></h1>
             <div>
             <Link  to={`carprofile?area=${area}&carnum=${carnum}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
             </div>

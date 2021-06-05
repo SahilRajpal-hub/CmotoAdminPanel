@@ -20,7 +20,7 @@ const EmpInfoScreen = ({ match, location }) => {
     <Navbar listener={sidebarListener} />
       <div className='container-fluid' style={{ paddingTop: 25 }}>
         <EmpInfo address={values.address} uid={values.uid} />
-        <EmpWorkHistory uid={values.uid} />
+        <EmpWorkHistory uid={values.uid}  />
       </div>
      
     </div>

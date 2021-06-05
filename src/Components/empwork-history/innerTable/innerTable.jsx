@@ -34,7 +34,7 @@ const InnerTable=({Prove})=>{
         }
         })
        }
-       <Button onClick={(e)=>showHandler()} className='btn btn-sm' style={{margin:'7px'}}>{vehicleNum.length-1} Cars Cleaned</Button>
+       <Button onClick={(e)=>showHandler()} className='btn btn-sm btn-success' style={{margin:'7px'}}>{vehicleNum.length-1} Cars Cleaned</Button>
         </tbody>
         </table>
     )
