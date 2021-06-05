@@ -148,7 +148,7 @@ const EmployeeForm=()=>{
             return;
           }
          setDone(true);
-          let {Area,Society,...Employee}=formData_2;
+          let {Area,Society,ee1,ee2,...Employee}=formData_2;
           
           await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/AadharPhoto-${now()}`).put(aadhaar);
           let bb= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`AadharPhoto-${now()}`).getDownloadURL()

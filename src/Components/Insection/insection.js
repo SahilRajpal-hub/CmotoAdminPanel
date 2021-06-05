@@ -68,7 +68,7 @@ const Insection = ({ workersInfo }) => {
         <table>
           <tbody>
             {workersInfo.map((workerInfo, i) => (
-              <td>
+              <td style={{verticalAlign:"top"}}>
                 <h1
                   style={{
                     textAlign: 'center',
@@ -85,6 +85,11 @@ const Insection = ({ workersInfo }) => {
                 <h2 style={weekday}>Monday</h2>
                 <div>
                   {workerInfo.mondayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
                     return (
                       <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
                         {el}
@@ -95,6 +100,11 @@ const Insection = ({ workersInfo }) => {
                 <h2 style={weekday}>Tuesday</h2>
                 <div>
                   {workerInfo.tuesdayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
                     return (
                       <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
                         <a target='__blank__' href={imageLink(el)}>
@@ -107,6 +117,11 @@ const Insection = ({ workersInfo }) => {
                 <h2 style={weekday}>Wednesday</h2>
                 <div>
                   {workerInfo.wednesdayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
                     return (
                       <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
                         {el}
@@ -117,6 +132,11 @@ const Insection = ({ workersInfo }) => {
                 <h2 style={weekday}>Thursday</h2>
                 <div>
                   {workerInfo.thursdayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
                     return (
                       <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
                         {el}
@@ -127,6 +147,11 @@ const Insection = ({ workersInfo }) => {
                 <h2 style={weekday}>Friday</h2>
                 <div>
                   {workerInfo.fridayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
                     return (
                       <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
                         {el}
