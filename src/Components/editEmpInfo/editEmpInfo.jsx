@@ -5,7 +5,7 @@ import Loader from '../Loader'
 import {Link} from 'react-router-dom'
 
 
-const EditEmpInfo =({uid})=>{
+const EditEmpInfo =({uid,addres})=>{
     const [loading, setLoading] = useState(true)
     const [name, setName] = useState("");
     const [mobileNo, setMobileNo] = useState("");
@@ -18,7 +18,7 @@ const EditEmpInfo =({uid})=>{
     const handleSubmit = async (event) => {
       event.preventDefault()
       try {
-        let userRef = firebase.database().ref(`Employee/${uid}`);
+        let userRef = firebase.database().ref(`${addres}/${uid}`);
         userRef.update({ 
           Address: address,
           status: status,
@@ -30,7 +30,7 @@ const EditEmpInfo =({uid})=>{
 
         const a=workAddress.split('/');
         
-        let userRef2=firebase.database().ref(`Employees/${a[0]}/${a[1]}/${uid}`);
+        let userRef2=firebase.database().ref(`${addres}s/${a[0]}/${a[1]}/${uid}`);
         userRef2.update({
           Name:name,
           status:status
@@ -44,14 +44,13 @@ const EditEmpInfo =({uid})=>{
 
     const handleChange = (event) => {
       const { value, name } = event.target
-      console.log(name+"=="+value);
       set[`${name}`](value);
     }
 
     const infofetch= function(){
          firebase
           .database()
-          .ref(`Employee/${uid}`)
+          .ref(`${addres}/${uid}`)
           .on(
             'value',
             (snapshot) => {

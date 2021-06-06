@@ -156,10 +156,16 @@ const EmployeeForm=()=>{
           await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/EmployeePhoto-${now()}`).put(photo);
           let aa= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
        
-          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`,linkedWith:`${formData_2.ee1},${formData_2.ee2}`,mondayCars:``,tuesdayCars:``,wednesdayCars:``,thursdayCars:``,fridayCars:``}
+          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
+          if(formData_1.Type==="Interior"){
+            EmployeeData_1={...EmployeeData_1,linkedWith:`${formData_2.ee1},${formData_2.ee2}`,mondayCars:``,tuesdayCars:``,wednesdayCars:``,thursdayCars:``,fridayCars:``}
+          }
           let userRef= firebase.database().ref(`${formData_1.Type}Employee/${employeeUid}`);
           userRef.update(EmployeeData_1);
-          let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":"",linkedWith:`${formData_2.ee1},${formData_2.ee2}`,mondayCars:``,tuesdayCars:``,wednesdayCars:``,thursdayCars:``,fridayCars:``}
+          let EmployeeData_2={Cluster:"",Name:Employee.Name,email:`${formData_1.email}`,ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on":""}
+          if(formData_1.Type==="Interior"){
+            EmployeeData_2={...EmployeeData_2,linkedWith:`${formData_2.ee1},${formData_2.ee2}`,mondayCars:``,tuesdayCars:``,wednesdayCars:``,thursdayCars:``,fridayCars:``}
+          }
           let userRef2= firebase.database().ref(`${formData_1.Type}Employees/${Area}/${Society}/${employeeUid}`);
           userRef2.update(EmployeeData_2);
           setLoading(false)

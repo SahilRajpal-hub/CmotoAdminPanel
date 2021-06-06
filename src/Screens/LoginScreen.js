@@ -11,8 +11,6 @@ const LoginScreen = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
-      // console.log('email--'+email)
-      // console.log('password--'+password)
       await auth.signInWithEmailAndPassword(email, password)
       setEmail('')
       setPassword('')

@@ -63,9 +63,7 @@ const col=function(el){
 const link=function(el){
     let co=""
     if(el===null) return
-    console.log(el)
     firebase.database().ref(`Car Status/${el}/`).on('value',(snapshot) => {
-        console.log(snapshot.val())
         if(snapshot.val()===null) return
        co = snapshot.val()['Work History'] ? snapshot.val()['Work History'][getTodayDate()] ? snapshot.val()['Work History'][getTodayDate()]['Photo Url'] : "" : ""
     })
@@ -114,7 +112,6 @@ function getTodayDate() {
                     ))
                     }
                     <div  className="d-flex bd-highlight"> <h3 class="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"lightgreen"}}>{yes}</h3><h3 class="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"red"}}>{no}</h3></div>
-                    {console.log("hhhhhh="+yes+" "+no)}
                    {/* <div onInput={cll(yes,no,i)}></div> */}
                     </td>
                )) 

@@ -29,7 +29,6 @@ const AddressForm=()=>{
     }
 
     const onclick_1=()=>{
-        console.log(formData_1.newArea)
         let a=formData_1.newArea;
         let userRef=firebase.database().ref(`address/${a}`);
         userRef.set(`${now()}`) 

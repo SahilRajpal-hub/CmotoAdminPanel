@@ -1,5 +1,5 @@
 import firebase from '../../firebase/firebase.utils.js'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 const Insection = ({ workersInfo }) => {
   const weekday = {
@@ -24,8 +24,6 @@ const Insection = ({ workersInfo }) => {
       .database()
       .ref(`Car Status/${el}/Interior Cleaning status`)
       .on('value', (snapshot) => {
-        console.log(snapshot.val())
-        console.log('color changed with ' + snapshot.val())
         if (snapshot.val() === 'cleaned') {
           co = 'lightgreen'
         } else if (snapshot.val() === 'scanned') {
@@ -43,7 +41,6 @@ const Insection = ({ workersInfo }) => {
       .database()
       .ref(`Car Status/${el}/Interior Work History/${getTodayDate()}`)
       .on('value', (snapshot) => {
-        console.log(snapshot.val())
         link = snapshot.val()
       })
     return link

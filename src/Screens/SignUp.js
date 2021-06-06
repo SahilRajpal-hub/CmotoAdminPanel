@@ -11,7 +11,6 @@ const LoginScreen = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // console.log(name+"/"+email+"/"+password+"/"+conPassword)
     if (password !== conPassword) {
       alert("passwords don't match");
       return;
@@ -19,7 +18,6 @@ const LoginScreen = () => {
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email,password);
-    
       console.log(user)
       setName('');
       setEmail('');

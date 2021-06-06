@@ -32,17 +32,14 @@ const EditCarInfo =({area,carnum})=>{
             model: model,
             name: name,
           });
-          console.log(vehiclenum + " " + carnum)
 
-          if(vehiclenum!==carnum){
-            console.log('changing number')
+          if(vehiclenum!==carnum){ 
           var ref = firebase.database().ref(`cars/${area}/`);
           var ref2 = firebase.database().ref(`Car Status/`);
           let oldTitle = carnum
           let newTitle = vehiclenum
           ref.child(oldTitle).once('value').then(function(snap) {
             var data = snap.val();
-            console.log(data)
             data.number = newTitle;
             var update = {};
             update[oldTitle] = null;
@@ -53,7 +50,6 @@ const EditCarInfo =({area,carnum})=>{
 
           ref2.child(oldTitle).once('value').then(function(snap) {
             var data = snap.val();
-            console.log(data)
             data.category = type
             var update = {};
             update[oldTitle] = null;
@@ -72,7 +68,6 @@ const EditCarInfo =({area,carnum})=>{
 
     const handleChange = (event) => {
       const { value, name } = event.target
-      console.log(name+"=="+value);
       set[`${name}`](value);
     }
 

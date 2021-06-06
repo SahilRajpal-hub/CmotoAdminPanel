@@ -19,7 +19,7 @@ const EmpEditScreen = ({ location }) => {
     <div className='main-content' id='panel'>
     <Navbar listener={sidebarListener} />
       <div className='container-fluid' style={{ paddingTop: 25 }}>
-        <EditEmpInfo uid={values.uid} />
+        <EditEmpInfo uid={values.uid} addres={values.address} />
       </div>
       
     </div>

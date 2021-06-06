@@ -14,11 +14,9 @@ const PaymentPreview=({societies,area,carInArea})=>{
     }
     
     useEffect(()=>{
-      console.log("carInAppArea")
       const a=carInAppArr.reduce((acc,ele)=>{
         return acc=acc+ele
       });
-      console.log(a);
       carInArea(a)
       setCarInAr(carInAppArr);
     },[]);

@@ -7,18 +7,18 @@ import { Link} from 'react-router-dom'
 
 const EmpInfo =({uid,address})=>{
     
-  address = address.slice(0, address.length - 1);
     const [employee, setEmployee] = useState({});
     const [loading, setLoading] = useState(true)
 
     const infofetch= function(){
+    
          firebase
           .database()
           .ref(`${address}/${uid}`)
           .on(
             'value',
             (snapshot) => {
-             setEmployee(snapshot.val())
+             setEmployee(snapshot.val()) 
              setLoading(false)
             },
             (err) => {
@@ -41,7 +41,7 @@ const EmpInfo =({uid,address})=>{
             <h1>{employee.Name}</h1>
             
             <div>
-            <Link  to={`empProfile?uid=${uid}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
+            <Link  to={`empProfile?uid=${uid}&address=${address}`} style={{fontSize:14,marginBottom:0,textDecorationLine:"underline"}}>Edit</Link>
             </div>
             </div>
           </div>
@@ -52,7 +52,6 @@ const EmpInfo =({uid,address})=>{
               <h3>Employee Number :  <span className="details"> {employee.ContactNumber}</span></h3>
               <h3>Status :  <span className="details"> {employee.status}</span></h3>
               <h3>Address :  <span className="details">{employee.Address} </span></h3>
-
               </blockquote>
             </div>
            

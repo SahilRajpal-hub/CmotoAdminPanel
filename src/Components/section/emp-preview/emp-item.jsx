@@ -26,7 +26,6 @@ const EmpItem=({Employees,address})=>{
    const col=function(el){
     let co="Loading"
     firebase.database().ref(`${addr}/${el}/ContactNumber`).on('value',(snapshot) => {
-        console.log("No-"+snapshot.val()+"-"+el)
         co=snapshot.val()})
     return co;
    }

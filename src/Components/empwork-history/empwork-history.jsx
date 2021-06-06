@@ -5,16 +5,15 @@ import InnerTable2 from "./innerTable/innerTable2.jsx";
 
 
 
-const EmpWorkHistory = ({uid})=>{
+const EmpWorkHistory = ({address,uid})=>{
     const [Dat, setDate] = useState([]);
     const [Prove, setProve] = useState([]);
     const [missed, setMissed] = useState({});
     const [loading, setLoading] = useState(true)
-
     useEffect(() =>{
       firebase
       .database()
-      .ref(`Employee/${uid}/Work History`)
+      .ref(`${address}/${uid}/Work History`)
       .on(
         'value',
         (snapshot) => {
@@ -23,7 +22,6 @@ const EmpWorkHistory = ({uid})=>{
         snapshot.forEach((element) => {
             a.push(element.key)
             s.push(element.val())
-            console.log(element.val())
       })
       setDate(a)
       setProve(s)
@@ -34,9 +32,11 @@ const EmpWorkHistory = ({uid})=>{
         }
       ) 
 
-      firebase.database().ref(`Employee/${uid}/Missed Car History`)
+      firebase.database().ref(`${address}/${uid}/Missed Car History`)
       .on('value',(snap)=>{
+        if(snap.val()){
         setMissed(snap.val())
+        }
       })
     
     

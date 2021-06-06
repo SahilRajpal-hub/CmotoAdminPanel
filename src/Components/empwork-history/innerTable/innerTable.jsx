@@ -2,7 +2,6 @@ import React ,{useEffect,useState}from "react";
 import { Button } from "react-bootstrap";
 
 const InnerTable=({Prove})=>{
-    console.log(Prove)
     const vehicleNum = Object.keys(Prove);
     const Images=Object.values(Prove);
     const [show,setShow] = useState(false)
@@ -11,8 +10,6 @@ const InnerTable=({Prove})=>{
         setShow(!show)
     }
 
-    // console.log(vehicleNum);
-    // console.log(Images[0]['Image Url 0'])
     return (
         <table className="table table-sm table-bordered table-responsive-xl">
         <tbody>

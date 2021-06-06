@@ -2,11 +2,11 @@ import React ,{useEffect,useState}from "react";
 import { Button } from "react-bootstrap";
 
 const InnerTable=({missed})=>{
-    console.log(missed && missed.todaysCars)
+    // console.log(missed)
     const vehicleNum = missed ? missed.todaysCars.split(',').filter(function (el) {
         return el != '';
       }) : [];
-    console.log(vehicleNum)
+    // console.log(vehicleNum)
     const Images=[];
     const [show,setShow] = useState(false)
 

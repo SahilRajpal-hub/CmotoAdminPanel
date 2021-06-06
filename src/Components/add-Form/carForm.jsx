@@ -97,7 +97,6 @@ const CarForm=()=>{
 
     const handleChange = (e) => {
       const { name, value } = e.target;
-      console.log(name + " " + value)
       updateFormData({
         ...formData,
         [name]:value.trim()
@@ -122,7 +121,6 @@ const CarForm=()=>{
           let CarStatus={category:formData.category,Payment:formData.Payment,Active:1,lastCleanedInterior:`${now()}`,lastPaidOn:`${now()}`,"Interior Cleaning status":"In waiting",status: "In waiting",InteriorDays_Left:4,doneBy:"",timeStamp: "0"}
           let cars= {...carData,Active:1,houseNumber:parseInt(houseNumber),address:`${houseNumber} ${formData.Area}/${formData.Society}`,photo:`${bb}`}
           let userRef=firebase.database().ref(`cars/${Area}/${Society}/${formData.number}`);
-          console.log(cars);
           userRef.update(cars)
           let userRef2=firebase.database().ref(`Car Status/${formData.number}`);
           userRef2.update(CarStatus)

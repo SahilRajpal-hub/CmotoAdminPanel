@@ -12,15 +12,16 @@ const EmpInfoScreen = ({ match, location }) => {
   const sidebarListener = () => {
     setSidebar(!sidebar)
   }
-
+  let address=values.address;
+  address = address.slice(0,address.length - 1);
   return (
     <div>
     {sidebar && <Sidebar />}
     <div className='main-content' id='panel'>
     <Navbar listener={sidebarListener} />
       <div className='container-fluid' style={{ paddingTop: 25 }}>
-        <EmpInfo address={values.address} uid={values.uid} />
-        <EmpWorkHistory uid={values.uid}  />
+        <EmpInfo address={address} uid={values.uid} />
+        <EmpWorkHistory address={address} uid={values.uid}  />
       </div>
      
     </div>

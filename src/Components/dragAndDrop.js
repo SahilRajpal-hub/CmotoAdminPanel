@@ -67,8 +67,8 @@ const DragAndDrop = ({ society }) => {
               .filter((el) => {
                 return el != ''
               })
-            console.log(cars)
-            console.log(tc)
+            // console.log(cars)
+            // console.log(tc)
             tc = tc.filter((el) => !cars.includes(el))
             objects[[element.key]] = {
               Name: element.val().Name,
@@ -85,7 +85,7 @@ const DragAndDrop = ({ society }) => {
       
           setColumns(objects)
           setLoading(false)
-          console.log(objects)
+          // console.log(objects)
         })
 
       })
@@ -97,13 +97,13 @@ const DragAndDrop = ({ society }) => {
 
   const [columns, setColumns] = useState({})
   const [loading, setLoading] = useState(true)
-  console.log(columns)
+  // console.log(columns)
 
   const submitHandler = () => {
     for (let employee in columns) {
       if (employee !== 'Total Cars') {
-        console.log(columns[employee].items.join(','))
-        console.log(employee)
+        // console.log(columns[employee].items.join(','))
+        // console.log(employee)
         var ref = firebase.database().ref('Employee/' + employee)
         ref.update({ todaysCars: columns[employee].items.join(',') })
         ref.update({ Cluster: columns[employee].items.join(',') })

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { auth } from "../firebase/firebase.utils.js"
 import { Link,useHistory } from 'react-router-dom'
+import { connect } from 'react-redux';
 
-
-const Navbar = ({listener}) => {
+const Navbar = ({listener,user}) => {
   const [searchString, setSearchString] = useState('')
-
+  console.log(user);
   const history=useHistory();
   const submitHandler = (e) => {
     e.preventDefault()
     const a=window.find(searchString)
-    console.log(a);
   }
 
   useEffect(()=>{
@@ -21,7 +20,6 @@ const Navbar = ({listener}) => {
     auth.signOut()
     history.push("/login")
   }
-  console.log(listener)
 
   return (
     <div className='main-content' id='panel'>
@@ -218,7 +216,7 @@ const Navbar = ({listener}) => {
                         <div className='col ml--2'>
                           <div className='d-flex justify-content-between align-items-center'>
                             <div>
-                              <h4 className='mb-0 text-sm'>John Snow</h4>
+                              <h4 className='mb-0 text-sm'>xdfghj</h4>
                             </div>
                             <div className='text-right text-muted'>
                               <small>3 hrs ago</small>
@@ -302,7 +300,7 @@ const Navbar = ({listener}) => {
                     </span>
                     <div className='media-body  ml-2  d-none d-lg-block'>
                       <span className='mb-0 text-sm  font-weight-bold'>
-                        John Snow
+                       {user}
                       </span>
                     </div>
                   </div>
@@ -341,5 +339,9 @@ const Navbar = ({listener}) => {
     </div>
   )
 }
+const MapStateToProp=(state)=>{
+  const {currentUser}=state.user
+  return {user:currentUser.email}
+}
 
-export default Navbar
+export default connect(MapStateToProp,null)(Navbar)

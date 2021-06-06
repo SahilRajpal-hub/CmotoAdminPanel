@@ -32,7 +32,6 @@ const Info =({area,carnum})=>{
 
     const HandleActive=()=>{
       const aa=vehicle.Active?0:1
-      console.log(vehicle)
       firebase
           .database()
           .ref(`cars/${area}/${carnum}/Active`).set(aa);    
@@ -64,9 +63,6 @@ const Info =({area,carnum})=>{
         }).join(',')
         else 
         newCar = snapshot.val().toString() + "," + carnum
-        
-        // setActiveCars(snap.val().toString(),newCar)
-        console.log(newCar)
     })
     firebase.database().ref(`Employee/${empId}/Cluster`).set(newCar)
     firebase.database().ref(`Employees/${area}/${empId}/Cluster`).set(newCar)
