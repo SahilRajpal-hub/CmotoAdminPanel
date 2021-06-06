@@ -1,7 +1,8 @@
 import React ,{useEffect,useState}from "react";
 import { Button } from "react-bootstrap";
 
-const InnerTable=({Prove})=>{
+const InnerTable=({Prove,address})=>{
+    console.log(Prove)
     const vehicleNum = Object.keys(Prove);
     const Images=Object.values(Prove);
     const [show,setShow] = useState(false)
@@ -31,7 +32,7 @@ const InnerTable=({Prove})=>{
         }
         })
        }
-       <Button onClick={(e)=>showHandler()} className='btn btn-sm btn-success' style={{margin:'7px'}}>{vehicleNum.length-1} Cars Cleaned</Button>
+       <Button onClick={(e)=>showHandler()} className='btn btn-sm btn-success' style={{margin:'7px'}}>{address==="Employee" ? vehicleNum.length-1 : vehicleNum.length} Cars Cleaned</Button>
         </tbody>
         </table>
     )
