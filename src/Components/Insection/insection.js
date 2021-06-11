@@ -169,7 +169,7 @@ const Insection = ({ workersInfo,uid }) => {
                       )
                     }
                     return (
-                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                      <h5 style={{ ...carstyle, backgroundColor: 'lightgreen' }}>
                         {el}
                       </h5>
                     )
@@ -198,7 +198,7 @@ const Insection = ({ workersInfo,uid }) => {
                       )
                     }
                     return (
-                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                      <h5 style={{ ...carstyle, backgroundColor: 'lightgreen' }}>
                         {el}
                       </h5>
                     )
@@ -225,7 +225,7 @@ const Insection = ({ workersInfo,uid }) => {
                       )
                     }
                     return (
-                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                      <h5 style={{ ...carstyle, backgroundColor: 'lightgreen' }}>
                         {el}
                       </h5>
                     )
@@ -252,7 +252,7 @@ const Insection = ({ workersInfo,uid }) => {
                       )
                     }
                     return (
-                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                      <h5 style={{ ...carstyle, backgroundColor: 'lightgreen' }}>
                         {el}
                       </h5>
                     )
@@ -279,7 +279,7 @@ const Insection = ({ workersInfo,uid }) => {
                       )
                     }
                     return (
-                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                      <h5 style={{ ...carstyle, backgroundColor: 'lightgreen' }}>
                         {el}
                       </h5>
                     )
