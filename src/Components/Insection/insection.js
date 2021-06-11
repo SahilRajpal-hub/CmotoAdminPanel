@@ -162,7 +162,7 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
-                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(0)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(0)] && Object.keys(workerInfo['Interior Work History'][getDate(0)]).map((el, i) => {
                      if(el===""){
                       return (
                         <div></div>
@@ -218,7 +218,7 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
-                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(2)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(2)] && Object.keys(workerInfo['Interior Work History'][getDate(2)]).map((el, i) => {
                      if(el===""){
                       return (
                         <div></div>
@@ -245,7 +245,7 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
-                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(3)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(3)] && Object.keys(workerInfo['Interior Work History'][getDate(3)]).map((el, i) => {
                      if(el===""){
                       return (
                         <div></div>
@@ -272,7 +272,7 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
-                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(4)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(4)] && Object.keys(workerInfo['Interior Work History'][getDate(4)]).map((el, i) => {
                      if(el===""){
                       return (
                         <div></div>
