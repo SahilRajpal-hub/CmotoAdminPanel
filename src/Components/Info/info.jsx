@@ -56,7 +56,7 @@ const Info =({area,carnum})=>{
         }
       })
       await firebase.database().ref(`Employee/${empId}/Cluster`).once('value',(snapshot)=>{
-        
+        if(!snapshot.exists()) return
         if(aa===0)
         newCar = snapshot.val().toString().replace(carnum,'').split(',').filter(function (el) {
           return el != '';

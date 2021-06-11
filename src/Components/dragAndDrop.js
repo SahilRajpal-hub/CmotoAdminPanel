@@ -97,13 +97,14 @@ const DragAndDrop = ({ society }) => {
 
   const [columns, setColumns] = useState({})
   const [loading, setLoading] = useState(true)
-  // console.log(columns)
+  console.log(columns)
 
   const submitHandler = () => {
     for (let employee in columns) {
       if (employee !== 'Total Cars'){
-        // console.log(columns[employee].items.join(','))
+        console.log(columns[employee].items)
         // console.log(employee)
+        const cars = columns[employee].items
         var ref = firebase.database().ref('Employee/' + employee)
         ref.update({ todaysCars: columns[employee].items.join(',') })
         ref.update({ Cluster: columns[employee].items.join(',') })
@@ -112,6 +113,11 @@ const DragAndDrop = ({ society }) => {
           .ref('Employees/' + society + '/' + employee)
         ref2.update({ todaysCars: columns[employee].items.join(',') })
         ref2.update({ Cluster: columns[employee].items.join(',') })
+
+        for(let car in cars){
+          firebase.database().ref(`Car Status/${cars[car]}/newlyadded`).set(false)
+        }
+
       }
     }
     alert('Cars Duties Updated')

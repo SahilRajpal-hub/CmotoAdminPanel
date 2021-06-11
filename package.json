@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@trendmicro/react-sidenav": "^0.5.0",
     "bootstrap": "^4.6.0",
+    "datejs": "^1.0.0-rc3",
     "firebase": "^8.4.1",
     "mdbreact": "^4.6.1",
     "query-string": "^7.0.0",

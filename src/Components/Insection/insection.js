@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 
 
 const Insection = ({ workersInfo,uid }) => {
+  console.log(workersInfo[1]['Interior Work History'])
+  console.log(getDate(0))
   let arr = new Array(5);
  
   for (let i = 0; i < arr.length; i++) {
@@ -57,18 +59,7 @@ const Insection = ({ workersInfo,uid }) => {
     return link
   }
 
-  function getDate(n) {
-    var todayUs = new Date()
-    var offset = '+5.5' // since database belongs to US
-    var utc = todayUs.getTime() + todayUs.getTimezoneOffset() * 60000 // therefore converting time to IST
-    var ret = new Date(utc + 3600000 * offset)
-    ret.setDate( (n - 1 + 7 - ret.getDay() ) % 7 + 1);
-    var dd = String(ret.getDate()).padStart(2, '0')
-    var mm = String(ret.getMonth() + 1).padStart(2, '0') //January is 0!
-    var yyyy = ret.getFullYear()
-    var today = yyyy + '-' + mm + '-' + dd
-    return today
-}
+
 
   function getTodayDate() {
     var todayUs = new Date()
@@ -122,6 +113,20 @@ const Insection = ({ workersInfo,uid }) => {
    setcarToshow(arrNew);
   }
 
+  function getDate(n) {
+    var todayUs = new Date()
+    var offset = '+5.5' // since database belongs to US
+    var utc = todayUs.getTime() + todayUs.getTimezoneOffset() * 60000 // therefore converting time to IST
+    var ret = new Date(utc + 3600000 * offset)
+    ret.setDate(ret.getDate() + n + 1 - (ret.getDay() || 7));
+    // ret.setDate( (n - 1 + 7 - ret.getDay() ) % 7 + 1);
+    var dd = String(ret.getDate()).padStart(2, '0')
+    var mm = String(ret.getMonth() + 1).padStart(2, '0') //January is 0!
+    var yyyy = ret.getFullYear()
+    var today = yyyy + '-' + mm + '-' + dd
+    return today
+}
+
   return (
     <div class='card'>
       <div class='card-body'>
@@ -157,6 +162,18 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(0)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
+                    return (
+                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                        {el}
+                      </h5>
+                    )
+                  })}
                 </div>}
                 <h2 id={`1,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Tuesday ({countClusterLength(workerInfo.tuesdayCars)})</h2>
                  {carToshow[1][i]===1 && <div>
@@ -174,10 +191,34 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(1)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
+                    return (
+                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                        {el}
+                      </h5>
+                    )
+                  })}
                 </div>}
                 <h2 id={`2,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Wednesday ({countClusterLength(workerInfo.wednesdayCars)})</h2>
                  { carToshow[2][i]===1 && <div>
                   {workerInfo.wednesdayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
+                    return (
+                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                        {el}
+                      </h5>
+                    )
+                  })}
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(2)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
                      if(el===""){
                       return (
                         <div></div>
@@ -204,10 +245,34 @@ const Insection = ({ workersInfo,uid }) => {
                       </h5>
                     )
                   })}
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(3)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
+                    return (
+                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                        {el}
+                      </h5>
+                    )
+                  })}
                 </div>}
                 <h2 id={`4,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Friday ({countClusterLength(workerInfo.fridayCars)})</h2>
                  { carToshow[4][i]===1 && <div>
                   {workerInfo.fridayCars.split(',').map((el, i) => {
+                     if(el===""){
+                      return (
+                        <div></div>
+                      )
+                    }
+                    return (
+                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                        {el}
+                      </h5>
+                    )
+                  })}
+                  {workerInfo['Interior Work History'] && workerInfo['Interior Work History'][getDate(4)] && Object.keys(workerInfo['Interior Work History'][getDate(1)]).map((el, i) => {
                      if(el===""){
                       return (
                         <div></div>
