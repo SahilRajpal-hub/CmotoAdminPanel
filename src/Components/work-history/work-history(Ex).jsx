@@ -1,11 +1,10 @@
-import React ,{useState}from "react";
+import React ,{useEffect, useState}from "react";
 import firebase from '../../firebase/firebase.utils.js'
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import "./work-history.css"
-const WorkHistory = ({carnum})=>{
+const WorkHistory =({carnum})=>{
     const [value, onChange] = useState(new Date());
-    
 
      const showImage=(value,e)=>{
         const date= `${value.getFullYear()}-${ String(value.getMonth()+1).padStart(2, '0')}-${String(value.getDate()).padStart(2, '0')}`;
@@ -37,12 +36,17 @@ const WorkHistory = ({carnum})=>{
       .on(
         'value',
         (snapshot) => {
+         
            img= snapshot.val();
+           console.log("inside call = "+img)
         })
+
+        console.log(img);
         return img?"clean":null
     }
     
     return (
+     
    <div style={{margin:"10px 0 30px 0"}}>
     <Calendar 
     className="clean full"

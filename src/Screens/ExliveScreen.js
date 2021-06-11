@@ -6,7 +6,7 @@ import Section from '../Components/section/section.jsx'
 import Sidebar from '../Components/Sidebar'
 
 const Exlive=()=>{
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
   const sidebarListener = () => {
     setSidebar(!sidebar)
   }

@@ -90,12 +90,10 @@ const Info =({area,carnum})=>{
             <div className="card-body content">
               <blockquote className="blockquote mb-0">
               <h3>Owner Name :  <span className="details"> {vehicle.name}</span></h3>
-              <h3>Owner Phone :  <span className="details"> {vehicle.mobileNo}</span></h3>
+              <h3>Owner Phone :  <span className="details"> {vehicle.mobileNo}</span> <a style={{color:"blue"}} href={`tel:${vehicle.mobileNo}`}>(call)</a></h3>
               <h3>Modal :  <span className="details"> {vehicle.model}</span></h3>
-              <h3>Type :  <span className="details"> {vehicle.category}</span></h3>
-              <h3>Color :  <span className="details"> {vehicle.color}</span></h3>
+              <h3>Category :  <span className="details"> {vehicle.category}</span></h3>
               <h3>Address :  <span className="details">{vehicle.address} </span></h3>
-              <h3>Location :  <a  className="details" href="https://www.google.com/maps/place/28.6831899,77.13279" style={{color:'blue'}}>Go to google maps </a></h3>
 
               </blockquote>
             </div>

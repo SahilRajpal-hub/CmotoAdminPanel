@@ -9,7 +9,7 @@ import Sidebar from '../Components/Sidebar'
 
 const EmpScreen=()=>{
   
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
 

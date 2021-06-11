@@ -3,6 +3,7 @@ import firebase from '../../firebase/firebase.utils.js'
 import './editEmpInfo.css'
 import Loader from '../Loader'
 import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 
 const EditEmpInfo =({uid,addres})=>{
@@ -12,6 +13,7 @@ const EditEmpInfo =({uid,addres})=>{
     const [status, setStatus] = useState("");
     const [address, setAddress] = useState("");
     const [workAddress, setWorkAddress] = useState("");
+    const history = useHistory()
     
     const set={setAddress,setStatus,setMobileNo,setName}
    
@@ -37,9 +39,10 @@ const EditEmpInfo =({uid,addres})=>{
         })
        
         alert('successfully updated')
-      } catch (error) {
-        console.log(error)
-      }
+        history.push(`/empinfo?uid=${uid}&address=${addres}s`)
+      } catch(error){
+        alert(`Operation Failed !! - ${error.message}`)  
+    }
     }
 
     const handleChange = (event) => {

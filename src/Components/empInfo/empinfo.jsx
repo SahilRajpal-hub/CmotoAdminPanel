@@ -9,7 +9,7 @@ const EmpInfo =({uid,address})=>{
     
     const [employee, setEmployee] = useState({});
     const [loading, setLoading] = useState(true)
-
+    console.log(address);
     const infofetch= function(){
     
          firebase
@@ -18,7 +18,11 @@ const EmpInfo =({uid,address})=>{
           .on(
             'value',
             (snapshot) => {
-             setEmployee(snapshot.val()) 
+              let data=snapshot.val()
+              if(address==="InteriorEmployee"){
+             let partnerArr=snapshot.val().linkedWith.split(",");
+             data.partnerArr=partnerArr}
+             setEmployee(data) 
              setLoading(false)
             },
             (err) => {
@@ -49,9 +53,15 @@ const EmpInfo =({uid,address})=>{
             <div className="card-body content">
               <blockquote className="blockquote mb-0">
            
-              <h3>Employee Number :  <span className="details"> {employee.ContactNumber}</span></h3>
+              <h3>Employee Number :  <span className="details"> {employee.ContactNumber}</span> <a style={{color:"blue"}} href={`tel:${employee.ContactNumber}`}>(call)</a></h3>
               <h3>Status :  <span className="details"> {employee.status}</span></h3>
+              <h3>Working Address :  <span className="details"> {employee.Working_Address}</span></h3>
               <h3>Address :  <span className="details">{employee.Address} </span></h3>
+              <h3>email :  <span className="details">{employee.email} </span></h3>
+              <h3>password : <span className="details">{employee.password} </span></h3>
+              <h3>Aadhaar :  <a href={employee.aadhaar}  rel="noopener noreferrer"  target="_blank" style={{color:"blue"}}> click to open </a></h3>
+
+              {address==="InteriorEmployee" &&  <h3>Partners : <a rel="noreferrer noopener" target="_blank" style={{color:"blue"}} href={`/empinfo?uid=${employee.partnerArr[0]}&address=Employees`}>Partner 1</a> , <a rel="noreferrer noopener" target="_blank"  style={{color:"blue"}} href={`/empinfo?uid=${employee.partnerArr[1]}&address=Employees`}>Partner 2</a></h3>}
               </blockquote>
             </div>
            

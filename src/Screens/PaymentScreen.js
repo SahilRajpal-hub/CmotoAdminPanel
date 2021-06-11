@@ -7,7 +7,7 @@ import Sidebar from '../Components/Sidebar'
 const PaymentScreen = () => {
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
   
   const toggleA = function () {
     setA(!a)

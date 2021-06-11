@@ -8,6 +8,7 @@ import React,{ useEffect, useState } from 'react'
 const ExliveItem=({Employees,address})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
+   
 //    const [cn,setCn]=useState({});
 //    const [map,setMap] = useState({})
 
@@ -88,13 +89,20 @@ function getTodayDate() {
     return today
   }
     
+  const countClusterLength=(a)=>{
+    console.log(a);
+    if(a===""){
+        return 0;
+    }
+    return a.split(",").length;
+  }
     return(
         <>
             <Table bordered responsive style={{marginBottom:0}}>
             <thead >
             {EmployeesName.map((Name,i)=>(
                     <td style={{textAlign:"center",fontSize:14,fontWeight:600,color:"black"}} ><div style={{listStyleType:'none'}}>
-                        <h2>{Employeedetails[i].Name}  </h2>
+                        <h2><Link to={`/empinfo?uid=${Name}&address=Employees`}>{Employeedetails[i].Name}</Link> ({countClusterLength(Employeedetails[i].Cluster)})</h2>
                         {/* <h5><span style={{fontWeight:'bold',fontSize:'18px',color:'green'}}>{cn?cn[`Em${i}`]?cn[`Em${i}`][0]:null:null}</span> & <span style={{fontWeight:'bold',fontSize:'18px',color:'red'}} >{cn?cn[`Em${i}`]?cn[`Em${i}`][1]:null:null}</span></h5> */}
                         </div></td>
             ))} 

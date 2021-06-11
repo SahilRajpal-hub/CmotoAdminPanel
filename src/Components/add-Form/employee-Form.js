@@ -13,19 +13,17 @@ const EmployeeForm=()=>{
   const [touched, setTouched] = React.useState({});
   const  [mess, setMess] = React.useState("");
   const  [loading, setLoading] = React.useState(false);
-    const [formData_1, updateFormData_1] = useState({});
-    const [formData_2, updateFormData_2] = useState({});
-    const [uidGenerated,setUidGenerated]=useState(false);
-    const [employeeUid,setEmployeeUid]=useState("")
-    const [societies, setSocieties] = useState([])
-    const [areas, setAreas] = useState([])
-    const [Employee, setEmployee] = useState([])
-    const [EmployeeUID, setEmployeeUID] = useState([])
-    const[done,setDone]=useState(false);
-    const [aadhaar, setAadhaar] = useState(null);
-    const [photo, setPhoto] = useState(null);
-
-  
+  const [formData_1, updateFormData_1] = useState({});
+  const [formData_2, updateFormData_2] = useState({});
+  const [uidGenerated,setUidGenerated]=useState(false);
+  const [employeeUid,setEmployeeUid]=useState("")
+  const [societies, setSocieties] = useState([])
+  const [areas, setAreas] = useState([])
+  const [Employee, setEmployee] = useState([])
+  const [EmployeeUID, setEmployeeUID] = useState([])
+  const[done,setDone]=useState(false);
+  const [aadhaar, setAadhaar] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
   function handleAadhaar(e) {
     setAadhaar(e.target.files[0]);
@@ -156,7 +154,7 @@ const EmployeeForm=()=>{
           await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/EmployeePhoto-${now()}`).put(photo);
           let aa= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`EmployeePhoto-${now()}`).getDownloadURL()
        
-          let EmployeeData_1={...Employee,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
+          let EmployeeData_1={...Employee,password:formData_1.password,email:formData_1.email,name:Employee.Name,mobileNo:Employee.ContactNumber,Cluster:"",ClusterNumber:"",status:"free",todaysCars:"",Working_Address:`${Area}/${Society}`,"working on": "",aadhaar:`${bb}`,photo:`${aa}`}
           if(formData_1.Type==="Interior"){
             EmployeeData_1={...EmployeeData_1,linkedWith:`${formData_2.ee1},${formData_2.ee2}`,mondayCars:``,tuesdayCars:``,wednesdayCars:``,thursdayCars:``,fridayCars:``}
           }

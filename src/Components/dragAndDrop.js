@@ -101,7 +101,7 @@ const DragAndDrop = ({ society }) => {
 
   const submitHandler = () => {
     for (let employee in columns) {
-      if (employee !== 'Total Cars') {
+      if (employee !== 'Total Cars'){
         // console.log(columns[employee].items.join(','))
         // console.log(employee)
         var ref = firebase.database().ref('Employee/' + employee)

@@ -118,8 +118,8 @@ const CarForm=()=>{
           await storage.ref(`cars/${Area}/${Society}/${formData.number}/Photo-${now()}`).put(photo);
           let bb= await storage.ref(`cars/${Area}/${Society}/${formData.number}`).child(`Photo-${now()}`).getDownloadURL()
 
-          let CarStatus={category:formData.category,Payment:formData.Payment,Active:1,lastCleanedInterior:`${now()}`,lastPaidOn:`${now()}`,"Interior Cleaning status":"In waiting",status: "In waiting",InteriorDays_Left:4,doneBy:"",timeStamp: "0"}
-          let cars= {...carData,Active:1,houseNumber:parseInt(houseNumber),address:`${houseNumber} ${formData.Area}/${formData.Society}`,photo:`${bb}`}
+          let CarStatus={category:formData.category,Active:1,newlyadded:true,Working_Address:`${formData.Area}/${formData.Society}`,lastCleanedInterior:`${now()}`,lastPaidOn:`${now()}`,"Interior Cleaning status":"In waiting",status: "In waiting",InteriorDays_Left:4,doneBy:"",timeStamp: "0"}
+          let cars= {...carData,Active:1,newlyadded:true,houseNumber:parseInt(houseNumber),address:`${houseNumber} ${formData.Area}/${formData.Society}`,photo:`${bb}`}
           let userRef=firebase.database().ref(`cars/${Area}/${Society}/${formData.number}`);
           userRef.update(cars)
           let userRef2=firebase.database().ref(`Car Status/${formData.number}`);
@@ -199,73 +199,27 @@ const CarForm=()=>{
                </div>
 
                 <div className="form-group-sm mb-3">
-                 <label >Location</label>
-                 <input  class="form-control" name="Location" required onChange={handleChange} placeholder="Enter location"/>
-                </div>
- 
-                <div className="form-group-sm mb-3">
                  <label >Category</label>
                  <select className="custom-select" required onChange={handleChange} name="category">
                 <option disabled selected value="">Choose...</option>
-                  <option >Sedan</option>
                   <option >HatchBack</option>
-                  <option >CompactSedan</option>
-                  <option >Luv</option>
-                  <option >Suv</option>
+                  <option >Sedan/LUV</option>
+                  <option >SUV</option>
+                  <option >Bike/Scooty</option>
                 </select>
-                </div>
-
-                <div className="form-group-sm mb-3">
-                 <label >Color</label>
-                 <input  class="form-control" name="color" required onChange={handleChange} placeholder="Enter color"/>
                 </div>
 
                 <div className="form-group-sm mb-3">
                  <label >Model</label>
-                 <input  className="form-control" name="model" required onChange={handleChange} placeholder="Enter model"/>
+                 <input className="form-control" name="model" required onChange={handleChange} placeholder="Enter model"/>
                 </div>
-               
-              <div className="form-group-sm mb-3">
-              <label>Payment</label>
-              <select className="custom-select" required onChange={handleChange} name="Payment">
-              <option disabled selected value="">Choose...</option>
-                <option  >Active</option>
-                <option >Inactive</option>
-              </select>
-              </div> 
-
-                {/* <div className="form-group-sm mb-3">
-              <label>Free Trail</label>
-              <select className="custom-select" required onChange={handleChange} name="freeTrial" >
-              <option disabled selected value="">Choose...</option>
-                <option >Expired</option>
-                <option >Active</option>
-               
-              </select>
-            </div> */}
-
-                <div className="form-group-sm mb-3">
-                 <label>Holiday</label>
-                 <select className="custom-select" required onChange={handleChange} name="holiday">
-                <option disabled selected value="">Choose...</option>
-                  <option  >Sunday</option>
-                  <option >Monday</option>
-                  <option >Tuesday</option>
-                  <option >Wednesday</option>
-                  <option >Thursday</option>
-                  <option >Friday</option>
-                  <option >Saturday</option>
-                </select>
-              </div>
 
                 <div className="form-group-sm mb-3 mb-3">
-                 <label>Leave Time</label>
-                 <select className="custom-select" required onChange={handleChange} name="leaveTime">
+                <label>Leave Time</label>
+                <select className="custom-select" required onChange={handleChange} name="leaveTime">
                 <option disabled selected value="">Choose...</option>
-                  <option  >Before 6am</option>
-                  <option >6am-7am</option>
-                  <option >7am-8am</option>
-                  <option >after 9</option>
+                  <option >Early</option>
+                  <option >Late</option>
                 </select>
                 </div>
 

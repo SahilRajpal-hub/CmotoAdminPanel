@@ -23,8 +23,8 @@ const EmpWorkHistory = ({address,uid})=>{
             a.push(element.key)
             s.push(element.val())
       })
-      setDate(a)
-      setProve(s)
+      setDate(a.reverse())
+      setProve(s.reverse())
       setLoading(false)
         },
         (err) => {
@@ -35,6 +35,7 @@ const EmpWorkHistory = ({address,uid})=>{
       firebase.database().ref(`${address}/${uid}/Missed Car History`)
       .on('value',(snap)=>{
         if(snap.val()){
+          console.log(snap.val())
         setMissed(snap.val())
         }
       })
@@ -48,7 +49,7 @@ const EmpWorkHistory = ({address,uid})=>{
             <div class="card">
             <div class="card-body">
             <h3>Work History</h3>
-                <table className="table table-sm table-bordered table-responsive-xl" style={{border:"solid black 2px"}} >
+                <table className="table  table-bordered table-responsive-xs" style={{border:"solid black 2px"}} >
                     <thead className="bg-dark">
                         <tr>
                             <th style={{fontSize:15,color:'white',textAlign:"center"}} scope="col">Date</th>

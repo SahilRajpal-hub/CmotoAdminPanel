@@ -13,7 +13,6 @@ const Navbar = ({listener,user}) => {
   }
 
   useEffect(()=>{
-
   },[])
   
   const logout=()=>{
@@ -24,263 +23,36 @@ const Navbar = ({listener,user}) => {
   return (
     <div className='main-content' id='panel'>
       <nav className='navbar navbar-top navbar-expand py-2 navbar-dark bg-dark border-bottom'>
-        <div className='container-fluid'>
-          <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-            {/* <!-- Search form --> */}
-            <form
-              className='navbar-search navbar-search-light form-inline mr-sm-3'
-              id='navbar-search-main'
-              onSubmit={submitHandler}
-            >
-              <div className='form-group mb-0'>
-                <div className='input-group input-group-alternative input-group-merge'>
-                  <div className='input-group-prepend'>
-                    <span className='input-group-text'>
-                      <i className='fas fa-search'></i>
-                    </span>
-                  </div>
-                  <input
-                    className='form-control'
-                    placeholder='Search'
-                    type='text'
-                    onChange={(e) => setSearchString(e.target.value)}
-                  />
-                </div>
-              </div>
-              <button
-                type='button'
-                className='close'
-                data-action='search-close'
-                data-target='#navbar-search-main'
-                aria-label='Close'
-              >
-                <span aria-hidden='true'>×</span>
-              </button>
-            </form>
-            {/* <!-- Navbar links --> */}
-            <ul className='navbar-nav align-items-center  ml-md-auto '>
-              <li className='nav-item '>
-                {/* <!-- Sidenav toggler --> */}
-                <div
-                  className=' sidenav-toggler sidenav-toggler-dark '
-                  data-action='sidenav-pin'
-                  data-target='#sidenav-main'
-                  
-                >
-                  <div className='p-3' onClick={listener}>
-                    <i className='sidenav-toggler-line'></i>
-                    <i className='sidenav-toggler-line'></i>
-                    <i className='sidenav-toggler-line'></i>
-                  </div>
-                </div>
-              </li>
-              <li className='nav-item d-sm-none'>
-                
-              </li>
-              <li className='nav-item dropdown'>
-                <div className='dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden'>
-                  {/* <!-- Dropdown header --> */}
-                  <div className='px-3 py-3'>
-                    <h6 className='text-sm text-muted m-0'>
-                      You have <strong className='text-primary'>13</strong>{' '}
-                      notifications.
-                    </h6>
-                  </div>
-                  {/* <!-- List group --> */}
-                  <div className='list-group list-group-flush'>
-                    <Link
-                      to='#!'
-                      className='list-group-item list-group-item-action'
-                    >
-                      <div className='row align-items-center'>
-                        <div className='col-auto'>
-                          {/* <!-- Avatar --> */}
-                          <img
-                            alt='Avatar'
-                            src='assets/img/theme/team-1.jpg'
-                            className='avatar rounded-circle'
-                          />
-                        </div>
-                        <div className='col ml--2'>
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <div>
-                              <h4 className='mb-0 text-sm'>John Snow</h4>
-                            </div>
-                            <div className='text-right text-muted'>
-                              <small>2 hrs ago</small>
-                            </div>
-                          </div>
-                          <p className='text-sm mb-0'>
-                            Let's meet at Starbucks at 11:30. Wdyt?
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                    <Link
-                      to='#!'
-                      className='list-group-item list-group-item-action'
-                    >
-                      <div className='row align-items-center'>
-                        <div className='col-auto'>
-                          {/* <!-- Avatar --> */}
-                          <img
-                            alt='Avatar'
-                            src='assets/img/theme/team-2.jpg'
-                            className='avatar rounded-circle'
-                          />
-                        </div>
-                        <div className='col ml--2'>
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <div>
-                              <h4 className='mb-0 text-sm'>John Snow</h4>
-                            </div>
-                            <div className='text-right text-muted'>
-                              <small>3 hrs ago</small>
-                            </div>
-                          </div>
-                          <p className='text-sm mb-0'>
-                            A new issue has been reported for Argon.
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                    <Link
-                      to='#!'
-                      className='list-group-item list-group-item-action'
-                    >
-                      <div className='row align-items-center'>
-                        <div className='col-auto'>
-                          {/* <!-- Avatar --> */}
-                          <img
-                            alt='Image placeholder'
-                            src='assets/img/theme/team-3.jpg'
-                            className='avatar rounded-circle'
-                          />
-                        </div>
-                        <div className='col ml--2'>
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <div>
-                              <h4 className='mb-0 text-sm'>John Snow</h4>
-                            </div>
-                            <div className='text-right text-muted'>
-                              <small>5 hrs ago</small>
-                            </div>
-                          </div>
-                          <p className='text-sm mb-0'>
-                            Your posts have been liked a lot.
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                    <Link
-                      to='#!'
-                      className='list-group-item list-group-item-action'
-                    >
-                      <div className='row align-items-center'>
-                        <div className='col-auto'>
-                          {/* <!-- Avatar --> */}
-                          <img
-                            alt='Image placeholder'
-                            src='assets/img/theme/team-4.jpg'
-                            className='avatar rounded-circle'
-                          />
-                        </div>
-                        <div className='col ml--2'>
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <div>
-                              <h4 className='mb-0 text-sm'>John Snow</h4>
-                            </div>
-                            <div className='text-right text-muted'>
-                              <small>2 hrs ago</small>
-                            </div>
-                          </div>
-                          <p className='text-sm mb-0'>
-                            Let's meet at Starbucks at 11:30. Wdyt?
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                    <Link
-                      to='#!'
-                      className='list-group-item list-group-item-action'
-                    >
-                      <div className='row align-items-center'>
-                        <div className='col-auto'>
-                          {/* <!-- Avatar --> */}
-                          <img
-                            alt='Image placeholder'
-                            src='assets/img/theme/team-5.jpg'
-                            className='avatar rounded-circle'
-                          />
-                        </div>
-                        <div className='col ml--2'>
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <div>
-                              <h4 className='mb-0 text-sm'>xdfghj</h4>
-                            </div>
-                            <div className='text-right text-muted'>
-                              <small>3 hrs ago</small>
-                            </div>
-                          </div>
-                          <p className='text-sm mb-0'>
-                            A new issue has been reported for Argon.
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  {/* <!-- View all --> */}
-                  <Link
-                    to='#!'
-                    className='dropdown-item text-center text-primary font-weight-bold py-3'
-                  >
-                    View all
-                  </Link>
-                </div>
-              </li>
-              <li className='nav-item dropdown'>
-                <div className='dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right '>
-                  <div className='row shortcuts px-4'>
-                    <Link to='#!' className='col-4 shortcut-item'>
-                      <span className='shortcut-media avatar rounded-circle bg-gradient-red'>
-                        <i className='ni ni-calendar-grid-58'></i>
-                      </span>
-                      <small>Calendar</small>
-                    </Link>
-                    <a href='#!' className='col-4 shortcut-item'>
-                      <span className='shortcut-media avatar rounded-circle bg-gradient-orange'>
-                        <i className='ni ni-email-83'></i>
-                      </span>
-                      <small>Email</small>
-                    </a>
-                    <a href='#!' className='col-4 shortcut-item'>
-                      <span className='shortcut-media avatar rounded-circle bg-gradient-info'>
-                        <i className='ni ni-credit-card'></i>
-                      </span>
-                      <small>Payments</small>
-                    </a>
-                    <a href='#!' className='col-4 shortcut-item'>
-                      <span className='shortcut-media avatar rounded-circle bg-gradient-green'>
-                        <i className='ni ni-books'></i>
-                      </span>
-                      <small>Reports</small>
-                    </a>
-                    <a href='#!' className='col-4 shortcut-item'>
-                      <span className='shortcut-media avatar rounded-circle bg-gradient-purple'>
-                        <i className='ni ni-pin-3'></i>
-                      </span>
-                      <small>Maps</small>
-                    </a>
-                    <a href='#!' className='col-4 shortcut-item'>
-                      <span className='shortcut-media avatar rounded-circle bg-gradient-yellow'>
-                        <i className='ni ni-basket'></i>
-                      </span>
-                      <small>Shop</small>
-                    </a>
-                  </div>
-                </div>
-              </li>
-            </ul>
+          <div className='sidenav-toggler-dark'>
+            <div className='p-3' onClick={listener}>
+              <i className='sidenav-toggler-line'></i>
+              <i className='sidenav-toggler-line'></i>
+              <i className='sidenav-toggler-line'></i>
+            </div>
+          </div>
+           {/* <!-- Search form --> */}
+           <form
+           className='navbar-search-light w-100 form-inline mr-sm-3'
+           onSubmit={submitHandler}
+           >
+           <div className='form-group mb-0'>
+             <div className='input-group input-group-alternative input-group-merge'>
+               <div className='input-group-prepend'>
+                 <span className='input-group-text'>
+                   <i className='fas fa-search'></i>
+                 </span>
+               </div>
+               <input style={{width:"300px"}}
+                 className='form-control '
+                 placeholder='Search'
+                 type='text'
+                 onChange={(e) => setSearchString(e.target.value)}
+               />
+             </div>
+           </div>
+         </form>
+
+          <div className='navbar-collapse'>
             <ul className='navbar-nav align-items-center  ml-auto ml-md-0 '>
               <li className='nav-item dropdown'>
                 <a
@@ -291,14 +63,14 @@ const Navbar = ({listener,user}) => {
                   aria-haspopup='true'
                   aria-expanded='false'
                 >
-                  <div className='media align-items-center'>
+                  <div className='media align-items-center pr-3'>
                     <span className='avatar avatar-sm rounded-circle'>
                       <img
                         alt='Image placeholder'
                         src='assets/img/theme/team-4.jpg'
                       />
                     </span>
-                    <div className='media-body  ml-2  d-none d-lg-block'>
+                    <div className='media-body  ml-2 pr-4 d-none d-lg-block'>
                       <span className='mb-0 text-sm  font-weight-bold'>
                        {user}
                       </span>
@@ -334,7 +106,6 @@ const Navbar = ({listener,user}) => {
               </li>
             </ul>
           </div>
-        </div>
       </nav>
     </div>
   )

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const HomeScreen = () => {
 
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

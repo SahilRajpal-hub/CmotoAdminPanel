@@ -5,7 +5,7 @@ import CarForm from '../Components/add-Form/carForm'
 
 
 const AddCar = () => {
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

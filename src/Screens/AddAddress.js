@@ -4,7 +4,7 @@ import Navbar from '../Components/Navbar'
 import AddressForm from '../Components/add-Form/address-form'
 
 const AddAddress = () => {
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

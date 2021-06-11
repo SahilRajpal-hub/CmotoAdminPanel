@@ -9,7 +9,7 @@ import AreaTable from '../Components/AreaTable.js'
 
 const SetDuties = ({ location }) => {
   var values = queryString.parse(location.search)
- const [sidebar,setSidebar] = useState(true)
+ const [sidebar,setSidebar] = useState(false)
 
   useEffect(() => {
     values = queryString.parse(location.search)

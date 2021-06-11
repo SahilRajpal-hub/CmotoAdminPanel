@@ -11,27 +11,32 @@ const EditCarInfo =({area,carnum})=>{
     const [vehiclenum, setVehiclenum] = useState("");
     const [name, setName] = useState("");
     const [mobileNo, setMobileNo] = useState("");
-    const [color, setColor] = useState("");
     const [model, setModel] = useState("");
     const [type, setType] = useState("");
     const [address, setAddress] = useState("");
     const history = useHistory()
     
-    const set={setType,setAddress,setColor,setMobileNo,setName,setModel,setVehiclenum}
+    const set={setType,setAddress,setMobileNo,setName,setModel,setVehiclenum}
    
     const handleSubmit = async (event) => {
       event.preventDefault()
       try {
         let userRef = firebase.database().ref(`cars/${area}/${carnum}`);
+        let userRef2 = firebase.database().ref(`Car Status/${carnum}`);
         
-          await userRef.update({ 
+        const editcar=  await userRef.update({ 
             address: address,
             category: type,
-            color: color,
             mobileNo: mobileNo,
             model: model,
             name: name,
           });
+
+          const editcar2=  await userRef2.update({ 
+            category: type
+          });
+
+
 
           if(vehiclenum!==carnum){ 
           var ref = firebase.database().ref(`cars/${area}/`);
@@ -44,8 +49,7 @@ const EditCarInfo =({area,carnum})=>{
             var update = {};
             update[oldTitle] = null;
             update[newTitle] = data;
-             ref.update(update);
-
+            ref.update(update);
           });
 
           ref2.child(oldTitle).once('value').then(function(snap) {
@@ -60,10 +64,10 @@ const EditCarInfo =({area,carnum})=>{
         }
        
         alert('successfully updated')
-        history.push('/')
-      } catch (error) {
-        console.log(error)
-      }
+        history.push(`/carinfo?area=${address}&carnum=${vehiclenum}`)
+      }catch(error){
+        alert(`Operation Failed !! - ${error.message}`)  
+    }
     }
 
     const handleChange = (event) => {
@@ -85,7 +89,6 @@ const EditCarInfo =({area,carnum})=>{
             setName(snapshot.val().name)
             setMobileNo(snapshot.val().mobileNo)
             setAddress(snapshot.val().address)
-            setColor(snapshot.val().color)
             setType(snapshot.val().category)
             setModel(snapshot.val().model)
            }
@@ -105,8 +108,6 @@ const EditCarInfo =({area,carnum})=>{
 
     useEffect(() =>{
       infofetch() },[])
-
-    
 
     return(
       
@@ -159,15 +160,17 @@ const EditCarInfo =({area,carnum})=>{
                   <div className="input-group-prepend" style={{width:"18%"}}>
                     <span className="text-white bg-dark w-100  input-group-text  border border-dark" >Type</span>
                   </div>
-                  <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setType" value={type} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+              <select className="custom-select border border-dark" required onChange={handleChange} value={type} name="setType">
+             <option disabled selected value="">Choose...</option>
+               <option >HatchBack</option>
+               <option >Sedan/LUV</option>
+               <option >SUV</option>
+               <option >Bike/Scooty</option>
+             </select>
               </div>
 
-              <div className="input-group  mb-1 ">
-                  <div className="input-group-prepend " style={{width:"18%"}}>
-                    <span className="text-white bg-dark w-100 input-group-text  border border-dark" >Color</span>
-                  </div>
-                  <input type="text" onChange={handleChange} className="form-control  border border-dark" name="setColor" value={color} aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
-              </div>
+             
+
 
               <div className="input-group mb-1 ">
                   <div className="input-group-prepend" style={{width:"18%"}}>

@@ -13,7 +13,7 @@ const InfoScreen = ({ match, location }) => {
   console.log(values)
   let [a, setA] = useState(true)
   let [b, setB] = useState(true)
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const toggleA = function () {
     setA(!a)

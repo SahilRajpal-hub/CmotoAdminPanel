@@ -1,7 +1,17 @@
 import firebase from '../../firebase/firebase.utils.js'
-import React from 'react'
+import React, { useState } from 'react'
+import "./insection.css"
+import { Link } from 'react-router-dom'
 
-const Insection = ({ workersInfo }) => {
+
+const Insection = ({ workersInfo,uid }) => {
+  let arr = new Array(5);
+ 
+  for (let i = 0; i < arr.length; i++) {
+      arr[i] = new Array(workersInfo.length);
+  }
+
+  const [carToshow,setcarToshow]=useState(arr);
   const weekday = {
     textAlign: 'center',
     border: '1px solid #e9ecef',
@@ -9,6 +19,7 @@ const Insection = ({ workersInfo }) => {
     padding: 7,
     fontSize: 14,
     color: 'black',
+    cursor: "pointer",
   }
   const carstyle = {
     textAlign: 'center',
@@ -59,6 +70,45 @@ const Insection = ({ workersInfo }) => {
     return today
   }
 
+  const countClusterLength=(a)=>{
+    
+   let clusterArr= a.split(",");
+   let count=0;
+   for(let i=0;i<clusterArr.length;i++){
+     if(clusterArr[i]!==""){
+       count=count+1;
+     }
+   }
+    return count;
+  }
+
+  const showWeekCarHandler=(e)=>{
+   let xy=(e.target.id).split(",");
+   let x=parseInt(xy[0])
+   let y=parseInt(xy[1])
+
+   let refarr=carToshow;
+    if(carToshow[x][y]===1){
+      refarr[x][y]=0
+    }else{
+      refarr[x][y]=1
+    }
+
+    let arrNew = new Array(5);
+ 
+    for (let i = 0; i < arrNew.length; i++) {
+        arrNew[i] = new Array(workersInfo.length);
+    }
+
+    for (let i = 0; i < arrNew.length; i++) {
+      for (let j = 0; j < workersInfo.length; j++) {
+          arrNew[i][j] = refarr[i][j];
+      }
+    }
+
+   setcarToshow(arrNew);
+  }
+
   return (
     <div class='card'>
       <div class='card-body'>
@@ -74,13 +124,14 @@ const Insection = ({ workersInfo }) => {
                     padding: 14,
                     fontSize: 20,
                     color: 'white',
-                    backgroundColor: 'black',
+                    backgroundColor: 'black'
                   }}
                 >
-                  {workerInfo.Name}
+                <Link to={`/empinfo?uid=${uid[i]}&address=InteriorEmployees`}>{workerInfo.Name}</Link>
+               
                 </h1>
-                <h2 style={weekday}>Monday</h2>
-                <div>
+                <h2 id={`0,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Monday ({countClusterLength(workerInfo.mondayCars)})</h2>
+                {carToshow[0][i]===1 && <div>
                   {workerInfo.mondayCars.split(',').map((el, i) => {
                      if(el===""){
                       return (
@@ -93,9 +144,9 @@ const Insection = ({ workersInfo }) => {
                       </h5>
                     )
                   })}
-                </div>
-                <h2 style={weekday}>Tuesday</h2>
-                <div>
+                </div>}
+                <h2 id={`1,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Tuesday ({countClusterLength(workerInfo.tuesdayCars)})</h2>
+                 {carToshow[1][i]===1 && <div>
                   {workerInfo.tuesdayCars.split(',').map((el, i) => {
                      if(el===""){
                       return (
@@ -110,9 +161,9 @@ const Insection = ({ workersInfo }) => {
                       </h5>
                     )
                   })}
-                </div>
-                <h2 style={weekday}>Wednesday</h2>
-                <div>
+                </div>}
+                <h2 id={`2,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Wednesday ({countClusterLength(workerInfo.wednesdayCars)})</h2>
+                 { carToshow[2][i]===1 && <div>
                   {workerInfo.wednesdayCars.split(',').map((el, i) => {
                      if(el===""){
                       return (
@@ -125,9 +176,9 @@ const Insection = ({ workersInfo }) => {
                       </h5>
                     )
                   })}
-                </div>
-                <h2 style={weekday}>Thursday</h2>
-                <div>
+                </div>}
+                <h2 id={`3,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Thursday ({countClusterLength(workerInfo.thursdayCars)})</h2>
+                 { carToshow[3][i]===1 && <div>
                   {workerInfo.thursdayCars.split(',').map((el, i) => {
                      if(el===""){
                       return (
@@ -135,14 +186,14 @@ const Insection = ({ workersInfo }) => {
                       )
                     }
                     return (
-                      <h5 style={{ ...carstyle, backgroundColor: col(el) }}>
+                      <h5 style={{ ...carstyle, backgroundColor: col(el)}}>
                         {el}
                       </h5>
                     )
                   })}
-                </div>
-                <h2 style={weekday}>Friday</h2>
-                <div>
+                </div>}
+                <h2 id={`4,${i}`} className="Weekdays" onClick={showWeekCarHandler} style={weekday}>Friday ({countClusterLength(workerInfo.fridayCars)})</h2>
+                 { carToshow[4][i]===1 && <div>
                   {workerInfo.fridayCars.split(',').map((el, i) => {
                      if(el===""){
                       return (
@@ -155,7 +206,7 @@ const Insection = ({ workersInfo }) => {
                       </h5>
                     )
                   })}
-                </div>
+                </div>}
               </td>
             ))}
           </tbody>

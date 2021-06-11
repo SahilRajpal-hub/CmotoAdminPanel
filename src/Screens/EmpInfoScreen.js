@@ -7,7 +7,7 @@ import EmpWorkHistory from '../Components/empwork-history/empwork-history'
 
 const EmpInfoScreen = ({ match, location }) => {
   const values = queryString.parse(location.search)
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

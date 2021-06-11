@@ -47,7 +47,7 @@ const Interiorlive = () => {
   return (
     <div className='main-content' id='panel'>
       <div className='container-fluid' style={{ paddingTop: 25 }}>
-        {loading ? <Loader /> : <Insection workersInfo={workersInfo} />}
+        {loading ? <Loader /> : <Insection workersInfo={workersInfo} uid={uid} />}
       </div>
     </div>
   )

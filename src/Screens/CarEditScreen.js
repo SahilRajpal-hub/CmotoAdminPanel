@@ -7,7 +7,7 @@ import EditCarInfo from '../Components/editCarInfo/editCarInfo'
 const CarEditScreen = ({ location }) => {
   const values = queryString.parse(location.search)
 
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

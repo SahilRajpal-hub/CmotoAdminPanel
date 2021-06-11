@@ -4,7 +4,7 @@ import Navbar from '../Components/Navbar.js'
 import Sidebar from '../Components/Sidebar'
 
 const Inlive=()=>{
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
   const sidebarListener = () => {
     setSidebar(!sidebar)
   }

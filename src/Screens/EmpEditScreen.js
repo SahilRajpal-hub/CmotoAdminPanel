@@ -7,7 +7,7 @@ import EditEmpInfo from '../Components/editEmpInfo/editEmpInfo'
 const EmpEditScreen = ({ location }) => {
   const values = queryString.parse(location.search)
 
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

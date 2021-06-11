@@ -5,7 +5,7 @@ import EmployeeForm from '../Components/add-Form/employee-Form'
 
 
 const AddEmployee = () => {
-  const [sidebar,setSidebar] = useState(true)
+  const [sidebar,setSidebar] = useState(false)
 
   const sidebarListener = () => {
     setSidebar(!sidebar)

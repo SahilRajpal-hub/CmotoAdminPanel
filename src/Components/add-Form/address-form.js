@@ -29,20 +29,28 @@ const AddressForm=()=>{
     }
 
     const onclick_1=()=>{
+        try{
         let a=formData_1.newArea;
         let userRef=firebase.database().ref(`address/${a}`);
         userRef.set(`${now()}`) 
-        alert(`${a} added successfully`) 
+        alert(`${a} added successfully`)}
+        catch(error){
+            alert(`Operation Failed !! - ${error.message}`)  
+        }
     }
 
 
     const onclick_2=(e)=>{
+        try{
         e.preventDefault()
         let a=formData_1.Area;
         let b=formData_1.newSociety;
         let userRef=firebase.database().ref(`address/${a}/${b}`);
         userRef.set(`${now()}`)
         alert(`${b} added in ${a}`)
+        }catch(error){
+            alert(`Operation Failed !! - ${error.message}`)  
+        }
     }
 
     function now() {
