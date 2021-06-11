@@ -52,6 +52,20 @@ const EmployeeForm=()=>{
           }
         )
 
+        firebase.database().ref(`Employee`).on('value',(snapshot) => {
+                const a = []
+                const b=[]
+                snapshot.forEach((element) => {           
+                    a.push(element.key) 
+                    b.push(element.val())
+                })
+                setEmployeeUID(a)
+                setEmployee(b);
+              },
+              (err) =>{
+                    console.log(err)
+              })
+
         window.addEventListener('beforeunload', alertUser)
         return () => {
           window.removeEventListener('beforeunload', alertUser)
@@ -147,6 +161,7 @@ const EmployeeForm=()=>{
           }
          setDone(true);
           let {Area,Society,ee1,ee2,...Employee}=formData_2;
+        
           
           await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}/AadharPhoto-${now()}`).put(aadhaar);
           let bb= await storage.ref(`${formData_1.Type}employee/${Area}/${Society}/${Employee.Name}${now()}`).child(`AadharPhoto-${now()}`).getDownloadURL()
@@ -195,26 +210,6 @@ const EmployeeForm=()=>{
         )
     }
 
-    const Em=(event)=>{
-      if(event.target.value==="Choose..."){
-          return;
-      }
-      
-      firebase.database().ref(`Employees/${formData_2.Area}/${event.target.value}`).on('value',(snapshot) => {
-        const a = []
-        const b=[]
-        snapshot.forEach((element) => {           
-            a.push(element.key) 
-            b.push(element.val())
-        })
-        setEmployeeUID(a)
-        setEmployee(b);
-      },
-      (err) =>{
-            console.log(err)
-      })
-  }
-    
 
     return(
       <>
@@ -278,7 +273,7 @@ const EmployeeForm=()=>{
 
               <div className="form-group-sm mb-3">
               <label>Society</label>
-              <select className="custom-select" required name="Society" onInput={Em}  onChange={handleChange_2}>
+              <select className="custom-select" required name="Society" onChange={handleChange_2}>
               <option selected value="">Choose...</option>
                    {  
                       societies.map((society,i)=>{
@@ -299,7 +294,7 @@ const EmployeeForm=()=>{
                {
                 Employee.map((society,i)=>{
                   return (
-                  <option value={EmployeeUID[i]}>{society.Name}</option>
+                  <option value={EmployeeUID[i]}>{society.Name} - ({society.Working_Address})</option>
                 )})
                }   
              </select>
@@ -312,11 +307,11 @@ const EmployeeForm=()=>{
                  {
                      Employee.map((society,i)=>{
                        return (
-                       <option value={EmployeeUID[i]}>{society.Name}</option>
+                       <option value={EmployeeUID[i]}>{society.Name} - ({society.Working_Address})</option>
                      )})
                  }
-           </select>
-           </div>
+              </select>
+              </div>
 
              </div>
             }
