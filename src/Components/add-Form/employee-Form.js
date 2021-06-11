@@ -292,9 +292,9 @@ const EmployeeForm=()=>{
              <select className="custom-select" required name="ee1"  onChange={handleChange_2}>
              <option selected value="">Choose...</option>
                {
-                Employee.map((society,i)=>{
+                Employee.map((ele,i)=>{
                   return (
-                  <option value={EmployeeUID[i]}>{society.Name} - ({society.Working_Address})</option>
+                  <option value={EmployeeUID[i]}>{ele.Name} - ({ele.Working_Address})</option>
                 )})
                }   
              </select>
@@ -305,9 +305,9 @@ const EmployeeForm=()=>{
              <select className="custom-select" required name="ee2" onChange={handleChange_2}>
                  <option selected value="">Choose...</option>
                  {
-                     Employee.map((society,i)=>{
+                     Employee.map((ele,i)=>{
                        return (
-                       <option value={EmployeeUID[i]}>{society.Name} - ({society.Working_Address})</option>
+                       <option value={EmployeeUID[i]}>{ele.Name} - ({ele.Working_Address})</option>
                      )})
                  }
               </select>
