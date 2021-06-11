@@ -11,9 +11,11 @@ const EmpWorkHistory = ({address,uid})=>{
     const [missed, setMissed] = useState({});
     const [loading, setLoading] = useState(true)
     useEffect(() =>{
+      console.log(address)
+      var workHistory = address==="Employee" ? 'Work History' : 'Interior Work History'
       firebase
       .database()
-      .ref(`${address}/${uid}/Work History`)
+      .ref(`${address}/${uid}/${workHistory}`)
       .on(
         'value',
         (snapshot) => {
@@ -60,8 +62,8 @@ const EmpWorkHistory = ({address,uid})=>{
                           {Dat.map((element,i)=>(
                           <tr style={{fontSize:15,color:'black',textAlign:"center",border:"solid black 2px"}}>
                           <td>{element}</td>
-                            <InnerTable Prove={Prove[i]}/>
-                            <InnerTable2 missed={missed[element]}/>
+                            <InnerTable address={address} Prove={Prove[i]}/>
+                            <InnerTable2 address={address} missed={missed[element]}/>
                           </tr>
                           ))} 
                     </tbody>

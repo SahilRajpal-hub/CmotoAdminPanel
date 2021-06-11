@@ -57,6 +57,19 @@ const Insection = ({ workersInfo,uid }) => {
     return link
   }
 
+  function getDate(n) {
+    var todayUs = new Date()
+    var offset = '+5.5' // since database belongs to US
+    var utc = todayUs.getTime() + todayUs.getTimezoneOffset() * 60000 // therefore converting time to IST
+    var ret = new Date(utc + 3600000 * offset)
+    ret.setDate( (n - 1 + 7 - ret.getDay() ) % 7 + 1);
+    var dd = String(ret.getDate()).padStart(2, '0')
+    var mm = String(ret.getMonth() + 1).padStart(2, '0') //January is 0!
+    var yyyy = ret.getFullYear()
+    var today = yyyy + '-' + mm + '-' + dd
+    return today
+}
+
   function getTodayDate() {
     var todayUs = new Date()
     var offset = '+5.5' // since database belongs to US
