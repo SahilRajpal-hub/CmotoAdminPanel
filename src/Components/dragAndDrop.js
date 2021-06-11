@@ -116,6 +116,7 @@ const DragAndDrop = ({ society }) => {
 
         for(let car in cars){
           firebase.database().ref(`Car Status/${cars[car]}/newlyadded`).set(false)
+          firebase.database().ref(`cars/${society}/${cars[car]}/newlyadded`).set(false)
         }
 
       }
