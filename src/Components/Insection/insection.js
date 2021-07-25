@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 const Insection = ({ workersInfo,uid }) => {
-  console.log(workersInfo[1]['Interior Work History'])
+  // console.log(workersInfo[1]['Interior Work History'])
   console.log(getDate(0))
   let arr = new Array(5);
  

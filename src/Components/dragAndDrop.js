@@ -49,7 +49,9 @@ const DragAndDrop = ({ society }) => {
       .database()
       .ref(`cars/${society}`).orderByChild('Active').equalTo(1)
       .once('value', (snap) => {
-        var cars = Object.keys(snap.val())
+        var cars = []
+        if(snap.val()!==null)
+         cars = Object.keys(snap.val())
         tc = cars
         // console.log(cars)
 
