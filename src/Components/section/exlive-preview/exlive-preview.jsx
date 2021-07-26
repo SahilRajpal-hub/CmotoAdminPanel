@@ -23,7 +23,8 @@ const ExlivePreview=({societies,area,carInArea})=>{
 
   return(
       <>
-      <Table bordered responsive style={{width:"200px",marginBottom:0}}>
+    
+            <Table bordered responsive style={{width:"200px",marginBottom:0}}>
           <tbody >
           <tr >
               {societiesName.map((element,i)=>(
