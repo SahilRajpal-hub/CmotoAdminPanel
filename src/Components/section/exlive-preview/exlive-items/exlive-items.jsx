@@ -4,13 +4,14 @@ import './exlive-items.styles.css'
 import firebase from '../../../../firebase/firebase.utils.js'
 import { connect } from 'react-redux';
 import { openPopup } from '../../../../redux/popup/popup.action';
+import ExtraItem from './extra-items';
 import React,{ useEffect, useState } from 'react'
 
 // a.map((element)=><h4>{element}</h4>)
 const ExliveItem=({openpopup,Employees,address})=>{
    const EmployeesName=Object.keys(Employees)
    const Employeedetails=Object.values(Employees)
-  
+   
 //    const [cn,setCn]=useState({});
    const [map,setMap] = useState({})
 
@@ -28,6 +29,7 @@ useEffect(()=>{
 
    
 const gg =function (carnums){
+
     if(!carnums){
        return [];
     }
@@ -75,10 +77,13 @@ let no=0;
 
 const col=function(el){
     let co=""
-    console.log(el);
     firebase.database().ref(`Car Status/${el}/status`).on('value',(snapshot) => {
        if(snapshot.val()==="cleaned"){
-           co="lightgreen"
+        firebase.database().ref(`Car Status/${el}/Work History`).on('value',(snapshot) => {
+            if(snapshot.val()){
+                co=snapshot.val()[getTodayDate()]?snapshot.val()[getTodayDate()].doneBy==="alter"?"orange":"lightgreen":""
+            }
+        })  
            yes=yes+1;
        }else if(snapshot.val()==="scanned"){
            co="yellow"
@@ -92,7 +97,6 @@ const col=function(el){
            no=no+1;
        }
     })
-    console.log(co);
     return co;
 }
 
@@ -136,13 +140,13 @@ function getTodayDate() {
   }
 
   const clean_Unclean=(e)=>{
-      let arr=e.target.id.split("/");
+     let arr=e.target.id.split("/");
         let carnum=arr[2];
-        console.log(carnum);
-     if(e.target.style.backgroundColor==="lightgreen"){
+     if(e.target.style.backgroundColor==="lightgreen" || e.target.style.backgroundColor==="orange"){
         const url = link(carnum);
-        
         window.open(url, '_blank');
+     }else if(e.target.style.backgroundColor==="yellow"){
+        return;
      }else{
         const detailsOfclickedCar={CarNums:carnum,Area:arr[0],Society:arr[1],Color:e.target.style.backgroundColor}
         openpopup(detailsOfclickedCar)
@@ -162,7 +166,7 @@ function getTodayDate() {
                         </div></td>
             ))} 
         </thead>
-        <tbody>
+        <tbody >
             {
                Employeedetails.map((ele,i)=>(
                    <td style={{padding:0}}>
@@ -171,15 +175,28 @@ function getTodayDate() {
                     {
                      gg(ele.Cluster).map((el,j)=>(
                         <h3 id={`${ele.Working_Address}/${el}`} onClick={clean_Unclean} style={{cursor:"pointer",textAlign:"center",marginBottom:0.75,padding:15,fontSize:14,color:"black",backgroundColor:col(el)}}>{el}</h3>  
-                        
                     ))
                     }
                     <div  className="d-flex bd-highlight"> <h3 className="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"lightgreen"}}>{yes}</h3><h3 className="p-2 flex-fill bd-highlight" style={{textAlign:"center",borderTop:"2px solid black",borderBottom:"2px solid black",marginBottom:0.75,padding:20,fontSize:14,color:"red"}}>{no}</h3></div>
-                   {/* <div onInput={cll(yes,no,i)}></div> */}
+                    {
+
+                        <>
+                           <div >
+                            <h2 style={{textAlign:"center",fontSize:19,fontWeight:600,background:"black",marginTop:"5px",padding:"10px",color:"white"}}>Extra Car</h2>
+                           </div> 
+                           
+                           <ExtraItem EmployeesDetails={ele}/>
+                        
+                        </>
+                    }
                     </td>
-               )) 
-            }     
+               ))
+                
+            } 
+            
+           
         </tbody>
+        
             </Table>
         </>
     )

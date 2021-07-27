@@ -11,24 +11,6 @@ const Section=({openForm,closepopup,popup,address,component2:Component2,area,soc
   let [formData,setFormData]=useState({});
   const [photo,setPhoto] = useState(null);
 
-  function getLastWorkDate() {
-    var todayUs = new Date()
-    const lastWorkUs = new Date(todayUs)
-    
-    lastWorkUs.setDate(lastWorkUs.getDate() - 1)
-    if(lastWorkUs.getDay()===0){
-        lastWorkUs.setDate(lastWorkUs.getDate() - 1)
-    }
-    var offset = '+5.5' // since database belongs to US
-    var utc = lastWorkUs.getTime() +lastWorkUs.getTimezoneOffset() * 60000 // therefore converting time to IST
-    var lastWork = new Date(utc + 3600000 * offset)
-    var dd = String( lastWork.getDate()).padStart(2, '0')
-    var mm = String( lastWork.getMonth() + 1).padStart(2, '0') //January is 0!
-    var yyyy =  lastWork.getFullYear()
-  
-    lastWork = yyyy + '-' + mm + '-' + dd
-    return  lastWork
-}
 
 function getTodayDate() {
   var todayUs = new Date()
@@ -43,30 +25,35 @@ function getTodayDate() {
   return today
 }
 
- const BringDate=(color)=>{
-  let date=null;
-  if(color==="red"){
-     date=getLastWorkDate();
-  }
-  else if(color===""){
-    date=getTodayDate();
-  }
-  return date;
- }
+// const BringDate=(color)=>{
+//   let date=getTodayDate();
+//   return date;
+// }
 
     const carInArea=(num)=>{
       setCarInAr(num);
     }
   
     const closepop=()=>{
+      if(popup.form===4){
+        return;
+      }
       closepopup();
       setPhoto(null);
       setFormData(null);
     }
 
     const openF=(e)=>{
+      if(e===4){
+        openForm(4);
+        return;
+      }
+      if(e==5){
+        openForm(5);
+        return;
+      }
       openForm(e.target.id)
-      setFormData({Carnum:popup.CarNums,Area:popup.Area,Society:popup.Society,date:BringDate(popup.Color)});
+      setFormData({Carnum:popup.CarNums,Area:popup.Area,Society:popup.Society,date:getTodayDate()});
       setPhoto(null);
     }
 
@@ -85,18 +72,19 @@ function getTodayDate() {
     const SubmitPhoto=async(e)=>{
       try{
         if(photo){
-          
+          openF(4);
           let SubmitTime=new Date();
           let Year=SubmitTime.getFullYear();
           let Month=SubmitTime.getMonth()+1;
           let hour=SubmitTime.getHours();
           let min=SubmitTime.getMinutes();
+          let sec=SubmitTime.getSeconds();
 
           // console.log(`cars/${Year}/${Month}/${formData.Area}/${formData.Society}/${getTodayDate()}/${formData.Carnum}/${hour}-${min})`)
           // console.log(photo);
         
-          await storage.ref(`cars/${Year}/${Month}/${formData.Area}/${formData.Society}/${getTodayDate()}/${formData.Carnum}/${hour}-${min}`).put(photo);
-          let bb= await storage.ref(`cars/${Year}/${Month}/${formData.Area}/${formData.Society}/${getTodayDate()}/${formData.Carnum}`).child(`${hour}-${min}`).getDownloadURL()
+          await storage.ref(`cars/${Year}/${Month}/${formData.Area}/${formData.Society}/${getTodayDate()}/${formData.Carnum}/${hour}-${min}-${sec}`).put(photo);
+          let bb= await storage.ref(`cars/${Year}/${Month}/${formData.Area}/${formData.Society}/${getTodayDate()}/${formData.Carnum}`).child(`${hour}-${min}-${sec}`).getDownloadURL()
 
           const WorkHistory={"Photo Url":bb,doneBy:"alter"}
           let Ref=firebase.database().ref(`Car Status/${formData.Carnum}/Work History/${formData.date}`);
@@ -106,6 +94,7 @@ function getTodayDate() {
           Ref2.update({status:"cleaned"}) ;
           }
           alert("successfully added")
+          openF(5);
           closepop();
 
         }else{
@@ -155,8 +144,7 @@ function getTodayDate() {
   }
 
     { popup.popupIsOpen && popup.form==1 && <div style={{position:"fixed",top:"38%",left:"30%",width:"40%",minWidth:"200px"}}>
-    <h1 style={{textAlign:"center",background:`${popup.Color}`==="red"?"red":"white",color:"black"}}>{popup.CarNums}</h1>
-    <ul className="list-group">
+    <h1 style={{textAlign:"center",background:`${popup.Color}`===""?"white":`${popup.Color}`,color:"black"}}>{popup.CarNums}</h1>    <ul className="list-group">
     <li id="2" onClick={openF}  style={{cursor:"pointer"}} className="list-group-item">Not Cleaned</li>
     <li id="3" onClick={openF} style={{cursor:"pointer"}} className="list-group-item">Cleaned</li>
     </ul>
@@ -164,7 +152,7 @@ function getTodayDate() {
     }
 
     { popup.popupIsOpen && popup.form==2 && <div style={{position:"fixed",top:"25%",left:"30%",width:"40%",minWidth:"200px"}}>
-    <h1 style={{textAlign:"center",background:`${popup.Color}`==="red"?"red":"white",color:"black"}}>{popup.CarNums}</h1>
+    <h1 style={{textAlign:"center",background:`${popup.Color}`===""?"white":`${popup.Color}`,color:"black"}}>{popup.CarNums}</h1>
     <form id="my-form"> 
     <div className="card w-100">
     <div className="card-body">
@@ -181,8 +169,7 @@ function getTodayDate() {
     }
     
     { popup.popupIsOpen && popup.form==3 &&  <div style={{position:"fixed",top:"20%",left:"30%",width:"40%",minWidth:"200px"}}>
-    <h1 style={{textAlign:"center",background:`${popup.Color}`==="red"?"red":"white",color:"black"}}>{popup.CarNums}</h1>
-    
+    <h1 style={{textAlign:"center",background:`${popup.Color}`===""?"white":`${popup.Color}`,color:"black"}}>{popup.CarNums}</h1>    
     <div style={{minWidth:"300px"}} className="card w-100">
     <div className="card-body">
         <form>
@@ -211,6 +198,12 @@ function getTodayDate() {
     </div>
 
     </div>
+    }
+
+    {
+      popup.popupIsOpen && popup.form==4 && <div style={{position:"fixed",top:"45%",left:"45%",width:"40%",minWidth:"200px"}}>
+      <h1 style={{color:"white"}}>Loading...</h1>
+      </div>  
     }
 
 
