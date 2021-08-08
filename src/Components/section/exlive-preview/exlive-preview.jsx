@@ -37,6 +37,8 @@ const ExlivePreview=({societies,area,carInArea})=>{
            <td style={{padding: 0,margin:0}}><ExliveItem address={`${area}/${societiesName[i]}`} Employees={Employees[i]} /></td>
          
            ))} 
+
+          
          
           </tbody>
       </Table>
